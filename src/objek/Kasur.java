@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import java.io.File;
 
 public class Kasur extends Objek{
 
@@ -13,7 +14,7 @@ public class Kasur extends Objek{
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/barang/kasursingle1.png"));
+			image = ImageIO.read(new File("../resources/barang/kasursingle1.png"));
 			
 		}catch(IOException e){
 			e.printStackTrace();

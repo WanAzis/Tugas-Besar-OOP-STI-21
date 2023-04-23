@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import java.io.File;
 
 import main.GamePanel;
 import main.KeyHandler;
@@ -37,14 +38,14 @@ public class Sim extends Entity{
 	public void getPlayerImage() {
 		try {
 			
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/sim_up_1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/sim_up_2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/sim_down_1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/sim_down_2.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/sim_right_1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/sim_right_2.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/sim_left_1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/sim_left_2.png"));
+			up1 = ImageIO.read(new File("../resources/player/sim_up_1.png"));
+			up2 = ImageIO.read(new File("../resources/player/sim_up_2.png"));
+			down1 = ImageIO.read(new File("../resources/player/sim_down_1.png"));
+			down2 = ImageIO.read(new File("../resources/player/sim_down_2.png"));
+			right1 = ImageIO.read(new File("../resources/player/sim_right_1.png"));
+			right2 = ImageIO.read(new File("../resources/player/sim_right_2.png"));
+			left1 = ImageIO.read(new File("../resources/player/sim_left_1.png"));
+			left2 = ImageIO.read(new File("../resources/player/sim_left_2.png"));
 			
 		}catch(IOException e) {
 			e.printStackTrace();

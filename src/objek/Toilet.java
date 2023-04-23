@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import java.io.File;
 
 public class Toilet extends Objek{
 
@@ -13,7 +14,7 @@ public class Toilet extends Objek{
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/barang/toilet.png"));
+			image = ImageIO.read(new File("../resources/barang/toilet.png"));
 			
 		}catch(IOException e){
 			e.printStackTrace();

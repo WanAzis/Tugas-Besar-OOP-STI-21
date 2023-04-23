@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import java.io.File;
 
 import main.GamePanel;
 
@@ -24,7 +25,7 @@ public class TileManager {
 		try {
 			
 			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tile/ubin.png"));
+			tile[0].image = ImageIO.read(new File("../resources/tile/ubin.png"));
 			
 		}catch(IOException e) {
 			e.printStackTrace();
