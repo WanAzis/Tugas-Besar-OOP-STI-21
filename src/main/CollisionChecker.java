@@ -78,4 +78,42 @@ public class CollisionChecker {
 		
 		return index;
 	}
+
+	public void checkScreen(Entity entity){
+
+		entity.solidArea.x = entity.screenX + entity.solidArea.x;
+		entity.solidArea.y = entity.screenY + entity.solidArea.y;
+
+		int check = 0;
+
+		switch(entity.direction) {
+			case "up":  
+				check = entity.solidArea.y - entity.speed;
+				if(check <= 0*gp.tileSize) {
+					entity.collisionOn = true;
+				}
+				break;
+			case "down": 
+				check = entity.solidArea.y+entity.solidArea.height;
+				if(check >= 6*gp.tileSize) {
+					entity.collisionOn = true;
+				}
+				break;
+			case "left": 
+				check = entity.solidArea.x - entity.speed;
+				if(check<=0*gp.tileSize) {
+					entity.collisionOn = true;
+				}
+				break;
+			case "right": 
+				// entity.solidArea.x += entity.speed; 
+				check = entity.solidArea.x + entity.solidArea.width;
+				if(check >= 6*gp.tileSize) {
+					entity.collisionOn = true;
+				}
+				break;
+			}
+			entity.solidArea.x = entity.solidAreaDefaultX;
+			entity.solidArea.y = entity.solidAreaDefaultY;
+	}
 }

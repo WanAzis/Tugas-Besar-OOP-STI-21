@@ -31,13 +31,13 @@ public class Sim extends Entity{
 	public void setDefaultValues() {
 		screenX = 100;
 		screenY = 100;
-		speed = 3;
+		speed = 2;
 		direction = "down";
 	}
 	
 	public void getPlayerImage() {
 		try {
-			
+			def = ImageIO.read(new File("../resources/player/sim_down_default.png"));
 			up1 = ImageIO.read(new File("../resources/player/sim_up_1.png"));
 			up2 = ImageIO.read(new File("../resources/player/sim_up_2.png"));
 			down1 = ImageIO.read(new File("../resources/player/sim_down_1.png"));
@@ -46,35 +46,31 @@ public class Sim extends Entity{
 			right2 = ImageIO.read(new File("../resources/player/sim_right_2.png"));
 			left1 = ImageIO.read(new File("../resources/player/sim_left_1.png"));
 			left2 = ImageIO.read(new File("../resources/player/sim_left_2.png"));
-			
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 	public void update() {
-		
+
 		if(keyH.upPressed || keyH.downPressed || 
 				keyH.leftPressed || keyH.rightPressed) {
 			if(keyH.upPressed) {
 				direction = "up";
-//				screenY -= speed;
 			}
 			else if(keyH.downPressed) {
 				direction = "down";
-//				screenY += speed;
 			}
 			else if(keyH.leftPressed) {
 				direction = "left";
-//				screenX -= speed;
 			}
 			else if(keyH.rightPressed) {
 				direction = "right";
-//				screenX += speed;
 			}
 			
 			// CHECK COLLISION
 			collisionOn = false;
 			int objIndex = gp.cChecker.checkObjek(this, true);
+			gp.cChecker.checkScreen(this);
 			interactObject(objIndex);
 			
 			if(!collisionOn) {
@@ -97,7 +93,11 @@ public class Sim extends Entity{
 	
 	public void interactObject(int i) {
 		if(i!=999) {
-			gp.obj[i]=null;
+			interactObject=true;
+			gp.ui.objIndex = i;
+		} 
+		else {
+			interactObject=false;
 		}
 	}
 	

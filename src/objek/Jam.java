@@ -10,6 +10,7 @@ public class Jam extends Objek{
 
     public Jam() {
 		name = "Jam";
+		action = "lihat waktu";
 		panjang = 1;
 		lebar = 1;
 		solidArea = new Rectangle(3,3,48*lebar,48*panjang);

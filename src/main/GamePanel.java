@@ -25,14 +25,24 @@ public class GamePanel extends JPanel implements Runnable{
     //FPS
     final int FPS = 60;
     
+
+	//SYSTEM
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
-    Thread gameThread;
+    KeyHandler keyH = new KeyHandler(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+	public UI ui = new UI(this);
+    Thread gameThread;
+
+	//PLAYER
     public Sim sim = new Sim(this,keyH);
     public Objek obj[] = new Objek[10];
     
+	//GAME STATE
+	public int gameState;
+	public final int titleState = 0;
+	public final int playState = 1;
+	public final int pauseState = 2;
     
     public GamePanel(){
 
@@ -45,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     public void setUpGame() {
     	aSetter.setObject();
+		gameState = titleState;
     }
     
     public void startGameThread() {
@@ -79,21 +90,37 @@ public class GamePanel extends JPanel implements Runnable{
 	} 
 	
 	public void update() {
-		sim.update();
-		
+
+		if(gameState==playState){
+			sim.update();
+		}
+		else if(gameState==pauseState){
+
+		}
 	}
+
 	public void paintComponent(Graphics gp) {
 		super.paintComponent(gp);
 		Graphics2D g2 = (Graphics2D)gp;
-		tileM.draw(g2);
-		for(int i = 0; i<obj.length; i++) {
-			if(obj[i]!=null) {
-				obj[i].draw(g2, this);
+
+		//TITLE SCREEN
+		if(gameState == titleState){
+			ui.draw(g2);
+		} else{
+			tileM.draw(g2);
+			for(int i = 0; i<obj.length; i++) {
+				if(obj[i]!=null) {
+					obj[i].draw(g2, this);
+				}
 			}
+			//PLAYER
+			sim.draw(g2);
+	
+			//UI
+			ui.draw(g2);
+			g2.dispose();
 		}
-		sim.draw(g2);
-		g2.dispose();
-		
+
 	}
 
 	public int getMaxScreenCol() {
@@ -103,5 +130,4 @@ public class GamePanel extends JPanel implements Runnable{
 	public int getMaxScreenRow() {
 		return maxScreenRow;
 	}
-
 }

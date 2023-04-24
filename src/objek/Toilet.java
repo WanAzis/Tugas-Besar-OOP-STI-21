@@ -10,6 +10,7 @@ public class Toilet extends Objek{
 
 	public Toilet() {
 		name = "Toilet";
+		action = "buang air";
 		panjang = 1;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);

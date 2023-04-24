@@ -17,7 +17,7 @@ public class AssetSetter {
 		
 		gp.obj[1] = new Toilet();
 		gp.obj[1].screenX = 5 * gp.tileSize;
-		gp.obj[1].screenY = 0 * gp.tileSize;
+		gp.obj[1].screenY = 1 * gp.tileSize;
 		
 	}
 }

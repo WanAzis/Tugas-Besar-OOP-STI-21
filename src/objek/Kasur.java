@@ -10,6 +10,7 @@ public class Kasur extends Objek{
 
 	public Kasur() {
 		name = "Kasur";
+		action = "tidur";
 		panjang = 4;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);

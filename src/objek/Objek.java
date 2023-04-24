@@ -10,6 +10,7 @@ public class Objek {
 
 	public BufferedImage image;
 	public String name;
+	public String action;
 	public boolean collision = true;
 	public int screenX, screenY;
 	public int panjang, lebar;
