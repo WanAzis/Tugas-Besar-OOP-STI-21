@@ -64,7 +64,7 @@ public class KeyHandler implements KeyListener{
 			}
 			if(code == KeyEvent.VK_ENTER && gp.sim.interactObject){
 				//Melakukan aksi
-				gp.gameState = gp.pauseState;
+				gp.sim.useObject=true;
 			}
 		}
 

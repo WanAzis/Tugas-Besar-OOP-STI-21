@@ -4,6 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -15,6 +18,23 @@ public class Sim extends Entity{
 	
 	GamePanel gp;
 	KeyHandler keyH;
+
+	//ATRIBUT
+	String namaLengkap;
+	String pekerjaan;
+	int uang;
+	//inventory
+	int kekenyangan;
+	int mood;
+	int kesehatan;
+	String status;
+	//rumah
+	//ruangan
+	//listStore
+	Map<String,Integer> listPekerjaan;
+	
+	public boolean useObject;
+	public int interactObjectIdx;
 	
 	public Sim(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
@@ -23,6 +43,13 @@ public class Sim extends Entity{
 		solidArea = new Rectangle(8,16,32,32);
 		solidAreaDefaultX = 8;
 		solidAreaDefaultY = 16;
+
+		listPekerjaan = new HashMap<String,Integer>();
+		listPekerjaan.put("Badut Sulap",15);
+		listPekerjaan.put("Koki",30);
+		listPekerjaan.put("Polisi",35);
+		listPekerjaan.put("Programmer",45);
+		listPekerjaan.put("Dokter",50);
 		
 		setDefaultValues();
 		getPlayerImage();
@@ -33,6 +60,16 @@ public class Sim extends Entity{
 		screenY = 100;
 		speed = 2;
 		direction = "down";
+		kekenyangan = 80;
+		mood = 80;
+		kesehatan = 80;
+		uang = 100;
+
+		//RANDOM PEKERJAAN
+		Random rand = new Random();
+		int n = rand.nextInt(5);
+		String[] keys = listPekerjaan.keySet().toArray(new String[0]);
+		pekerjaan = keys[n];
 	}
 	
 	public void getPlayerImage() {
@@ -69,9 +106,9 @@ public class Sim extends Entity{
 			
 			// CHECK COLLISION
 			collisionOn = false;
-			int objIndex = gp.cChecker.checkObjek(this, true);
+			interactObjectIdx = gp.cChecker.checkObjek(this, true);
 			gp.cChecker.checkScreen(this);
-			interactObject(objIndex);
+			interactObject(interactObjectIdx);
 			
 			if(!collisionOn) {
 				switch(direction) {
@@ -94,7 +131,6 @@ public class Sim extends Entity{
 	public void interactObject(int i) {
 		if(i!=999) {
 			interactObject=true;
-			gp.ui.objIndex = i;
 		} 
 		else {
 			interactObject=false;
@@ -103,42 +139,44 @@ public class Sim extends Entity{
 	
 	public void draw(Graphics2D g2) {
 		
-		BufferedImage image = null;
-		
-		switch(direction) {
-		case "up":
-			if(spriteNum==1) {
-				image = up1;
+		if(!useObject){
+			BufferedImage image = null;
+			
+			switch(direction) {
+			case "up":
+				if(spriteNum==1) {
+					image = up1;
+				}
+				if(spriteNum==2) {
+					image = up2;
+				}
+				break;
+			case "down":
+				if(spriteNum==1) {
+					image = down1;
+				}
+				if(spriteNum==2) {
+					image = down2;
+				}
+				break;
+			case "left":
+				if(spriteNum==1) {
+					image = left1;
+				}
+				if(spriteNum==2) {
+					image = left2;
+				}
+				break;
+			case "right":
+				if(spriteNum==1) {
+					image = right1;
+				}
+				if(spriteNum==2) {
+					image = right2;
+				}
+				break;
 			}
-			if(spriteNum==2) {
-				image = up2;
-			}
-			break;
-		case "down":
-			if(spriteNum==1) {
-				image = down1;
-			}
-			if(spriteNum==2) {
-				image = down2;
-			}
-			break;
-		case "left":
-			if(spriteNum==1) {
-				image = left1;
-			}
-			if(spriteNum==2) {
-				image = left2;
-			}
-			break;
-		case "right":
-			if(spriteNum==1) {
-				image = right1;
-			}
-			if(spriteNum==2) {
-				image = right2;
-			}
-			break;
+			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 		}
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 	}
 }

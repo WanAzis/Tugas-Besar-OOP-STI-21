@@ -9,8 +9,10 @@ import main.GamePanel;
 public class Objek {
 
 	public BufferedImage image;
+	public BufferedImage imageUsed;
 	public String name;
 	public String action;
+	public int duration;
 	public boolean collision = true;
 	public int screenX, screenY;
 	public int panjang, lebar;

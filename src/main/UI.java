@@ -43,12 +43,15 @@ public class UI {
         }
         if(gp.gameState==gp.playState){
             if(gp.sim.interactObject){
-                drawInteractObject(objIndex);
+                drawInteractObject(gp.sim.interactObjectIdx);
             }
         }
         if(gp.gameState==gp.pauseState){
             drawPauseScreen();
         }
+        // if(gp.gameState==gp.interactObject){
+        //     drawObjectUsed();
+        // }
     }
 
     private void drawTitleScreen(){
@@ -139,6 +142,7 @@ public class UI {
         y+=gp.originalTileSize;
         g2.drawString(text2, x, y);
     }
+    // public void drawObjectUsed()
     private void drawSubWindow(int x, int y, int width, int height){
         Color c = new Color(0, 0, 0, 200);
         g2.setColor(c);
