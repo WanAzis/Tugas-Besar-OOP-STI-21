@@ -1,3 +1,4 @@
+package tile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Rumah
     public Rumah()
     {
         this.listRuangan = new ArrayList<Ruangan>();
-        Room kamar = new Room("Kamar");
+        Ruangan kamar = new Ruangan("Kamar");
         this.listRuangan.add(kamar);
         
         // gimana cara nambahin furniture ke list inventory sim
@@ -19,49 +20,49 @@ public class Rumah
 
     public void tambahRuang(String arah, String newRuangan, Ruangan currentRuangan)
     {
-        Ruangan ruanganBaru = new Room(newRuangan)
+        Ruangan ruanganBaru = new Ruangan(newRuangan);
         if(arah.equals("Atas"))
         {
             if(currentRuangan.getRuanganTetangga(0) == null)
             {
-                currentRuangan.setRuanganTetannga(0, ruanganBaru);
+                currentRuangan.setRuanganTetangga(0, ruanganBaru);
             }
             else
             {
-                System.out.printlnt("Sudah ada ruangan di lokasi tersebut.")
+                System.out.println("Sudah ada ruangan di lokasi tersebut.");
             }
         }
         else if(arah.equals("Bawah"))
         {
             if(currentRuangan.getRuanganTetangga(1) == null)
             {
-                currentRuangan.setRuanganTetannga(1, ruanganBaru);
+                currentRuangan.setRuanganTetangga(1, ruanganBaru);
             }
             else
             {
-                System.out.printlnt("Sudah ada ruangan di lokasi tersebut.")
+                System.out.println("Sudah ada ruangan di lokasi tersebut.");
             }
         }
         else if(arah.equals("Kanan"))
         {
             if(currentRuangan.getRuanganTetangga(2) == null)
             {
-                currentRuangan.setRuanganTetannga(2, ruanganBaru);
+                currentRuangan.setRuanganTetangga(2, ruanganBaru);
             }
             else
             {
-                System.out.printlnt("Sudah ada ruangan di lokasi tersebut.")
+                System.out.println("Sudah ada ruangan di lokasi tersebut.");
             }
         }
         else if(arah.equals("Kiri"))
         {
             if(currentRuangan.getRuanganTetangga(3) == null)
             {
-                currentRuangan.setRuanganTetannga(3, ruanganBaru);
+                currentRuangan.setRuanganTetangga(3, ruanganBaru);
             }
             else
             {
-                System.out.printlnt("Sudah ada ruangan di lokasi tersebut.")
+                System.out.println("Sudah ada ruangan di lokasi tersebut.");
             }
         }
     }

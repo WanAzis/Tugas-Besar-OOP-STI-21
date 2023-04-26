@@ -4,11 +4,16 @@ import java.awt.Rectangle;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import entity.Sim;
+import main.GamePanel;
+
 import java.io.File;
 
 public class Toilet extends Objek{
 
-	public Toilet() {
+	public Toilet(GamePanel gp) {
+		this.gp = gp;
 		name = "Toilet";
 		action = "buang air";
 		panjang = 1;
@@ -19,6 +24,28 @@ public class Toilet extends Objek{
 			
 		}catch(IOException e){
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void used() {
+		try {
+			image = ImageIO.read(new File("../resources/barang/toilet.png"));
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void effect(Sim sim, int duration) {
+		counter++;
+		if(counter>=duration){
+			unUsed();
+			counter=0;
+			sim.setKesehatan(sim.getKesehatan()+20);
+			sim.setMood(sim.getMood()+30);
+			gp.gameState=gp.playState;
+			sim.getPlayerImage();
 		}
 	}
 }

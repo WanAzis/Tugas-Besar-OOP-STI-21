@@ -1,3 +1,4 @@
+package tile;
 public class Point
 {
     private int x;
@@ -34,7 +35,7 @@ public class Point
     {
         int xDiff = p2.getX() - p1.getX();
         int yDiff = p2.getY() - p1.getY();
-        return Math.sqrt(xDiff*xDiff + yDiff*yDiff);
+        return (int) Math.sqrt(xDiff*xDiff + yDiff*yDiff);
     }
 
 }

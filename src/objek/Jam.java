@@ -4,11 +4,16 @@ import java.awt.Rectangle;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import entity.Sim;
+import main.GamePanel;
+
 import java.io.File;
 
 public class Jam extends Objek{
 
-    public Jam() {
+    public Jam(GamePanel gp) {
+		this.gp = gp;
 		name = "Jam";
 		action = "lihat waktu";
 		panjang = 1;
@@ -19,6 +24,19 @@ public class Jam extends Objek{
 			
 		}catch(IOException e){
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void effect(Sim sim, int duration) {
+		counter++;
+		if(counter>=duration){
+			unUsed();
+			counter=0;
+			sim.setKesehatan(sim.getKesehatan()+20);
+			sim.setMood(sim.getMood()+30);
+			gp.gameState=gp.playState;
+			sim.getPlayerImage();
 		}
 	}
 }

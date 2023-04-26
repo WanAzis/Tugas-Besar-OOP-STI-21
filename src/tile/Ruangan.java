@@ -1,14 +1,19 @@
+package tile;
+
+import objek.*;
+import java.awt.List;
+
 public class Ruangan
 {
     private int sisaLuas;
-    private List<Barang> listBarang;
+    private List<Objek> listBarang;
     private String nama;
     private Ruangan[] ruanganTetangga;
 
     public Ruangan(String nama)
     {
         this.nama = nama;
-        this.listBarang = new ArrayList<Barang>();
+        this.listBarang = new ArrayList<Objek>();
         this.ruanganTetangga = new Ruangan[4];
     }
 
@@ -34,7 +39,7 @@ public class Ruangan
         this.nama = nama;
     }
 
-    public List<Barang> getListBarang() 
+    public List<Objek> getListBarang() 
     {
         return listBarang;
     }

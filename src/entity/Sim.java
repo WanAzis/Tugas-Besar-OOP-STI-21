@@ -20,18 +20,18 @@ public class Sim extends Entity{
 	KeyHandler keyH;
 
 	//ATRIBUT
-	String namaLengkap;
-	String pekerjaan;
-	int uang;
+	private String namaLengkap;
+	private String pekerjaan;
+	private int uang;
 	//inventory
-	int kekenyangan;
-	int mood;
-	int kesehatan;
-	String status;
+	private int kekenyangan;
+	private int mood;
+	private int kesehatan;
+	private String status;
 	//rumah
 	//ruangan
 	//listStore
-	Map<String,Integer> listPekerjaan;
+	private Map<String,Integer> listPekerjaan;
 	
 	public boolean useObject;
 	public int interactObjectIdx;
@@ -60,10 +60,14 @@ public class Sim extends Entity{
 		screenY = 100;
 		speed = 2;
 		direction = "down";
+
+		//ATRIBUT SIM
+		namaLengkap = "Sim-A";
 		kekenyangan = 80;
 		mood = 80;
 		kesehatan = 80;
 		uang = 100;
+		status = "IDLE";
 
 		//RANDOM PEKERJAAN
 		Random rand = new Random();
@@ -72,6 +76,21 @@ public class Sim extends Entity{
 		pekerjaan = keys[n];
 	}
 	
+	//GETTER
+	public String getNamaLengkap(){return namaLengkap;}
+	public String getPekerjaan(){return pekerjaan;}
+	public int getUang(){return uang;}
+	public int getKekenyangan(){return kekenyangan;}
+	public int getMood(){return mood;}
+	public int getKesehatan(){return kesehatan;}
+	public String getStatus(){return status;}
+
+	//SETTER
+	public void setUang(int uang){this.uang = uang;}
+	public void setKekenyangan(int kekenyangan){this.kekenyangan = kekenyangan;}
+	public void setMood(int mood){this.mood = mood;}
+	public void setKesehatan(int kesehatan){this.kesehatan = kesehatan;}
+
 	public void getPlayerImage() {
 		try {
 			def = ImageIO.read(new File("../resources/player/sim_down_default.png"));
@@ -86,6 +105,16 @@ public class Sim extends Entity{
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public void setNullImage(){
+		up1 = null;
+		up2 = null;
+		down1 = null;
+		down2 = null;
+		right1 = null;
+		right2 = null;
+		left1 = null;
+		left2 = null;
 	}
 	public void update() {
 
@@ -139,44 +168,42 @@ public class Sim extends Entity{
 	
 	public void draw(Graphics2D g2) {
 		
-		if(!useObject){
-			BufferedImage image = null;
-			
-			switch(direction) {
-			case "up":
-				if(spriteNum==1) {
-					image = up1;
-				}
-				if(spriteNum==2) {
-					image = up2;
-				}
-				break;
-			case "down":
-				if(spriteNum==1) {
-					image = down1;
-				}
-				if(spriteNum==2) {
-					image = down2;
-				}
-				break;
-			case "left":
-				if(spriteNum==1) {
-					image = left1;
-				}
-				if(spriteNum==2) {
-					image = left2;
-				}
-				break;
-			case "right":
-				if(spriteNum==1) {
-					image = right1;
-				}
-				if(spriteNum==2) {
-					image = right2;
-				}
-				break;
+		BufferedImage image = null;
+		
+		switch(direction) {
+		case "up":
+			if(spriteNum==1) {
+				image = up1;
 			}
-			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+			if(spriteNum==2) {
+				image = up2;
+			}
+			break;
+		case "down":
+			if(spriteNum==1) {
+				image = down1;
+			}
+			if(spriteNum==2) {
+				image = down2;
+			}
+			break;
+		case "left":
+			if(spriteNum==1) {
+				image = left1;
+			}
+			if(spriteNum==2) {
+				image = left2;
+			}
+			break;
+		case "right":
+			if(spriteNum==1) {
+				image = right1;
+			}
+			if(spriteNum==2) {
+				image = right2;
+			}
+			break;
 		}
+		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 	}
 }

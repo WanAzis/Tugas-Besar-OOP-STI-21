@@ -1,11 +1,16 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import objek.Objek;
 
 public class UI {
     
@@ -13,6 +18,7 @@ public class UI {
     Graphics2D g2;
 
     Font arial_40, zarbVille;
+    File fontFile = new File("../resources/font/ZarbvilleNbpRegular-MJOJ.ttf");
 
     public int commandNum = 0;
     public int objIndex;
@@ -21,7 +27,7 @@ public class UI {
         this.gp = gp;
 
         try {
-            InputStream is = getClass().getResourceAsStream("/font/ZarbvilleNbpRegular-MJOJ.ttf");
+            InputStream is = new FileInputStream(fontFile);
             zarbVille = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch(FontFormatException e){
             e.printStackTrace();
@@ -35,7 +41,7 @@ public class UI {
     public void draw(Graphics2D g2){
         this.g2 = g2;
 
-        g2.setFont(arial_40);
+        g2.setFont(zarbVille);
         g2.setColor(Color.white);
 
         if(gp.gameState==gp.titleState){
@@ -45,22 +51,29 @@ public class UI {
             if(gp.sim.interactObject){
                 drawInteractObject(gp.sim.interactObjectIdx);
             }
+            drawStatus();
         }
         if(gp.gameState==gp.pauseState){
             drawPauseScreen();
         }
-        // if(gp.gameState==gp.interactObject){
-        //     drawObjectUsed();
-        // }
+        if(gp.gameState==gp.simInfo){
+            drawSimInfo();
+        }
+        if(gp.gameState==gp.durationState){
+            drawDurationState(gp.obj[gp.sim.interactObjectIdx]);
+        }
+        if(gp.gameState==gp.useObjectState){
+            drawUseObject(gp.obj[gp.sim.interactObjectIdx]);
+        }
     }
 
     private void drawTitleScreen(){
 
         g2.setColor(new Color(0, 0, 0));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,40F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
         String text = "Sim-Plicity";
-        int x = getXforCenteredText(text);
+        int x = getXforCenteredText(text, gp.screenWidth/2);
         int y = gp.tileSize*1;
 
         //TEXT
@@ -75,48 +88,49 @@ public class UI {
         g2.drawImage(gp.sim.def, x, y, gp.originalTileSize*5, gp.originalTileSize*5, null);
 
         //MENU
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,25F));
         text = "NEW GAME";
-        x = getXforCenteredText(text);
-        y = gp.tileSize*4 + gp.originalTileSize;
+        x = getXforCenteredText(text, gp.screenWidth/2);
+        y = gp.tileSize*4;
         g2.drawString(text, x, y);
         if(commandNum==0){
             g2.drawString(">", x-gp.originalTileSize, y);
         }
 
         text = "LOAD GAME";
-        x = getXforCenteredText(text);
-        y += gp.tileSize/2;
+        x = getXforCenteredText(text, gp.screenWidth/2);
+        y += gp.tileSize/2 + 15;
         g2.drawString(text, x, y);
         if(commandNum==1){
             g2.drawString(">", x-gp.originalTileSize, y);
         }
 
         text = "QUIT GAME";
-        x = getXforCenteredText(text);
-        y += gp.tileSize/2;
+        x = getXforCenteredText(text, gp.screenWidth/2);
+        y += gp.tileSize/2 + 15;
         g2.drawString(text, x, y);
         if(commandNum==2){
             g2.drawString(">", x-gp.originalTileSize, y);
         }
     }
     private void drawPauseScreen(){
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,60F));
         String text1 = "GAME";
         String text2 = "PAUSED";
-        int x = getXforCenteredText(text1);
+        int x = getXforCenteredText(text1, gp.screenWidth/2);
         int y = gp.screenHeight/2 - 30;
 
         g2.drawString(text1, x, y);
 
-        x = getXforCenteredText(text2);
-        y += 40;
+        x = getXforCenteredText(text2, gp.screenWidth/2);
+        y += 60;
 
         g2.drawString(text2, x, y);
     }
     public void drawInteractObject(int i){
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,7F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,11F));
         String text1 = "Apakah anda ingin melakukan";
-        String text2 = "aksi " + gp.obj[i].action + " ?";
+        String text2 = "aksi " + gp.obj[i].action + "?";
         
         //WINDOW
         int x;
@@ -135,27 +149,187 @@ public class UI {
         
         g2.setColor(Color.white);
         x = getXforCenteredBodyPlayer(text1);
-        y+=gp.originalTileSize;
+        y+=gp.originalTileSize + 5;
         g2.drawString(text1, x, y);
 
         x = getXforCenteredBodyPlayer(text2);
         y+=gp.originalTileSize;
         g2.drawString(text2, x, y);
     }
-    // public void drawObjectUsed()
+    public void drawSimInfo(){
+        final int frameX = gp.originalTileSize;
+        final int frameY = gp.tileSize/2;
+        final int frameWidht = gp.tileSize*3 + gp.originalTileSize;
+        final int frameHeight = gp.tileSize*3;
+        drawSubWindow(frameX, frameY, frameWidht, frameHeight);
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(17F));
+
+        int textX = frameX + 10;
+        int textY = frameY + 25;
+        final int lineHeight = 20;
+
+        //INFO
+        g2.drawString("Nama", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Pekerjaan", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Kesehatan", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Kekenyangan", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Mood", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Uang", textX, textY);
+        textY+=lineHeight;
+
+        //VALUES
+        int tailX = (frameX + frameWidht) - 10;
+        textY = frameY + 25;
+        String value;
+
+        value = String.valueOf(gp.sim.getNamaLengkap());
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.sim.getPekerjaan());
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.sim.getKesehatan());
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.sim.getKekenyangan());
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.sim.getMood());
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf(gp.sim.getUang());
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+    }
+    public void drawStatus(){
+        //FRAME
+        final int frameX = gp.tileSize*4;
+        final int frameY = gp.tileSize*4 + gp.tileSize/2;
+        final int frameWidht = gp.tileSize*2;
+        final int frameHeight = gp.tileSize + gp.tileSize/2;
+        drawSubWindow(frameX, frameY, frameWidht, frameHeight);
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(17F));
+
+        String text = "Day - " + gp.getDay();
+        int textX = getXforCenteredText(text, frameX+(frameWidht/2));
+        int textY = frameY + 20;
+        final int lineHeight = 20;
+
+        g2.drawString(text, textX, textY);
+        textY+=lineHeight;
+
+        text = gp.sim.getStatus();
+        textX = getXforCenteredText(text, frameX+(frameWidht/2));
+        g2.drawString(text, textX, textY);
+        textY+=lineHeight;
+
+        text = gp.getTime();
+        textX = getXforCenteredText(text, frameX+(frameWidht/2));
+        g2.drawString(text, textX, textY);
+    }
+    public void drawDurationState(Objek obj){
+
+        //FRAME
+        final int frameX = gp.tileSize + gp.tileSize/2;
+        final int frameY = gp.tileSize + gp.tileSize/2;
+        final int frameWidth = gp.screenWidth - (2*(gp.tileSize + gp.tileSize/2));
+        final int frameHeigth = gp.screenHeight - (2*(gp.tileSize + gp.tileSize/2));
+        drawSubWindow(frameX, frameY, frameWidth, frameHeigth);
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+
+        String text = "Silahkan pilih durasi";
+        int textX = getXforCenteredText(text, frameX+(frameWidth/2));
+        int textY = frameY + 20;
+        final int lineHeight = 20;
+
+        g2.drawString(text, textX, textY);
+        textY+=lineHeight;
+        switch(obj.name){
+            case "Kasur": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
+        }
+    }
+    private void drawOptionKasur(int frameX, int frameY, int frameWidth, int frameHeight){
+        int textX = frameX + 30;
+        int textY = frameY + 50;
+        final int lineHeight = 25;
+        
+        String text = "2 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+        }
+        textY+=lineHeight;
+
+        text = "4 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+        }
+        textY+=lineHeight;
+
+        text = "6 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==2){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+        }
+        textY+=lineHeight;
+
+        text = "8 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==3){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+        }
+    }
+    public void drawUseObject(Objek obj){
+
+    }
     private void drawSubWindow(int x, int y, int width, int height){
         Color c = new Color(0, 0, 0, 200);
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35);
+        
+        c = new Color(255,255,255);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(x+2, y+2, width-2, height-2, 20, 20);
     }
-    private int getXforCenteredText(String text){
+    private int getXforCenteredText(String text, int center){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.screenWidth/2 - length/2;
+        int x = center - length/2;
         return x;
     }
     private int getXforCenteredBodyPlayer(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.sim.screenX + gp.tileSize/2 - length/2;
+        return x;
+    }
+    private int getXforAligntoRightText(String text, int tailX){
+        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = tailX - length;
         return x;
     }
     private boolean getLongerText(String text1, String text2){

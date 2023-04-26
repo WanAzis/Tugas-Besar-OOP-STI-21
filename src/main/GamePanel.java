@@ -33,6 +33,10 @@ public class GamePanel extends JPanel implements Runnable{
     public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
     Thread gameThread;
+	private int dayCounter;
+	private int day;
+	private int jam;
+	private int menit;
 
 	//PLAYER
     public Sim sim = new Sim(this,keyH);
@@ -43,7 +47,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int titleState = 0;
 	public final int playState = 1;
 	public final int pauseState = 2;
-	// public final int interactObject = 3;
+	public final int simInfo = 3;
+	public final int useObjectState = 4;
+	public final int durationState = 5;
     
     public GamePanel(){
 
@@ -57,8 +63,22 @@ public class GamePanel extends JPanel implements Runnable{
     public void setUpGame() {
     	aSetter.setObject();
 		gameState = titleState;
+		day = 1;
+		dayCounter = 0;
+		jam = 0;
+		menit = 0;
     }
     
+	//GETTER
+	public int getDay(){return day;}
+	public int getDayCounter(){return dayCounter;}
+	public int getMaxScreenCol() {
+		return maxScreenCol;
+	}
+	public int getMaxScreenRow() {
+		return maxScreenRow;
+	}
+
     public void startGameThread() {
     	
     	gameThread = new Thread(this);
@@ -94,10 +114,46 @@ public class GamePanel extends JPanel implements Runnable{
 
 		if(gameState==playState){
 			sim.update();
+			dayUpdate();
 		}
 		else if(gameState==pauseState){
-
+			//Sim tidak di update
 		}
+		else if(gameState==useObjectState){
+			useObjectUpdate(sim.interactObjectIdx, obj[sim.interactObjectIdx].getDuration());
+		}
+	}
+
+	private void dayUpdate() {
+		dayCounter++;
+		if(dayCounter>=43200){
+			day++;
+			dayCounter=0;
+		}
+	}
+	public String getTime(){
+		String time, strJam, strMenit;
+		jam = dayCounter/1800;
+		int curMenit = dayCounter - (1800*jam);
+
+		if(curMenit%300 == 0){
+			menit+=10;
+		}
+		if(menit==60){
+			menit=0;
+		}
+		if(jam<10){
+			strJam = "0"+String.valueOf(jam);
+		} else strJam = String.valueOf(jam);
+		if(menit==0){
+			strMenit = "00";
+		} else strMenit = String.valueOf(menit);
+		time = strJam + " : " + strMenit;
+
+		return time;
+	}
+	public void useObjectUpdate(int i, int duration){
+		obj[i].effect(sim, duration);
 	}
 
 	public void paintComponent(Graphics gp) {
@@ -122,13 +178,5 @@ public class GamePanel extends JPanel implements Runnable{
 			g2.dispose();
 		}
 
-	}
-
-	public int getMaxScreenCol() {
-		return maxScreenCol;
-	}
-
-	public int getMaxScreenRow() {
-		return maxScreenRow;
 	}
 }
