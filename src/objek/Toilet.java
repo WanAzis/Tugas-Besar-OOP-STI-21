@@ -42,8 +42,8 @@ public class Toilet extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setKesehatan(sim.getKesehatan()+20);
-			sim.setMood(sim.getMood()+30);
+			sim.setKekenyangan(sim.getKekenyangan()-20);
+			sim.setMood(sim.getMood()+10);
 			gp.gameState=gp.playState;
 			sim.getPlayerImage();
 		}
