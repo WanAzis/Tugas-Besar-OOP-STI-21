@@ -15,7 +15,7 @@ public class Toilet extends Objek{
 	public Toilet(GamePanel gp) {
 		this.gp = gp;
 		name = "Toilet";
-		action = "buang air";
+		action = "BUANG AIR";
 		panjang = 1;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
@@ -42,8 +42,8 @@ public class Toilet extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setKesehatan(sim.getKesehatan()+20);
-			sim.setMood(sim.getMood()+30);
+			sim.plusKesehatan(20);
+			sim.plusMood(30);
 			gp.gameState=gp.playState;
 			sim.getPlayerImage();
 		}

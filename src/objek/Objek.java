@@ -28,6 +28,7 @@ public abstract class Objek {
 	protected int counter = 0;
 	
 	//GETTER
+	public String getName(){return name;}
 	public int getDuration(){return duration;}
 	public BufferedImage getImage(){return image;}
 	public BufferedImage getImageUsed(){return imageUsed;}

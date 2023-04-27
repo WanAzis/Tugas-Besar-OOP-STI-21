@@ -35,6 +35,9 @@ public class Sim extends Entity{
 	
 	public boolean useObject;
 	public int interactObjectIdx;
+	private final int maxKekenyangan = 100;
+	private final int maxMood = 100;
+	private final int maxKesehatan = 100;
 	
 	public Sim(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
@@ -87,9 +90,28 @@ public class Sim extends Entity{
 
 	//SETTER
 	public void setUang(int uang){this.uang = uang;}
-	public void setKekenyangan(int kekenyangan){this.kekenyangan = kekenyangan;}
-	public void setMood(int mood){this.mood = mood;}
-	public void setKesehatan(int kesehatan){this.kesehatan = kesehatan;}
+	// public void setKekenyangan(int kekenyangan){this.kekenyangan = kekenyangan;}
+	public void plusKekenyangan(int plusKekenyangan){
+		kekenyangan += plusKekenyangan;
+		if(kekenyangan>maxKekenyangan){
+			kekenyangan=maxKekenyangan;
+		}
+	}
+	// public void setMood(int mood){this.mood = mood;}
+	public void plusMood(int plusMood){
+		mood += plusMood;
+		if(mood > maxMood){
+			mood = maxMood;
+		}
+	}
+	// public void setKesehatan(int kesehatan){this.kesehatan = kesehatan;}
+	public void plusKesehatan(int plusKesehatan){
+		kesehatan+=plusKesehatan;
+		if(kesehatan>maxKesehatan){
+			kesehatan=maxKesehatan;
+		}
+	}
+	public void setStatus(String status){this.status=status;}
 
 	public void getPlayerImage() {
 		try {
