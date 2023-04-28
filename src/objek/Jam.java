@@ -33,8 +33,8 @@ public class Jam extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setKesehatan(sim.getKesehatan()+20);
-			sim.setMood(sim.getMood()+30);
+			sim.plusKesehatan(20);
+			sim.plusMood(30);
 			gp.gameState=gp.playState;
 			sim.getPlayerImage();
 		}

@@ -22,6 +22,12 @@ public class UI {
 
     public int commandNum = 0;
     public int objIndex;
+    private String notifMessage = "";
+
+    //GETTER
+
+    //SETTER
+    public void setNotifMessage(String notifMessage){this.notifMessage=notifMessage;}
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -64,6 +70,10 @@ public class UI {
         }
         if(gp.gameState==gp.useObjectState){
             drawUseObject(gp.obj[gp.sim.interactObjectIdx]);
+            drawStatus();
+        }
+        if(gp.gameState==gp.notifState){
+            drawNotifScreen();
         }
     }
 
@@ -128,9 +138,9 @@ public class UI {
         g2.drawString(text2, x, y);
     }
     public void drawInteractObject(int i){
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,11F));
-        String text1 = "Apakah anda ingin melakukan";
-        String text2 = "aksi " + gp.obj[i].action + "?";
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,10F));
+        String text1 = "APAKAH ANDA INGIN MELAKUKAN";
+        String text2 = "AKSI " + gp.obj[i].action + "?";
         
         //WINDOW
         int x;
@@ -159,9 +169,9 @@ public class UI {
     public void drawSimInfo(){
         final int frameX = gp.originalTileSize;
         final int frameY = gp.tileSize/2;
-        final int frameWidht = gp.tileSize*3 + gp.originalTileSize;
+        final int frameWidth = gp.tileSize*3 + gp.originalTileSize;
         final int frameHeight = gp.tileSize*3;
-        drawSubWindow(frameX, frameY, frameWidht, frameHeight);
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         //TEXT
         g2.setColor(Color.white);
@@ -186,7 +196,7 @@ public class UI {
         textY+=lineHeight;
 
         //VALUES
-        int tailX = (frameX + frameWidht) - 10;
+        int tailX = (frameX + frameWidth) - 10;
         textY = frameY + 25;
         String value;
 
@@ -223,30 +233,33 @@ public class UI {
         //FRAME
         final int frameX = gp.tileSize*4;
         final int frameY = gp.tileSize*4 + gp.tileSize/2;
-        final int frameWidht = gp.tileSize*2;
+        final int frameWidth = gp.tileSize*2;
         final int frameHeight = gp.tileSize + gp.tileSize/2;
-        drawSubWindow(frameX, frameY, frameWidht, frameHeight);
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         //TEXT
         g2.setColor(Color.white);
-        g2.setFont(g2.getFont().deriveFont(17F));
-
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,16F));
+        
         String text = "Day - " + gp.getDay();
-        int textX = getXforCenteredText(text, frameX+(frameWidht/2));
+        int textX = frameX + 10;
         int textY = frameY + 20;
         final int lineHeight = 20;
-
+        
         g2.drawString(text, textX, textY);
-        textY+=lineHeight;
-
-        text = gp.sim.getStatus();
-        textX = getXforCenteredText(text, frameX+(frameWidht/2));
-        g2.drawString(text, textX, textY);
-        textY+=lineHeight;
-
+        
         text = gp.getTime();
-        textX = getXforCenteredText(text, frameX+(frameWidht/2));
+        textX = getXforAligntoRightText(text, frameX+frameWidth-10);
         g2.drawString(text, textX, textY);
+        textY+=lineHeight;
+        
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,17F));
+        text = gp.sim.getStatus();
+        textX = getXforCenteredText(text, frameX+(frameWidth/2));
+        g2.drawString(text, textX, textY);
+        textY+=lineHeight;
+
+        //DRAW NAMA RUANGAN
     }
     public void drawDurationState(Objek obj){
 
@@ -277,35 +290,57 @@ public class UI {
         int textY = frameY + 50;
         final int lineHeight = 25;
         
-        String text = "2 Jam";
+        String text = "4 Jam";
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.originalTileSize, textY);
         }
         textY+=lineHeight;
 
-        text = "4 Jam";
+        text = "8 Jam";
         g2.drawString(text, textX, textY);
         if(commandNum==1){
             g2.drawString(">", textX-gp.originalTileSize, textY);
         }
         textY+=lineHeight;
 
-        text = "6 Jam";
+        text = "12 Jam";
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.originalTileSize, textY);
         }
         textY+=lineHeight;
 
-        text = "8 Jam";
+        text = "16 Jam";
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.originalTileSize, textY);
         }
     }
-    public void drawUseObject(Objek obj){
+    private void drawNotifScreen(){
+        //WINDOW
+        final int frameX = gp.tileSize;
+        final int frameY = gp.tileSize/2;
+        final int frameWidth = gp.tileSize*4;
+        final int frameHeight = gp.tileSize + gp.originalTileSize;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,18F));
+
+        int textX = frameX + 20;
+        int textY = frameY + 25;
+        final int lineHeight = 20;
+
+        for(String line : notifMessage.split("\n")){
+            g2.drawString(line, textX, textY);
+            textY+=lineHeight;
+        }
+        
+    }
+    public void drawUseObject(Objek obj){
+        
     }
     private void drawSubWindow(int x, int y, int width, int height){
         Color c = new Color(0, 0, 0, 200);

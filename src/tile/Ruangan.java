@@ -2,13 +2,14 @@ package tile;
 
 import objek.*;
 import java.awt.List;
+import java.util.ArrayList;
 
 public class Ruangan
 {
     private int sisaLuas;
-    private List<Objek> listBarang;
     private String nama;
     private Ruangan[] ruanganTetangga;
+    private ArrayList<Objek> listBarang;
 
     public Ruangan(String nama)
     {
@@ -34,12 +35,12 @@ public class Ruangan
         return this.nama;
     }
 
-    public String setNama(String nama)
+    public void setNama(String nama)
     {
         this.nama = nama;
     }
 
-    public List<Objek> getListBarang() 
+    public ArrayList<Objek> getListBarang() 
     {
         return listBarang;
     }

@@ -32,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
+	public 
     Thread gameThread;
 	private int dayCounter;
 	private int day;
@@ -50,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int simInfo = 3;
 	public final int useObjectState = 4;
 	public final int durationState = 5;
+	public final int notifState = 6;
     
     public GamePanel(){
 
@@ -120,6 +122,7 @@ public class GamePanel extends JPanel implements Runnable{
 			//Sim tidak di update
 		}
 		else if(gameState==useObjectState){
+			dayUpdate();
 			useObjectUpdate(sim.interactObjectIdx, obj[sim.interactObjectIdx].getDuration());
 		}
 	}

@@ -3,6 +3,8 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import objek.Objek;
+
 public class KeyHandler implements KeyListener{
 
 	public GamePanel gp;
@@ -40,7 +42,10 @@ public class KeyHandler implements KeyListener{
 		}
 		//INTERACTOBJECT STATE
 		else if(gp.gameState==gp.durationState){
-			durationState(code);
+			durationState(code, gp.obj[gp.sim.interactObjectIdx]);
+		}
+		else if(gp.gameState==gp.notifState){
+			notifState(code);
 		}
 	}
 
@@ -90,7 +95,12 @@ public class KeyHandler implements KeyListener{
 			gp.gameState=gp.durationState;
 		}
 	}
-	private void durationState(int code){
+	private void durationState(int code, Objek obj){
+		switch(obj.getName()){
+			case "Kasur" : durationKasurState(code);
+		}
+	}
+	private void durationKasurState(int code){
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
 				gp.ui.commandNum--;
@@ -101,22 +111,30 @@ public class KeyHandler implements KeyListener{
 				gp.ui.commandNum++;
 			}
 		}
-		if(code == KeyEvent.VK_ENTER){
+		if(code == KeyEvent.VK_ESCAPE){
+			gp.gameState=gp.playState;
+		}
+		if(code == KeyEvent.VK_ENTER){	//dibikin state setiap objek
 			if(gp.ui.commandNum==0){
-				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60);
-			}
-			else if(gp.ui.commandNum==1){
 				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60*2);
 			}
+			else if(gp.ui.commandNum==1){
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60*4);
+			}
 			else if(gp.ui.commandNum==2){
-				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60*3);
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60*6);
 			}
 			else if(gp.ui.commandNum==3){
-				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60*4);
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60*8);
 			}
 			gp.gameState=gp.useObjectState;
 			gp.sim.setNullImage();
 			gp.obj[gp.sim.interactObjectIdx].used();
+		}
+	}
+	private void notifState(int code){
+		if(code == KeyEvent.VK_ENTER) {
+			gp.gameState = gp.playState;
 		}
 	}
 	private void pauseState(int code){
