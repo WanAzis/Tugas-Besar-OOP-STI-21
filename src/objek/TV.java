@@ -15,7 +15,8 @@ public class TV extends Objek{
 	public TV(GamePanel gp) {
 		this.gp = gp;
 		name = "TV";
-		action = "menonton";
+		action = "MENONTON";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk menonton"; 
 		panjang = 2;
 		lebar = 2;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
@@ -35,6 +36,16 @@ public class TV extends Objek{
 			e.printStackTrace();
 		}
 	}
+	@Override
+	public void unUsed()
+	{
+		gp.sim.setStatus("IDLE");
+		try {
+			image = ImageIO.read(new File("../resources/barang/toilet.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void effect(Sim sim, int duration) {
@@ -42,10 +53,10 @@ public class TV extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			// sim.setKekenyangan(sim.getKekenyangan()-20); // belom nentuin nambah berapa
-			// sim.setMood(sim.getMood()+10);
-			gp.gameState=gp.playState;
-			sim.getPlayerImage();
+			sim.setMood(10);
+			sim.setKekenyangan(-5);
+			gp.ui.setNotifMessage("Selamat anda sudah menonton TV, \nkekenyangan -5 dan mood +10");
+			gp.gameState=gp.notifState;
 		}
 	}
 }

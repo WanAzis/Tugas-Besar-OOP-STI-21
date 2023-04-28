@@ -10,13 +10,11 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class KomporGas extends Objek{
+public class KomporGas extends Kompor{
 
 	public KomporGas(GamePanel gp) {
-		this.gp = gp;
-		name = "KomporGas";
-		action = "Memasak";
-		duration = 
+		super(gp);
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk tidur"; 
 		panjang = 2;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
@@ -30,6 +28,7 @@ public class KomporGas extends Objek{
 
 	@Override
 	public void used() {
+		gp.sim.setStatus(action);
 		try {
 			image = ImageIO.read(new File("../resources/barang/komgas2.png")); //ganti sama gambar kl lagi masak
 		} catch (IOException e) {
@@ -43,18 +42,6 @@ public class KomporGas extends Objek{
 			image = ImageIO.read(new File("../resources/barang/komgas1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void effect(Sim sim, int duration) {
-		counter++;
-		if(counter>=duration){
-			unUsed();
-			counter=0;
-			// sim.setMood(sim.getMood()+10);
-			gp.gameState=gp.playState;
-			sim.getPlayerImage();
 		}
 	}
 }

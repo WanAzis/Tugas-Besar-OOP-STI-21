@@ -15,7 +15,8 @@ public class MesinCuci extends Objek{
 	public MesinCuci(GamePanel gp) {
 		this.gp = gp;
 		name = "Mesin cuci";
-		action = "mencuci";
+		action = "MENCUCI";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk mencuci";
 		panjang = 2;
 		lebar = 2;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
@@ -30,8 +31,19 @@ public class MesinCuci extends Objek{
 	@Override
 	public void used() {
 		try {
-			image = ImageIO.read(new File("../resources/barang/toilet.png"));
+			image = ImageIO.read(new File("../resources/barang/toilet.png")); //ganti
 		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void unUsed()
+	{
+		gp.sim.setStatus("IDLE");
+		try {
+			image = ImageIO.read(new File("../resources/barang/toilet.png")); //ganti
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -42,10 +54,10 @@ public class MesinCuci extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			// sim.setKekenyangan(sim.getKekenyangan()-20); //belom diset
-			// sim.setMood(sim.getMood()+10);
-			gp.gameState=gp.playState;
-			sim.getPlayerImage();
+			sim.plusKekenyangan(-5);
+			sim.plusMood(5);
+			gp.ui.setNotifMessage("Selamat anda sudah mencuci, \nkekenyangan -5 dan mood +5");
+			gp.gameState=gp.notifState;
 		}
 	}
 }

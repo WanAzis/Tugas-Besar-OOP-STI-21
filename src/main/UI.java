@@ -376,7 +376,7 @@ public class UI {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,18F));
 
-        int textX = frameX + 20;
+        int textX = frameX + 10;
         int textY = frameY + 25;
         final int lineHeight = 20;
 

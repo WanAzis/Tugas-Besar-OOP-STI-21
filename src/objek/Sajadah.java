@@ -15,7 +15,8 @@ public class Sajadah extends Objek{
 	public Sajadah(GamePanel gp) {
 		this.gp = gp;
 		name = "Sajadah";
-		action = "beribadah";
+		action = "BERIBADAH";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk buang air";
 		panjang = 2;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
@@ -35,6 +36,16 @@ public class Sajadah extends Objek{
 			e.printStackTrace();
 		}
 	}
+	@Override
+	public void unUsed()
+	{
+		gp.sim.setStatus("IDLE");
+		try {
+			image = ImageIO.read(new File("../resources/barang/toilet.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void effect(Sim sim, int duration) {
@@ -42,9 +53,9 @@ public class Sajadah extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			// sim.setKekenyangan(sim.getKekenyangan()-20); //belom diset
-			// sim.setMood(sim.getMood()+10);
-			gp.gameState=gp.playState;
+			sim.plusMood(15);
+			gp.ui.setNotifMessage("Selamat anda sudah beribadah, \nmood +15");
+			gp.gameState=gp.notifState;
 			sim.getPlayerImage();
 		}
 	}

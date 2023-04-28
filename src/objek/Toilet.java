@@ -31,8 +31,19 @@ public class Toilet extends Objek{
 	@Override
 	public void used() {
 		try {
-			image = ImageIO.read(new File("../resources/barang/toilet.png"));
+			image = ImageIO.read(new File("../resources/barang/komlis4.png")); //BELOM ganti gambar
 		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void unUsed()
+	{
+		gp.sim.setStatus("IDLE");
+		try {
+			image = ImageIO.read(new File("../resources/barang/toilet.png"));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -43,10 +54,15 @@ public class Toilet extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.plusKesehatan(20);
-			sim.plusMood(30);
-			gp.gameState=gp.playState;
+			sim.plusKekenyangan(-20);
+			sim.plusMood(10);
+			gp.ui.setNotifMessage("Selamat anda sudah buang air, \nkekenyangan -20 dan mood +10");
+			gp.eHandler.setCurToilet();
+			gp.gameState=gp.notifState;
 			sim.getPlayerImage();
 		}
+
 	}
 }
+
+/* toilet tinggal masalah sebelum makan */
