@@ -52,7 +52,7 @@ public class KomporGas extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setMood(sim.getMood()+10);
+			// sim.setMood(sim.getMood()+10);
 			gp.gameState=gp.playState;
 			sim.getPlayerImage();
 		}

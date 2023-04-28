@@ -42,8 +42,8 @@ public class MesinCuci extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setKekenyangan(sim.getKekenyangan()-20); //belom diset
-			sim.setMood(sim.getMood()+10);
+			// sim.setKekenyangan(sim.getKekenyangan()-20); //belom diset
+			// sim.setMood(sim.getMood()+10);
 			gp.gameState=gp.playState;
 			sim.getPlayerImage();
 		}

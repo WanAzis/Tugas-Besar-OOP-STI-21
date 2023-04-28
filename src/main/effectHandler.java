@@ -18,13 +18,17 @@ public class effectHandler {
 
         if(!checkTidur())
         {
-            sim.setKesehatan(sim.getKesehatan() - 5);
-            sim.setMood(sim.getMood() - 5);
+            gp.ui.setNotifMessage("Anda belum tidur, kesehatan \ndan mood -5");
+            gp.gameState=gp.notifState;
+            gp.sim.setKesehatan(gp.sim.getKesehatan() - 5);
+            gp.sim.setMood(gp.sim.getMood() - 5);
+            counter = 0;
         }
         if(!checkToilet())
         {
-            sim.setKesehatan(sim.getKesehatan() - 5);
-            sim.setMood(sim.getMood() - 5);
+            gp.sim.setKesehatan(gp.sim.getKesehatan() - 5);
+            gp.sim.setMood(gp.sim.getMood() - 5);
+            counter = 0;
         }
     }
 

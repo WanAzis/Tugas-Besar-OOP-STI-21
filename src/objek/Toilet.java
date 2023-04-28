@@ -16,6 +16,7 @@ public class Toilet extends Objek{
 		this.gp = gp;
 		name = "Toilet";
 		action = "BUANG AIR";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk buang air"; 
 		panjang = 1;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);

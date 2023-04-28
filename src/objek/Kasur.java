@@ -1,6 +1,5 @@
 package objek;
 
-import java.awt.Rectangle;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -16,14 +15,7 @@ public class Kasur extends Objek{
 		this.gp = gp;
 		name = "Kasur";
 		action = "TIDUR";
-		panjang = 4;
-		lebar = 1;
-		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
-		try {
-			image = ImageIO.read(new File("../resources/barang/kasursingle1.png"));
-		}catch(IOException e){
-			e.printStackTrace();
-		}
+		direction = "down";
 	}
 
 	@Override
@@ -62,6 +54,10 @@ public class Kasur extends Objek{
 				sim.plusMood(60);
 				gp.ui.setNotifMessage("Selamat anda sudah tidur,\nkesehatan +40 dan mood +60");
 			}
+			else{
+				gp.ui.setNotifMessage("Anda belum cukup tidur");
+			}
+			gp.eHandler.setCurTidur();
 			gp.gameState=gp.notifState;
 			sim.getPlayerImage();
 		}

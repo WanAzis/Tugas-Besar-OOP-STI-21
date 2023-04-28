@@ -11,7 +11,7 @@ public class AssetSetter {
 	}
 	
 	public void setObject() {
-		gp.obj[0] = new Kasur(gp);
+		gp.obj[0] = new KasurSingle(gp);
 		gp.obj[0].screenX = 0 * gp.tileSize;
 		gp.obj[0].screenY = 0 * gp.tileSize;
 		

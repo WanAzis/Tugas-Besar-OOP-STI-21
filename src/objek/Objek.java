@@ -14,9 +14,12 @@ public abstract class Objek {
 	public GamePanel gp;
 	public BufferedImage image;
 	public BufferedImage imageUsed;
+	public BufferedImage down, downUsed, right, rightUsed, left, leftUsed, up, upUsed;
+	public String direction;
 	public String name;
 	public String action;
 	protected int duration;
+	public String deskripsi = "";
 	public boolean collision = true;
 	public int screenX, screenY;
 	public int panjang, lebar;

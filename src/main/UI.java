@@ -23,6 +23,8 @@ public class UI {
     public int commandNum = 0;
     public int objIndex;
     private String notifMessage = "";
+    int slotCol = 0;
+    int slotRow = 0;
 
     //GETTER
 
@@ -64,6 +66,7 @@ public class UI {
         }
         if(gp.gameState==gp.simInfo){
             drawSimInfo();
+            drawInventory();
         }
         if(gp.gameState==gp.durationState){
             drawDurationState(gp.obj[gp.sim.interactObjectIdx]);
@@ -229,6 +232,50 @@ public class UI {
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
     }
+    public void drawInventory(){
+        //FRAME
+        final int frameX = gp.originalTileSize;
+        final int frameY = gp.tileSize*4 - 5;
+        final int frameWidth = gp.tileSize*3 + gp.originalTileSize;
+        final int frameHeight = gp.tileSize*2 - gp.originalTileSize + 10;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        //SLOT
+        final int slotXstart = frameX + 10;
+        final int slotYstart = frameY + 10;
+        int slotX = slotXstart;
+        int slotY = slotYstart;
+        int slotSize = gp.originalTileSize+2;
+
+        //DRAW ITEMS
+        for(int i = 0; i<gp.sim.inventory.size(); i++){
+            g2.drawImage(gp.sim.inventory.get(i).image, slotX, slotY, slotSize, slotSize, null);
+            slotX+=slotSize;
+            if(i == 7 || i == 15 || i == 23){
+                slotX = slotXstart;
+                slotY += slotSize;
+            }
+        }
+
+        //CURSOR 
+        int cursorX = slotXstart + (slotSize*slotCol);
+        int cursorY = slotYstart + (slotSize*slotRow);
+        int cursorWidth = slotSize;
+        int cursorHeight = slotSize;
+
+        //DRAW CURSOR
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(2));
+        g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 4, 4);
+
+        //DESC WINDOW
+        final int dframeX = gp.originalTileSize;
+        final int dframeY = gp.tileSize*4 - 5;
+        final int dframeWidth = gp.tileSize*3 + gp.originalTileSize;
+        final int dframeHeight = gp.tileSize*2 - gp.originalTileSize + 10;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+    }
     public void drawStatus(){
         //FRAME
         final int frameX = gp.tileSize*4;
@@ -281,7 +328,7 @@ public class UI {
 
         g2.drawString(text, textX, textY);
         textY+=lineHeight;
-        switch(obj.name){
+        switch(obj.getName()){
             case "Kasur": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
         }
     }

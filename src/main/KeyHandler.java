@@ -92,6 +92,7 @@ public class KeyHandler implements KeyListener{
 			gp.gameState = gp.simInfo;
 		}
 		if(code == KeyEvent.VK_ENTER && gp.sim.interactObject){
+			if(gp.obj[gp.sim.interactObjectIdx].getName()=="Kasur")
 			gp.gameState=gp.durationState;
 		}
 	}
@@ -114,9 +115,9 @@ public class KeyHandler implements KeyListener{
 		if(code == KeyEvent.VK_ESCAPE){
 			gp.gameState=gp.playState;
 		}
-		if(code == KeyEvent.VK_ENTER){	//dibikin state setiap objek
+		if(code == KeyEvent.VK_ENTER){
 			if(gp.ui.commandNum==0){
-				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60*2);
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*5);
 			}
 			else if(gp.ui.commandNum==1){
 				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60*4);
@@ -145,6 +146,26 @@ public class KeyHandler implements KeyListener{
 	private void simInfoState(int code){
 		if(code == KeyEvent.VK_F){
 			gp.gameState = gp.playState;
+		}
+		if(code == KeyEvent.VK_UP){
+			if(gp.ui.slotRow>0){
+				gp.ui.slotRow--;
+			}
+		}
+		if(code == KeyEvent.VK_DOWN){
+			if(gp.ui.slotRow<3){
+				gp.ui.slotRow++;
+			}
+		}
+		if(code == KeyEvent.VK_RIGHT){
+			if(gp.ui.slotCol<7){
+				gp.ui.slotCol++;
+			}
+		}
+		if(code == KeyEvent.VK_LEFT){
+			if(gp.ui.slotCol>0){
+				gp.ui.slotCol--;
+			}
 		}
 	}
 	@Override

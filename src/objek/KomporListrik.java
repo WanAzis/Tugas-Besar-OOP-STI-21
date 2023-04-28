@@ -10,9 +10,9 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class Kasur extends Objek{
+public class KomporListrik extends Objek{
 
-	public Kasur(GamePanel gp) {
+	public KomporListrik(GamePanel gp) {
 		this.gp = gp;
 		name = "Kompor Listrik";
 		action = "Memasak";
@@ -52,7 +52,7 @@ public class Kasur extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setMood(sim.getMood()+10);
+			// sim.setMood(sim.getMood()+10);
 			gp.gameState=gp.playState;
 			sim.getPlayerImage();
 		}

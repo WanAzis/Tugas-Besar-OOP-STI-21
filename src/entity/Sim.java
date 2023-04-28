@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -13,6 +14,7 @@ import java.io.File;
 
 import main.GamePanel;
 import main.KeyHandler;
+import objek.*;
 
 public class Sim extends Entity{
 	
@@ -23,7 +25,8 @@ public class Sim extends Entity{
 	private String namaLengkap;
 	private String pekerjaan;
 	private int uang;
-	//inventory
+	public ArrayList<Objek> inventory = new ArrayList<>();
+	private final int inventorySize = 32;
 	private int kekenyangan;
 	private int mood;
 	private int kesehatan;
@@ -56,6 +59,7 @@ public class Sim extends Entity{
 		
 		setDefaultValues();
 		getPlayerImage();
+		setItems();
 	}
 	
 	public void setDefaultValues() {
@@ -78,6 +82,23 @@ public class Sim extends Entity{
 		String[] keys = listPekerjaan.keySet().toArray(new String[0]);
 		pekerjaan = keys[n];
 	}
+
+	public void setItems(){
+		inventory.add(new KasurSingle(gp));
+		inventory.add(new Toilet(gp));
+		inventory.add(new KasurSingle(gp));
+		inventory.add(new Toilet(gp));
+		inventory.add(new KasurSingle(gp));
+		inventory.add(new Toilet(gp));
+		inventory.add(new KasurSingle(gp));
+		inventory.add(new Toilet(gp));
+		inventory.add(new KasurSingle(gp));
+		inventory.add(new Toilet(gp));
+		inventory.add(new KasurSingle(gp));
+		inventory.add(new Toilet(gp));
+		inventory.add(new KasurSingle(gp));
+		inventory.add(new Toilet(gp));
+	}
 	
 	//GETTER
 	public String getNamaLengkap(){return namaLengkap;}
@@ -90,21 +111,21 @@ public class Sim extends Entity{
 
 	//SETTER
 	public void setUang(int uang){this.uang = uang;}
-	// public void setKekenyangan(int kekenyangan){this.kekenyangan = kekenyangan;}
+	public void setKekenyangan(int kekenyangan){this.kekenyangan = kekenyangan;}
 	public void plusKekenyangan(int plusKekenyangan){
 		kekenyangan += plusKekenyangan;
 		if(kekenyangan>maxKekenyangan){
 			kekenyangan=maxKekenyangan;
 		}
 	}
-	// public void setMood(int mood){this.mood = mood;}
+	public void setMood(int mood){this.mood = mood;}
 	public void plusMood(int plusMood){
 		mood += plusMood;
 		if(mood > maxMood){
 			mood = maxMood;
 		}
 	}
-	// public void setKesehatan(int kesehatan){this.kesehatan = kesehatan;}
+	public void setKesehatan(int kesehatan){this.kesehatan = kesehatan;}
 	public void plusKesehatan(int plusKesehatan){
 		kesehatan+=plusKesehatan;
 		if(kesehatan>maxKesehatan){

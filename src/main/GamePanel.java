@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
-	public 
+	public effectHandler eHandler = new effectHandler(this);
     Thread gameThread;
 	private int dayCounter;
 	private int day;
@@ -117,6 +117,7 @@ public class GamePanel extends JPanel implements Runnable{
 		if(gameState==playState){
 			sim.update();
 			dayUpdate();
+			eHandler.checkEffect();
 		}
 		else if(gameState==pauseState){
 			//Sim tidak di update

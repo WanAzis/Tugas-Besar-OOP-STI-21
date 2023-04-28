@@ -42,7 +42,7 @@ public class MejaKursi extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setKekenyangan(sim.getKekenyangan()-makanan.getKekenyangan()); //pastiin ada method nya
+			// sim.setKekenyangan(sim.getKekenyangan()-makanan.getKekenyangan()); //pastiin ada method nya
 			gp.gameState=gp.playState;
 			sim.getPlayerImage();
 		}

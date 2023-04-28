@@ -10,7 +10,7 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class Toilet extends Objek{
+public class TV extends Objek{
 
 	public TV(GamePanel gp) {
 		this.gp = gp;
@@ -42,8 +42,8 @@ public class Toilet extends Objek{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setKekenyangan(sim.getKekenyangan()-20); // belom nentuin nambah berapa
-			sim.setMood(sim.getMood()+10);
+			// sim.setKekenyangan(sim.getKekenyangan()-20); // belom nentuin nambah berapa
+			// sim.setMood(sim.getMood()+10);
 			gp.gameState=gp.playState;
 			sim.getPlayerImage();
 		}
