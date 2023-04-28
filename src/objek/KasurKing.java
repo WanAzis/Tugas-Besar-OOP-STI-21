@@ -10,7 +10,7 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class KasurKing extends Objek{
+public class KasurKing extends Barang{
 
 	public KasurKing(GamePanel gp) {
 		this.gp = gp;

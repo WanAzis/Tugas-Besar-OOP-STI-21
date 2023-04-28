@@ -10,7 +10,7 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class RakBuku extends Objek{
+public class RakBuku extends Barang{
 
 	public RakBuku(GamePanel gp) {
 		this.gp = gp;

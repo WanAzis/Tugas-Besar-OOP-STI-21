@@ -9,12 +9,12 @@ public class Ruangan
     private int sisaLuas;
     private String nama;
     private Ruangan[] ruanganTetangga;
-    private ArrayList<Objek> listBarang;
+    private ArrayList<Barang> listBarang;
 
     public Ruangan(String nama)
     {
         this.nama = nama;
-        this.listBarang = new ArrayList<Objek>();
+        this.listBarang = new ArrayList<Barang>();
         this.ruanganTetangga = new Ruangan[4];
     }
 
@@ -40,7 +40,7 @@ public class Ruangan
         this.nama = nama;
     }
 
-    public ArrayList<Objek> getListBarang() 
+    public ArrayList<Barang> getListBarang() 
     {
         return listBarang;
     }

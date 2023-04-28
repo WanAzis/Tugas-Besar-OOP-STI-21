@@ -10,7 +10,7 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class TV extends Objek{
+public class TV extends Barang{
 
 	public TV(GamePanel gp) {
 		this.gp = gp;

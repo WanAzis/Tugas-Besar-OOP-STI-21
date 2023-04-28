@@ -10,7 +10,7 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class Jam extends Objek{
+public class Jam extends Barang{
 
     public Jam(GamePanel gp) {
 		this.gp = gp;
