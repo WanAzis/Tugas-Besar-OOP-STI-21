@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import objek.Objek;
+import objek.Barang;
 
 public class UI {
     
@@ -269,12 +269,29 @@ public class UI {
         g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 4, 4);
 
         //DESC WINDOW
-        final int dframeX = gp.originalTileSize;
+        final int dframeX = gp.tileSize*4 - 10;
         final int dframeY = gp.tileSize*4 - 5;
-        final int dframeWidth = gp.tileSize*3 + gp.originalTileSize;
+        final int dframeWidth = gp.tileSize*2;
         final int dframeHeight = gp.tileSize*2 - gp.originalTileSize + 10;
-        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        drawSubWindow(dframeX, dframeY, dframeWidth, dframeHeight);
 
+        //DESC TEXT
+        int textX = dframeX + 8;
+        int textY = dframeY + 23;
+        g2.setFont(g2.getFont().deriveFont(17F));
+
+        int itemIdx = getItemIndexOnSlot();
+        if(itemIdx < gp.sim.inventory.size()){
+            for(String line : gp.sim.inventory.get(itemIdx).deskripsi.split("\n")){
+                g2.drawString(line, textX, textY);
+                textY+=18;
+            }
+        }
+
+    }
+    public int getItemIndexOnSlot(){
+        int itemIdx = slotCol + (slotRow*8);
+        return itemIdx;
     }
     public void drawStatus(){
         //FRAME
@@ -308,7 +325,7 @@ public class UI {
 
         //DRAW NAMA RUANGAN
     }
-    public void drawDurationState(Objek obj){
+    public void drawDurationState(Barang obj){
 
         //FRAME
         final int frameX = gp.tileSize + gp.tileSize/2;
@@ -386,7 +403,7 @@ public class UI {
         }
         
     }
-    public void drawUseObject(Objek obj){
+    public void drawUseObject(Barang obj){
         
     }
     private void drawSubWindow(int x, int y, int width, int height){

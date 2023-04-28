@@ -10,7 +10,7 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class MesinCuci extends Objek{
+public class MesinCuci extends Barang{
 
 	public MesinCuci(GamePanel gp) {
 		this.gp = gp;

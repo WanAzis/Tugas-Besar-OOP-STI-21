@@ -10,7 +10,7 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class KomporListrik extends Objek{
+public class KomporListrik extends Barang{
 
 	public KomporListrik(GamePanel gp) {
 		this.gp = gp;

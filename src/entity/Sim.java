@@ -86,18 +86,8 @@ public class Sim extends Entity{
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
 		inventory.add(new Toilet(gp));
-		inventory.add(new KasurSingle(gp));
-		inventory.add(new Toilet(gp));
-		inventory.add(new KasurSingle(gp));
-		inventory.add(new Toilet(gp));
-		inventory.add(new KasurSingle(gp));
-		inventory.add(new Toilet(gp));
-		inventory.add(new KasurSingle(gp));
-		inventory.add(new Toilet(gp));
-		inventory.add(new KasurSingle(gp));
-		inventory.add(new Toilet(gp));
-		inventory.add(new KasurSingle(gp));
-		inventory.add(new Toilet(gp));
+		inventory.add(new Nasi(gp));
+		inventory.add(new Nasi(gp));
 	}
 	
 	//GETTER
@@ -209,6 +199,20 @@ public class Sim extends Entity{
 		}
 	}
 	
+	public void selectItem(){
+		int itemIdx = gp.ui.getItemIndexOnSlot();
+
+		if(itemIdx < inventory.size()){
+			Objek selectedItem = inventory.get(itemIdx);
+
+			if(selectedItem instanceof Makanan){
+				((Makanan) selectedItem).used(this);
+			}
+			else if(selectedItem instanceof Barang){
+				//IMPLEMENTASI TARO OBJECT
+			}
+		}
+	}
 	public void draw(Graphics2D g2) {
 		
 		BufferedImage image = null;

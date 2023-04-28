@@ -10,13 +10,13 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class Toilet extends Objek{
+public class Toilet extends Barang{
 
 	public Toilet(GamePanel gp) {
 		this.gp = gp;
 		name = "Toilet";
 		action = "BUANG AIR";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk buang air"; 
+		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk buang air"; 
 		panjang = 1;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);

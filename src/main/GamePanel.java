@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import entity.Sim;
 import tile.TileManager;
-import objek.Objek;
+import objek.Barang;
 
 import javax.swing.JPanel;
 
@@ -41,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	//PLAYER
     public Sim sim = new Sim(this,keyH);
-    public Objek obj[] = new Objek[10];
+    public Barang obj[] = new Barang[10];
     
 	//GAME STATE
 	public int gameState;

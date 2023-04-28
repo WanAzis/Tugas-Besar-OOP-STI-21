@@ -10,7 +10,7 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class KomporGas extends Objek{
+public class KomporGas extends Barang{
 
 	public KomporGas(GamePanel gp) {
 		this.gp = gp;

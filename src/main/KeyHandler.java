@@ -3,7 +3,7 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import objek.Objek;
+import objek.Barang;
 
 public class KeyHandler implements KeyListener{
 
@@ -96,7 +96,7 @@ public class KeyHandler implements KeyListener{
 			gp.gameState=gp.durationState;
 		}
 	}
-	private void durationState(int code, Objek obj){
+	private void durationState(int code, Barang obj){
 		switch(obj.getName()){
 			case "Kasur" : durationKasurState(code);
 		}
@@ -166,6 +166,9 @@ public class KeyHandler implements KeyListener{
 			if(gp.ui.slotCol>0){
 				gp.ui.slotCol--;
 			}
+		}
+		if(code == KeyEvent.VK_ENTER){
+			gp.sim.selectItem();
 		}
 	}
 	@Override

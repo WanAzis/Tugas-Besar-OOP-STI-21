@@ -14,7 +14,7 @@ public class KasurSingle extends Kasur{
 
 	public KasurSingle(GamePanel gp) {
 		super(gp);
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk tidur"; 
+		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk tidur"; 
 		panjang = 4;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
