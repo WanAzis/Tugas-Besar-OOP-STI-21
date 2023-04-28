@@ -10,13 +10,11 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class KomporListrik extends Barang{
+public class KomporListrik extends Kompor{
 
 	public KomporListrik(GamePanel gp) {
-		this.gp = gp;
-		name = "Kompor Listrik";
-		action = "Memasak";
-		duration = 
+		super(gp);
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk tidur"; 
 		panjang = 1;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
@@ -43,18 +41,6 @@ public class KomporListrik extends Barang{
 			image = ImageIO.read(new File("../resources/barang/komlis1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void effect(Sim sim, int duration) {
-		counter++;
-		if(counter>=duration){
-			unUsed();
-			counter=0;
-			// sim.setMood(sim.getMood()+10);
-			gp.gameState=gp.playState;
-			sim.getPlayerImage();
 		}
 	}
 }

@@ -47,6 +47,10 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.notifState){
 			notifState(code);
 		}
+		else if(gp.gameState == gp.menuState)
+		{
+			menuState(code);
+		}
 	}
 
 	private void titleState(int code){
@@ -93,7 +97,48 @@ public class KeyHandler implements KeyListener{
 		}
 		if(code == KeyEvent.VK_ENTER && gp.sim.interactObject){
 			if(gp.obj[gp.sim.interactObjectIdx].getName()=="Kasur")
-			gp.gameState=gp.durationState;
+			{
+				gp.gameState=gp.durationState;
+			}
+			else if(gp.obj[gp.sim.interactObjectIdx].getName()=="Toilet")
+			{
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*10);
+				gp.gameState=gp.useObjectState;
+				gp.sim.setNullImage();
+				gp.obj[gp.sim.interactObjectIdx].used();
+			}
+			else if(gp.obj[gp.sim.interactObjectIdx].getName()=="Kompor")
+			{
+				gp.gameState = gp.menuState;
+			}
+			else if(gp.obj[gp.sim.interactObjectIdx].getName()=="Meja kursi")
+			{
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*30);
+				gp.gameState=gp.useObjectState;
+				gp.sim.setNullImage();
+				gp.obj[gp.sim.interactObjectIdx].used();
+			}
+			else if(gp.obj[gp.sim.interactObjectIdx].getName()=="Mesin cuci")
+			{
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*20);
+				gp.gameState=gp.useObjectState;
+				// gp.sim.setNullImage();
+				gp.obj[gp.sim.interactObjectIdx].used();
+			}
+			else if(gp.obj[gp.sim.interactObjectIdx].getName()=="Rak buku")
+			{
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*60);
+				gp.gameState=gp.useObjectState;
+				// gp.sim.setNullImage();
+				gp.obj[gp.sim.interactObjectIdx].used();
+			}
+			else if(gp.obj[gp.sim.interactObjectIdx].getName()=="Sajadah")
+			{
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*45);
+				gp.gameState=gp.useObjectState;
+				gp.sim.setNullImage();
+				gp.obj[gp.sim.interactObjectIdx].used();
+			}
 		}
 	}
 	private void durationState(int code, Barang obj){
@@ -101,6 +146,44 @@ public class KeyHandler implements KeyListener{
 			case "Kasur" : durationKasurState(code);
 		}
 	}
+
+	private void menuState(int code)
+	{
+		if(code == KeyEvent.VK_UP){
+			if(gp.ui.commandNum>0){
+				gp.ui.commandNum--;
+			}
+		}
+		if(code == KeyEvent.VK_DOWN){
+			if(gp.ui.commandNum<5){
+				gp.ui.commandNum++;
+			}
+		}
+		if(code == KeyEvent.VK_ESCAPE){
+			gp.gameState=gp.playState;
+		}
+		if(code == KeyEvent.VK_ENTER){
+			if(gp.ui.commandNum==0){ //nasiayam
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*(16+(16/2)));
+			}
+			else if(gp.ui.commandNum==1){//nasikari
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*(30+(30/2)));
+			}
+			else if(gp.ui.commandNum==2){//susukacang
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*(5+(5/2)));
+			}
+			else if(gp.ui.commandNum==3){//tumissayur
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*(5+(5/2)));
+			}
+			else if(gp.ui.commandNum==3){//bistik
+				gp.obj[gp.sim.interactObjectIdx].setDuration(60*(22+(22/2)));
+			}
+			gp.gameState=gp.useObjectState;
+			gp.sim.setNullImage();
+			gp.obj[gp.sim.interactObjectIdx].used();
+		}
+	}
+
 	private void durationKasurState(int code){
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){

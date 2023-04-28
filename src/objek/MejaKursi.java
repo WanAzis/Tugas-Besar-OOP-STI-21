@@ -15,7 +15,8 @@ public class MejaKursi extends Barang{
 	public MejaKursi(GamePanel gp) {
 		this.gp = gp;
 		name = "Meja kursi";
-		action = "makan";
+		action = "MAKAN";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk makan";
 		panjang = 3;
 		lebar = 3;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
@@ -37,13 +38,25 @@ public class MejaKursi extends Barang{
 	}
 
 	@Override
+	public void unUsed()
+	{
+		gp.sim.setStatus("IDLE");
+		try {
+			image = ImageIO.read(new File("../resources/barang/toilet.png")); //ganti foto
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
 	public void effect(Sim sim, int duration) {
 		counter++;
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			// sim.setKekenyangan(sim.getKekenyangan()-makanan.getKekenyangan()); //pastiin ada method nya
-			gp.gameState=gp.playState;
+			sim.plusKekenyangan(sim.getMakanan().getKekenyangan());
+            gp.ui.setNotifMessage("Selamat anda sudah memasak, \nkekenyangan " + sim.getMakanan().getKekenyangan());
+			gp.gameState=gp.notifState;
 			sim.getPlayerImage();
 		}
 	}

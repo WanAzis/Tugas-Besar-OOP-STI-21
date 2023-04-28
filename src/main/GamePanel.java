@@ -52,6 +52,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int useObjectState = 4;
 	public final int durationState = 5;
 	public final int notifState = 6;
+    public final int menuState = 7;
+	
     
     public GamePanel(){
 
