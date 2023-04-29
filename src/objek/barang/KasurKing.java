@@ -1,4 +1,4 @@
-package objek;
+package objek.barang;
 
 import java.awt.Rectangle;
 import java.io.IOException;

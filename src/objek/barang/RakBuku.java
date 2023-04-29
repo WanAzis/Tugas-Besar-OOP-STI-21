@@ -1,4 +1,4 @@
-package objek;
+package objek.barang;
 
 import java.awt.Rectangle;
 import java.io.IOException;
@@ -10,18 +10,18 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class Sajadah extends Barang{
+public class RakBuku extends Barang{
 
-	public Sajadah(GamePanel gp) {
+	public RakBuku(GamePanel gp) {
 		this.gp = gp;
-		name = "Sajadah";
-		action = "BERIBADAH";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk buang air";
-		panjang = 2;
+		name = "Rak buku";
+		action = "MEMBACA";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk membaca"; 
+		panjang = 3;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		try {
-			image = ImageIO.read(new File("../resources/barang/toilet.png")); //ganti gambar
+			image = ImageIO.read(new File("../resources/barang/toilet.png")); //ganti foto
 			
 		}catch(IOException e){
 			e.printStackTrace();
@@ -36,6 +36,7 @@ public class Sajadah extends Barang{
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public void unUsed()
 	{
@@ -53,10 +54,10 @@ public class Sajadah extends Barang{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.plusMood(15);
-			gp.ui.setNotifMessage("Selamat anda sudah beribadah, \nmood +15");
+			sim.plusMood(10);
+			gp.ui.setNotifMessage("Selamat anda sudah membaca, \nmood +10");
 			gp.gameState=gp.notifState;
-			sim.getPlayerImage();
+			// sim.getPlayerImage(); ini gatau kalo baca gambarannya gmn guys? ini asumsi klo dia ga ilang ya ky berdiri doang
 		}
 	}
 }

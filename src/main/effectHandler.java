@@ -58,14 +58,16 @@ public class effectHandler {
 
     public boolean checkToilet()
     {
-        if(counter - curToilet >= (60*5))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        if(curToilet!=0){
+            if(counter - curToilet >= (60*5))   //GANTI
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        } return true;
     }
 }
 /*yang toilet belom dibenerin*/

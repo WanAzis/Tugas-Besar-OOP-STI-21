@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import objek.Barang;
+import objek.barang.Barang;
 
 public class UI {
     
@@ -77,6 +77,9 @@ public class UI {
         }
         if(gp.gameState==gp.notifState){
             drawNotifScreen();
+        }
+        if(gp.gameState==gp.useMakananState){
+            drawStatus();
         }
     }
 
@@ -249,7 +252,7 @@ public class UI {
 
         //DRAW ITEMS
         for(int i = 0; i<gp.sim.inventory.size(); i++){
-            g2.drawImage(gp.sim.inventory.get(i).image, slotX, slotY, slotSize, slotSize, null);
+            g2.drawImage(gp.sim.inventory.get(i).getImage(), slotX, slotY, slotSize, slotSize, null);
             slotX+=slotSize;
             if(i == 7 || i == 15 || i == 23){
                 slotX = slotXstart;

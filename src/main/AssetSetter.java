@@ -1,6 +1,9 @@
 package main;
 
 import objek.*;
+import objek.barang.KasurSingle;
+import objek.barang.MejaKursi;
+import objek.barang.Toilet;
 
 public class AssetSetter {
 
@@ -18,6 +21,10 @@ public class AssetSetter {
 		gp.obj[1] = new Toilet(gp);
 		gp.obj[1].screenX = 5 * gp.tileSize;
 		gp.obj[1].screenY = 1 * gp.tileSize;
+
+		gp.obj[2] = new MejaKursi(gp);
+		gp.obj[2].screenX = 3 * gp.tileSize;
+		gp.obj[2].screenY = 3 * gp.tileSize;
 		
 	}
 }

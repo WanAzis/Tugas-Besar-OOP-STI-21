@@ -1,4 +1,4 @@
-package objek;
+package objek.barang;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class Kompor extends Objek {
+public class Kompor extends Barang {
     //konstruktor
     public Kompor(GamePanel gp)
     {
@@ -28,6 +28,7 @@ public class Kompor extends Objek {
             counter = 0;
             sim.plusMood(10);
             gp.ui.setNotifMessage("Selamat anda sudah memasak, \nmood +10");
+            gp.gameState=gp.notifState;
         }
     }
 }

@@ -5,8 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import entity.Sim;
+import objek.barang.Barang;
 import tile.TileManager;
-import objek.Barang;
 
 import javax.swing.JPanel;
 
@@ -53,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int durationState = 5;
 	public final int notifState = 6;
     public final int menuState = 7;
+	public final int useMakananState = 8;
 	
     
     public GamePanel(){
@@ -128,6 +129,11 @@ public class GamePanel extends JPanel implements Runnable{
 			dayUpdate();
 			useObjectUpdate(sim.interactObjectIdx, obj[sim.interactObjectIdx].getDuration());
 		}
+		else if(gameState==useMakananState){
+			dayUpdate();
+			useMakananUpdate();
+		}
+		else{}
 	}
 
 	private void dayUpdate() {
@@ -160,6 +166,9 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	public void useObjectUpdate(int i, int duration){
 		obj[i].effect(sim, duration);
+	}
+	public void useMakananUpdate(){
+		sim.makanan.used(sim);
 	}
 
 	public void paintComponent(Graphics gp) {

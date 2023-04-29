@@ -3,7 +3,7 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import objek.Barang;
+import objek.barang.Barang;
 
 public class KeyHandler implements KeyListener{
 
@@ -113,10 +113,7 @@ public class KeyHandler implements KeyListener{
 			}
 			else if(gp.obj[gp.sim.interactObjectIdx].getName()=="Meja kursi")
 			{
-				gp.obj[gp.sim.interactObjectIdx].setDuration(60*30);
-				gp.gameState=gp.useObjectState;
-				gp.sim.setNullImage();
-				gp.obj[gp.sim.interactObjectIdx].used();
+				gp.gameState=gp.simInfo;
 			}
 			else if(gp.obj[gp.sim.interactObjectIdx].getName()=="Mesin cuci")
 			{

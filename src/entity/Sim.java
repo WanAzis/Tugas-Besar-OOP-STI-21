@@ -15,6 +15,11 @@ import java.io.File;
 import main.GamePanel;
 import main.KeyHandler;
 import objek.*;
+import objek.barang.Barang;
+import objek.barang.KasurSingle;
+import objek.barang.Toilet;
+import objek.makanan.Makanan;
+import objek.makanan.Nasi;
 
 public class Sim extends Entity{
 	
@@ -38,6 +43,7 @@ public class Sim extends Entity{
 	
 	public boolean useObject;
 	public int interactObjectIdx;
+	public Makanan makanan;
 	private final int maxKekenyangan = 100;
 	private final int maxMood = 100;
 	private final int maxKesehatan = 100;
@@ -206,12 +212,25 @@ public class Sim extends Entity{
 			Objek selectedItem = inventory.get(itemIdx);
 
 			if(selectedItem instanceof Makanan){
-				((Makanan) selectedItem).used(this);
+				setNullImage();
+				if(findMejaKursiIdx()!=999){
+					gp.obj[findMejaKursiIdx()].used();
+				}
+				gp.gameState = gp.useMakananState;
+				makanan = (Makanan) selectedItem;
+				inventory.remove(itemIdx);
 			}
 			else if(selectedItem instanceof Barang){
 				//IMPLEMENTASI TARO OBJECT
 			}
 		}
+	}
+	public int findMejaKursiIdx(){
+		for(int i = 0; i<gp.obj.length; i++){
+			if(gp.obj[i].getName()=="Meja kursi"){
+				return i;
+			}
+		} return 999;
 	}
 	public void draw(Graphics2D g2) {
 		

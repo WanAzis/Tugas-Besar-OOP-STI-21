@@ -1,6 +1,8 @@
 package tile;
 
 import objek.*;
+import objek.barang.Barang;
+
 import java.awt.List;
 import java.util.ArrayList;
 
