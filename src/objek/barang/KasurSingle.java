@@ -56,4 +56,25 @@ public class KasurSingle extends Kasur{
 			case "up" : image=up; break;
 		}
 	}
+
+	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+	}
+	@Override
+	public void rotate() {
+		
+	}
 }

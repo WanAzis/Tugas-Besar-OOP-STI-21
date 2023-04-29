@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+
 import entity.Sim;
 import objek.barang.Barang;
 import tile.TileManager;
@@ -41,6 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	//PLAYER
     public Sim sim = new Sim(this,keyH);
+	// public ArrayList<Barang> obj = new ArrayList<>();
     public Barang obj[] = new Barang[10];
     
 	//GAME STATE
@@ -54,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int notifState = 6;
     public final int menuState = 7;
 	public final int useMakananState = 8;
+	public final int placeObjectState = 9;
 	
     
     public GamePanel(){
@@ -66,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void setUpGame() {
-    	aSetter.setObject();
+    	// aSetter.setObject();
 		gameState = titleState;
 		day = 1;
 		dayCounter = 0;
@@ -83,6 +87,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public int getMaxScreenRow() {
 		return maxScreenRow;
 	}
+
+	//SETTER
+	
 
     public void startGameThread() {
     	
@@ -133,6 +140,9 @@ public class GamePanel extends JPanel implements Runnable{
 			dayUpdate();
 			useMakananUpdate();
 		}
+		else if(gameState==placeObjectState){
+			cChecker.checkPlaceObject(sim.selectBarang);
+		}
 		else{}
 	}
 
@@ -178,7 +188,9 @@ public class GamePanel extends JPanel implements Runnable{
 		//TITLE SCREEN
 		if(gameState == titleState){
 			ui.draw(g2);
-		} else{
+		} 
+		//ELSE
+		else{
 			tileM.draw(g2);
 			for(int i = 0; i<obj.length; i++) {
 				if(obj[i]!=null) {

@@ -1,12 +1,10 @@
 package objek.makanan;
 
-import entity.Sim;
 import main.GamePanel;
 
 public class BahanMakanan extends Makanan{
     
     protected int harga;
-    protected int kekenyangan;
 
     BahanMakanan(GamePanel gp){
         this.gp = gp;
@@ -14,24 +12,8 @@ public class BahanMakanan extends Makanan{
 
     //GETTER
     public int getHarga(){return harga;}
-    public int getKekenyangan(){return kekenyangan;}
 
     //SETTER
 
-    @Override
-    public void used(Sim sim){
-        counter++;
-        if(counter>=60*5){
-            counter = 0;
-            sim.makanan = null;
-            sim.plusKekenyangan(kekenyangan);
-            gp.eHandler.setCurToilet();
-            gp.ui.setNotifMessage("Anda selesai makan " + name + ",\nkekenyangan +" + kekenyangan);
-            if(sim.findMejaKursiIdx()!=999){
-                gp.obj[sim.findMejaKursiIdx()].unUsed();
-            }
-            gp.gameState=gp.notifState;
-            sim.getPlayerImage();
-        }
-    }
+    
 }

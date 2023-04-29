@@ -18,8 +18,11 @@ import objek.*;
 import objek.barang.Barang;
 import objek.barang.KasurSingle;
 import objek.barang.Toilet;
+import objek.makanan.BahanMakanan;
 import objek.makanan.Makanan;
+import objek.makanan.Masakan;
 import objek.makanan.Nasi;
+import objek.makanan.NasiAyam;
 
 public class Sim extends Entity{
 	
@@ -44,6 +47,7 @@ public class Sim extends Entity{
 	public boolean useObject;
 	public int interactObjectIdx;
 	public Makanan makanan;
+	public Barang selectBarang;
 	private final int maxKekenyangan = 100;
 	private final int maxMood = 100;
 	private final int maxKesehatan = 100;
@@ -221,7 +225,8 @@ public class Sim extends Entity{
 				inventory.remove(itemIdx);
 			}
 			else if(selectedItem instanceof Barang){
-				//IMPLEMENTASI TARO OBJECT
+				gp.gameState = gp.placeObjectState;
+				selectBarang = (Barang) selectedItem;
 			}
 		}
 	}
@@ -271,5 +276,27 @@ public class Sim extends Entity{
 			break;
 		}
 		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+	}
+
+    public boolean checkAvailableInventory(String masakan) {
+		switch(masakan){
+			case "Nasi Ayam" : return checkNasiAyam();
+			default : return false;
+		}
+    }
+	private boolean checkNasiAyam(){
+		boolean beAble = true;
+
+		Masakan nasiAyam = new NasiAyam(gp);
+
+		int i = 0;
+
+		while(i<nasiAyam.listBahan.length && beAble){
+			if(!inventory.contains(nasiAyam.listBahan[i])){
+				beAble = false;
+			} i++;
+		}
+
+		return beAble;
 	}
 }

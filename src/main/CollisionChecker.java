@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import objek.barang.Barang;
 
 public class CollisionChecker {
 	
@@ -105,8 +106,7 @@ public class CollisionChecker {
 					entity.collisionOn = true;
 				}
 				break;
-			case "right": 
-				// entity.solidArea.x += entity.speed; 
+			case "right":  
 				check = entity.solidArea.x + entity.solidArea.width;
 				if(check >= 6*gp.tileSize) {
 					entity.collisionOn = true;
@@ -115,5 +115,22 @@ public class CollisionChecker {
 			}
 			entity.solidArea.x = entity.solidAreaDefaultX;
 			entity.solidArea.y = entity.solidAreaDefaultY;
+	}
+
+	public void checkPlaceObject(Barang barang){
+		for(int i = 0; i<gp.obj.length; i++) {
+			if(gp.obj[i]!=null && !gp.obj[i].equals(barang)){
+				barang.solidArea.x = barang.screenX + barang.solidArea.x;
+				barang.solidArea.y = barang.screenY + barang.solidArea.y;
+
+				gp.obj[i].solidArea.x = gp.obj[i].screenX + gp.obj[i].solidArea.x;
+				gp.obj[i].solidArea.y = gp.obj[i].screenY + gp.obj[i].solidArea.y;
+
+				if(barang.solidArea.intersects(gp.obj[i].solidArea)){
+					barang.collisionWithOthers=true;
+					break;
+				}
+			}
+		}
 	}
 }

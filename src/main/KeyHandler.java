@@ -44,15 +44,21 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.durationState){
 			durationState(code, gp.obj[gp.sim.interactObjectIdx]);
 		}
+		//NOTIF STATE
 		else if(gp.gameState==gp.notifState){
 			notifState(code);
 		}
+		//MENU STATE
 		else if(gp.gameState == gp.menuState)
 		{
 			menuState(code);
 		}
+		//PLACE OBJEK STATE
+		else if(gp.gameState==gp.placeObjectState){
+			placeObjectScreen(code);
+		}
 	}
-
+	
 	private void titleState(int code){
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
@@ -160,8 +166,9 @@ public class KeyHandler implements KeyListener{
 			gp.gameState=gp.playState;
 		}
 		if(code == KeyEvent.VK_ENTER){
-			if(gp.ui.commandNum==0){ //nasiayam
+			if(gp.ui.commandNum==0 && gp.sim.checkAvailableInventory("Nasi Ayam")){ //nasiayam
 				gp.obj[gp.sim.interactObjectIdx].setDuration(60*(16+(16/2)));
+				//nasi ayam masuk ke inventory
 			}
 			else if(gp.ui.commandNum==1){//nasikari
 				gp.obj[gp.sim.interactObjectIdx].setDuration(60*(30+(30/2)));
@@ -251,6 +258,27 @@ public class KeyHandler implements KeyListener{
 			gp.sim.selectItem();
 		}
 	}
+	private void placeObjectScreen(int code) {
+		if(code == KeyEvent.VK_R){
+			gp.sim.selectBarang.rotate();
+		}
+		if(code == KeyEvent.VK_UP){
+			gp.sim.selectBarang.moveUp();
+		}
+		if(code == KeyEvent.VK_DOWN){
+			gp.sim.selectBarang.moveDown();
+		}
+		if(code == KeyEvent.VK_RIGHT){
+			gp.sim.selectBarang.moveRight();
+		}
+		if(code == KeyEvent.VK_LEFT){
+			gp.sim.selectBarang.moveLeft();
+		}
+		if(code == KeyEvent.VK_ENTER && !gp.sim.selectBarang.collisionWithOthers){
+			gp.obj[gp.obj.length] = gp.sim.selectBarang;
+		}
+	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int code = e.getKeyCode();

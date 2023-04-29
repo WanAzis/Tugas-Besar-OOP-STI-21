@@ -10,7 +10,7 @@ import java.awt.Rectangle;
 import main.GamePanel;
 import objek.Objek;
 
-public class Barang extends Objek{
+public class Barang extends Objek implements canMove{
 
 	public GamePanel gp;
 	public BufferedImage imageUsed;
@@ -19,7 +19,9 @@ public class Barang extends Objek{
 	public String action;
 	protected int duration;
 	public boolean collision = true;
-	public int screenX, screenY;
+	public int screenX = gp.tileSize;
+	public int screenY = gp.tileSize;
+	public boolean collisionWithOthers;
 	public int panjang, lebar;
 	public Rectangle solidArea;
 	public int solidAreaDefaultX = 0;
@@ -40,4 +42,14 @@ public class Barang extends Objek{
 	public void used(){}
 	public void unUsed(){}
 	public void effect(Sim sim, int duration){}
+	@Override
+	public void moveUp() {}
+	@Override
+	public void moveDown() {}
+	@Override
+	public void moveLeft() {}
+	@Override
+	public void moveRight() {}
+	@Override
+	public void rotate() {}
 }
