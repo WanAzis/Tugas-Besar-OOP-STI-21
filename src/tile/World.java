@@ -1,3 +1,4 @@
+package tile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,11 +40,13 @@ public class World {
             sisaLuas-=1;
             int min = 0;
             int max=63;
+            int koordinatx = 0;
+            int koordinaty= 0;
             Boolean flag = true;
             while (flag){
                 Random random = new Random();
-                int koordinatx= random.nextInt((max-min)+1) + min;
-                int koordinaty=random.nextInt((max-min)+1)+min;
+                koordinatx= random.nextInt((max-min)+1) + min;
+                koordinaty=random.nextInt((max-min)+1)+min;
                 if (matriksWorld[koordinatx][koordinaty] != 'R'){
                     flag = false;
                 }
