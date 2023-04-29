@@ -19,8 +19,8 @@ public class Barang extends Objek implements canMove{
 	public String action;
 	protected int duration;
 	public boolean collision = true;
-	public int screenX = gp.tileSize;
-	public int screenY = gp.tileSize;
+	public int screenX;
+	public int screenY;
 	public boolean collisionWithOthers;
 	public int panjang, lebar;
 	public Rectangle solidArea;

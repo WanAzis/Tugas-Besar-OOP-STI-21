@@ -275,7 +275,7 @@ public class KeyHandler implements KeyListener{
 			gp.sim.selectBarang.moveLeft();
 		}
 		if(code == KeyEvent.VK_ENTER && !gp.sim.selectBarang.collisionWithOthers){
-			gp.obj[gp.obj.length] = gp.sim.selectBarang;
+			gp.gameState=gp.playState;
 		}
 	}
 

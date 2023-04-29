@@ -19,6 +19,8 @@ public class Toilet extends Barang{
 		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk buang air"; 
 		panjang = 1;
 		lebar = 1;
+		screenX = gp.tileSize;
+		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		image = down;
@@ -65,6 +67,31 @@ public class Toilet extends Barang{
 			sim.getPlayerImage();
 		}
 
+	}
+
+	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
+	}
+	@Override
+	public void rotate() {
+		
 	}
 }
 

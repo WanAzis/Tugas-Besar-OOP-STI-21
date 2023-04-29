@@ -227,6 +227,7 @@ public class Sim extends Entity{
 			else if(selectedItem instanceof Barang){
 				gp.gameState = gp.placeObjectState;
 				selectBarang = (Barang) selectedItem;
+				gp.addBarang(selectBarang);
 			}
 		}
 	}

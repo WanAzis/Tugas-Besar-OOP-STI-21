@@ -1,9 +1,7 @@
 package tile;
 
-import objek.*;
-import objek.barang.Barang;
+import objek.barang.*;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 public class Ruangan

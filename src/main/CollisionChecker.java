@@ -130,6 +130,7 @@ public class CollisionChecker {
 					barang.collisionWithOthers=true;
 					break;
 				}
+				// else barang.collisionWithOthers=false;
 			}
 		}
 	}

@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import entity.Sim;
+import objek.Objek;
 import objek.barang.Barang;
 import tile.TileManager;
 
@@ -89,7 +90,13 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	//SETTER
-	
+	public void addBarang(Barang barang){
+		int i = 0;
+		while(i<obj.length && obj[i]!=null){
+			i++;
+		} 
+		obj[i] = barang;
+	}
 
     public void startGameThread() {
     	
@@ -141,6 +148,7 @@ public class GamePanel extends JPanel implements Runnable{
 			useMakananUpdate();
 		}
 		else if(gameState==placeObjectState){
+			sim.selectBarang.collisionWithOthers=false;
 			cChecker.checkPlaceObject(sim.selectBarang);
 		}
 		else{}

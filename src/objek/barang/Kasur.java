@@ -16,6 +16,8 @@ public class Kasur extends Barang{
 		name = "Kasur";
 		action = "TIDUR";
 		direction = "down";
+		screenX = gp.tileSize;
+		screenY = gp.tileSize;
 	}
 
 	@Override

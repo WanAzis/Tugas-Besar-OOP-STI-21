@@ -60,21 +60,53 @@ public class KasurSingle extends Kasur{
 	@Override
 	public void moveUp() {
 		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
 	}
 	@Override
 	public void moveDown() {
 		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
 	}
 	@Override
 	public void moveLeft() {
 		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
 	}
 	@Override
 	public void moveRight() {
 		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
 	}
 	@Override
 	public void rotate() {
-		
+		if(direction=="down"){
+			direction="left";
+			image = left;
+			swapSize();
+		}
+		else if(direction=="left"){
+			direction="up";
+			image=up;
+			swapSize();
+		}
+		else if(direction=="up"){
+			direction="right";
+			image=right;
+			swapSize();
+		}
+		else if(direction=="right"){
+			direction="down";
+			image=down;
+			swapSize();
+		}
+	}
+	private void swapSize(){
+		int temp = panjang;
+		panjang = lebar;
+		lebar = temp;
+
+		temp = solidArea.height;
+		solidArea.height = solidArea.width;
+		solidArea.width = temp;
 	}
 }
