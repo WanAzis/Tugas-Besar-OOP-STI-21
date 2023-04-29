@@ -17,6 +17,8 @@ public class Kompor extends Barang {
         name = "Kompor";
         action = "MEMASAK";
         direction = "down";
+        screenX = gp.tileSize;
+		screenY = gp.tileSize;
     }
     //effect
     public void effect(Sim sim, int duration)
