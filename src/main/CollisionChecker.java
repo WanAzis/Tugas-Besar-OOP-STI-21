@@ -90,25 +90,25 @@ public class CollisionChecker {
 		switch(entity.direction) {
 			case "up":  
 				check = entity.solidArea.y - entity.speed;
-				if(check <= 0*gp.tileSize) {
+				if(check <= gp.startRoomY) {
 					entity.collisionOn = true;
 				}
 				break;
 			case "down": 
 				check = entity.solidArea.y+entity.solidArea.height;
-				if(check >= 6*gp.tileSize) {
+				if(check >= gp.startRoomY + 6*gp.tileSize) {
 					entity.collisionOn = true;
 				}
 				break;
 			case "left": 
 				check = entity.solidArea.x - entity.speed;
-				if(check<=0*gp.tileSize) {
+				if(check<=gp.startRoomX) {
 					entity.collisionOn = true;
 				}
 				break;
 			case "right":  
 				check = entity.solidArea.x + entity.solidArea.width;
-				if(check >= 6*gp.tileSize) {
+				if(check >= gp.startRoomX + 6*gp.tileSize) {
 					entity.collisionOn = true;
 				}
 				break;

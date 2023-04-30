@@ -83,6 +83,9 @@ public class KeyHandler implements KeyListener{
 		}
 	}
 	private void playState(int code){
+		if(code == KeyEvent.VK_ESCAPE){
+			gp.gameState = gp.titleState;
+		}
 		if(code == KeyEvent.VK_W) {
 			upPressed = true;
 		}

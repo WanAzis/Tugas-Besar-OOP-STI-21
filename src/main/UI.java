@@ -87,58 +87,58 @@ public class UI {
 
         g2.setColor(new Color(0, 0, 0));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,80F));
         String text = "Sim-Plicity";
         int x = getXforCenteredText(text, gp.screenWidth/2);
-        int y = gp.tileSize*1;
+        int y = gp.tileSize*2 + gp.originalTileSize;
 
         //TEXT
         g2.setColor(Color.gray);
-        g2.drawString(text, x+2, y+2);;
+        g2.drawString(text, x+3, y+3);;
         g2.setColor(Color.white);
         g2.drawString(text, x, y);
 
         //SIM
-        x = gp.screenWidth/2 - (gp.originalTileSize*5)/2;
-        y += gp.tileSize/2;
-        g2.drawImage(gp.sim.def, x, y, gp.originalTileSize*5, gp.originalTileSize*5, null);
+        x = gp.screenWidth/2 - (gp.originalTileSize*6)/2;
+        y += gp.tileSize - 10;
+        g2.drawImage(gp.sim.def, x, y, gp.originalTileSize*6, gp.originalTileSize*6, null);
 
         //MENU
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,25F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,35F));
         text = "NEW GAME";
         x = getXforCenteredText(text, gp.screenWidth/2);
-        y = gp.tileSize*4;
+        y = gp.tileSize*6 + gp.tileSize/2;
         g2.drawString(text, x, y);
         if(commandNum==0){
-            g2.drawString(">", x-gp.originalTileSize, y);
+            g2.drawString(">", x-gp.tileSize/2, y);
         }
 
         text = "LOAD GAME";
         x = getXforCenteredText(text, gp.screenWidth/2);
-        y += gp.tileSize/2 + 15;
+        y += gp.tileSize;
         g2.drawString(text, x, y);
         if(commandNum==1){
-            g2.drawString(">", x-gp.originalTileSize, y);
+            g2.drawString(">", x-gp.tileSize/2, y);
         }
 
         text = "QUIT GAME";
         x = getXforCenteredText(text, gp.screenWidth/2);
-        y += gp.tileSize/2 + 15;
+        y += gp.tileSize;
         g2.drawString(text, x, y);
         if(commandNum==2){
-            g2.drawString(">", x-gp.originalTileSize, y);
+            g2.drawString(">", x-gp.tileSize/2, y);
         }
     }
     private void drawPauseScreen(){
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,60F));
         String text1 = "GAME";
         String text2 = "PAUSED";
-        int x = getXforCenteredText(text1, gp.screenWidth/2);
-        int y = gp.screenHeight/2 - 30;
+        int x = getXforCenteredText(text1, gp.startRoomX + gp.roomWidth/2);
+        int y = gp.screenHeight/2 + gp.tileSize + gp.originalTileSize;
 
         g2.drawString(text1, x, y);
 
-        x = getXforCenteredText(text2, gp.screenWidth/2);
+        x = getXforCenteredText(text2, gp.startRoomX + gp.roomWidth/2);
         y += 60;
 
         g2.drawString(text2, x, y);
@@ -173,10 +173,10 @@ public class UI {
         g2.drawString(text2, x, y);
     }
     public void drawSimInfo(){
-        final int frameX = gp.originalTileSize;
-        final int frameY = gp.tileSize/2;
-        final int frameWidth = gp.tileSize*3 + gp.originalTileSize;
+        final int frameWidth = gp.tileSize*4;
         final int frameHeight = gp.tileSize*3;
+        final int frameX = gp.startRoomX + gp.roomWidth/2 - frameWidth/2;
+        final int frameY = gp.startRoomY + gp.tileSize/2;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         //TEXT
@@ -237,8 +237,8 @@ public class UI {
     }
     public void drawInventory(){
         //FRAME
-        final int frameX = gp.originalTileSize;
-        final int frameY = gp.tileSize*4 - 5;
+        final int frameX = gp.startRoomX + gp.originalTileSize;
+        final int frameY = gp.startRoomY + gp.tileSize*4 - 15;
         final int frameWidth = gp.tileSize*3 + gp.originalTileSize;
         final int frameHeight = gp.tileSize*2 - gp.originalTileSize + 10;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
@@ -272,8 +272,8 @@ public class UI {
         g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 4, 4);
 
         //DESC WINDOW
-        final int dframeX = gp.tileSize*4 - 10;
-        final int dframeY = gp.tileSize*4 - 5;
+        final int dframeX = gp.startRoomX + gp.tileSize*4 - 10;
+        final int dframeY = gp.startRoomY + gp.tileSize*4 - 15;
         final int dframeWidth = gp.tileSize*2;
         final int dframeHeight = gp.tileSize*2 - gp.originalTileSize + 10;
         drawSubWindow(dframeX, dframeY, dframeWidth, dframeHeight);
@@ -298,8 +298,8 @@ public class UI {
     }
     public void drawStatus(){
         //FRAME
-        final int frameX = gp.tileSize*4;
-        final int frameY = gp.tileSize*4 + gp.tileSize/2;
+        final int frameX = gp.startPanelX;
+        final int frameY = gp.startPanelY + 20;
         final int frameWidth = gp.tileSize*2;
         final int frameHeight = gp.tileSize + gp.tileSize/2;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
@@ -331,10 +331,10 @@ public class UI {
     public void drawDurationState(Barang obj){
 
         //FRAME
-        final int frameX = gp.tileSize + gp.tileSize/2;
-        final int frameY = gp.tileSize + gp.tileSize/2;
-        final int frameWidth = gp.screenWidth - (2*(gp.tileSize + gp.tileSize/2));
-        final int frameHeigth = gp.screenHeight - (2*(gp.tileSize + gp.tileSize/2));
+        final int frameX = gp.startRoomX + gp.tileSize + gp.tileSize/2;
+        final int frameY = gp.startRoomY + gp.tileSize + gp.tileSize/2;
+        final int frameWidth = gp.roomWidth - (2*(gp.tileSize + gp.tileSize/2));
+        final int frameHeigth = gp.roomHeight - (2*(gp.tileSize + gp.tileSize/2));
         drawSubWindow(frameX, frameY, frameWidth, frameHeigth);
 
         //TEXT
@@ -386,10 +386,10 @@ public class UI {
     }
     private void drawNotifScreen(){
         //WINDOW
-        final int frameX = gp.tileSize;
-        final int frameY = gp.tileSize/2;
-        final int frameWidth = gp.tileSize*4;
-        final int frameHeight = gp.tileSize + gp.originalTileSize;
+        final int frameWidth = gp.tileSize*5;
+        final int frameHeight = gp.tileSize*2;
+        final int frameX = gp.tileSize + gp.roomWidth/2 - frameWidth/2;
+        final int frameY = gp.tileSize/2 + gp.tileSize;
         drawSubWindow(frameX, frameY, frameWidth, frameHeight);
 
         //TEXT

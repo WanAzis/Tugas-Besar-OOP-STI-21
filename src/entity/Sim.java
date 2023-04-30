@@ -73,8 +73,8 @@ public class Sim extends Entity{
 	}
 	
 	public void setDefaultValues() {
-		screenX = 100;
-		screenY = 100;
+		screenX = gp.startRoomX + gp.tileSize*2 + gp.tileSize/2;
+		screenY = gp.startRoomY + gp.tileSize*2 + gp.tileSize/2;
 		speed = 2;
 		direction = "down";
 
@@ -198,6 +198,12 @@ public class Sim extends Entity{
 				spriteCounter=0;
 			}
 		}
+
+		//CHECK GAME OVER
+		if(kekenyangan <= 0 || mood <= 0 || kesehatan <= 0){
+			gp.ui.setNotifMessage("Salah satu dari kesejahteraan SIM\nhabis sehingga SIM mati");
+			//MASUK STATE GAME OVER
+		}
 	}
 	
 	public void interactObject(int i) {
@@ -228,6 +234,7 @@ public class Sim extends Entity{
 				gp.gameState = gp.placeObjectState;
 				selectBarang = (Barang) selectedItem;
 				gp.addBarang(selectBarang);
+				inventory.remove(itemIdx);
 			}
 		}
 	}

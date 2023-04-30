@@ -20,10 +20,16 @@ public class GamePanel extends JPanel implements Runnable{
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale; // 48x48 pixel
-    private final int maxScreenCol = 6;
-    private final int maxScreenRow = 6;
+    private final int maxScreenCol = 10;
+    private final int maxScreenRow = 10;
     final int screenWidth = tileSize * getMaxScreenCol();
     final int screenHeight = tileSize * getMaxScreenRow();
+	final int roomWidth = tileSize * 6;
+	final int roomHeight = tileSize * 6;
+	public final int startRoomX = tileSize;
+	public final int startRoomY = tileSize * 4;
+	final int startPanelX = tileSize * 8;
+	final int startPanelY = tileSize * 0;
 
     //FPS
     final int FPS = 60;
@@ -44,7 +50,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 	//PLAYER
     public Sim sim = new Sim(this,keyH);
-	// public ArrayList<Barang> obj = new ArrayList<>();
+	public Sim[] listSim = new Sim[10];
+	// public 
     public Barang obj[] = new Barang[10];
     
 	//GAME STATE
