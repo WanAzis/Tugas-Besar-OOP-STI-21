@@ -41,13 +41,13 @@ public class MejaKursi extends Barang{
 
 	@Override
 	public void used() {
-		gp.sim.setStatus(action);
+		gp.curSim.setStatus(action);
 		image = left;
 	}
 
 	@Override
 	public void unUsed(){
-		gp.sim.setStatus("IDLE");
+		gp.curSim.setStatus("IDLE");
 		image = down;
 	}
 }

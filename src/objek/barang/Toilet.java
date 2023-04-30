@@ -43,7 +43,7 @@ public class Toilet extends Barang{
 
 	@Override
 	public void used() {
-		gp.sim.setStatus(action);
+		gp.curSim.setStatus(action);
 		switch(direction){
 			case "down" : image=downUsed; break;
 			case "left" : image=leftUsed; break;
@@ -54,7 +54,7 @@ public class Toilet extends Barang{
 
 	@Override
 	public void unUsed() {
-		gp.sim.setStatus("IDLE");
+		gp.curSim.setStatus("IDLE");
 		switch(direction){
 			case "down" : image=down; break;
 			case "left" : image=left; break;

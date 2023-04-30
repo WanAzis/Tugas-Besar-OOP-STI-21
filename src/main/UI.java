@@ -56,8 +56,8 @@ public class UI {
             drawTitleScreen();
         }
         if(gp.gameState==gp.playState){
-            if(gp.sim.interactObject){
-                drawInteractObject(gp.sim.interactObjectIdx);
+            if(gp.curSim.interactObject){
+                drawInteractObject(gp.curSim.interactObjectIdx);
             }
             drawStatus();
         }
@@ -69,10 +69,10 @@ public class UI {
             drawInventory();
         }
         if(gp.gameState==gp.durationState){
-            drawDurationState(gp.obj[gp.sim.interactObjectIdx]);
+            drawDurationState(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx]);
         }
         if(gp.gameState==gp.useObjectState){
-            drawUseObject(gp.obj[gp.sim.interactObjectIdx]);
+            drawUseObject(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx]);
             drawStatus();
         }
         if(gp.gameState==gp.notifState){
@@ -80,6 +80,9 @@ public class UI {
         }
         if(gp.gameState==gp.useMakananState){
             drawStatus();
+        }
+        if(gp.gameState==gp.createSimState){
+            createSimScreen();
         }
     }
 
@@ -129,6 +132,12 @@ public class UI {
             g2.drawString(">", x-gp.tileSize/2, y);
         }
     }
+    private void createSimScreen(){
+        //FRAME
+
+
+        //TEXT
+    }
     private void drawPauseScreen(){
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,60F));
         String text1 = "GAME";
@@ -146,7 +155,7 @@ public class UI {
     public void drawInteractObject(int i){
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,10F));
         String text1 = "APAKAH ANDA INGIN MELAKUKAN";
-        String text2 = "AKSI " + gp.obj[i].action + "?";
+        String text2 = "AKSI " + gp.curSim.curRuangan.obj[i].action + "?";
         
         //WINDOW
         int x;
@@ -158,7 +167,7 @@ public class UI {
             x = getXforCenteredBodyPlayer(text2) - gp.originalTileSize/2;
             width = (int)g2.getFontMetrics().getStringBounds(text2, g2).getWidth() + gp.originalTileSize;
         }
-        int y = gp.sim.screenY - gp.tileSize;
+        int y = gp.curSim.screenY - gp.tileSize;
         int height = gp.tileSize;
         
         drawSubWindow(x,y,width,height);
@@ -173,6 +182,7 @@ public class UI {
         g2.drawString(text2, x, y);
     }
     public void drawSimInfo(){
+        //FRAME
         final int frameWidth = gp.tileSize*4;
         final int frameHeight = gp.tileSize*3;
         final int frameX = gp.startRoomX + gp.roomWidth/2 - frameWidth/2;
@@ -206,32 +216,32 @@ public class UI {
         textY = frameY + 25;
         String value;
 
-        value = String.valueOf(gp.sim.getNamaLengkap());
+        value = String.valueOf(gp.curSim.getNamaLengkap());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        value = String.valueOf(gp.sim.getPekerjaan());
+        value = String.valueOf(gp.curSim.getPekerjaan());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        value = String.valueOf(gp.sim.getKesehatan());
+        value = String.valueOf(gp.curSim.getKesehatan());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        value = String.valueOf(gp.sim.getKekenyangan());
+        value = String.valueOf(gp.curSim.getKekenyangan());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        value = String.valueOf(gp.sim.getMood());
+        value = String.valueOf(gp.curSim.getMood());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        value = String.valueOf(gp.sim.getUang());
+        value = String.valueOf(gp.curSim.getUang());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
     }
@@ -251,8 +261,8 @@ public class UI {
         int slotSize = gp.originalTileSize+2;
 
         //DRAW ITEMS
-        for(int i = 0; i<gp.sim.inventory.size(); i++){
-            g2.drawImage(gp.sim.inventory.get(i).getImage(), slotX, slotY, slotSize, slotSize, null);
+        for(int i = 0; i<gp.curSim.inventory.size(); i++){
+            g2.drawImage(gp.curSim.inventory.get(i).getImage(), slotX, slotY, slotSize, slotSize, null);
             slotX+=slotSize;
             if(i == 7 || i == 15 || i == 23){
                 slotX = slotXstart;
@@ -284,8 +294,8 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(17F));
 
         int itemIdx = getItemIndexOnSlot();
-        if(itemIdx < gp.sim.inventory.size()){
-            for(String line : gp.sim.inventory.get(itemIdx).deskripsi.split("\n")){
+        if(itemIdx < gp.curSim.inventory.size()){
+            for(String line : gp.curSim.inventory.get(itemIdx).deskripsi.split("\n")){
                 g2.drawString(line, textX, textY);
                 textY+=18;
             }
@@ -321,7 +331,7 @@ public class UI {
         textY+=lineHeight;
         
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,17F));
-        text = gp.sim.getStatus();
+        text = gp.curSim.getStatus();
         textX = getXforCenteredText(text, frameX+(frameWidth/2));
         g2.drawString(text, textX, textY);
         textY+=lineHeight;
@@ -426,7 +436,7 @@ public class UI {
     }
     private int getXforCenteredBodyPlayer(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.sim.screenX + gp.tileSize/2 - length/2;
+        int x = gp.curSim.screenX + gp.tileSize/2 - length/2;
         return x;
     }
     private int getXforAligntoRightText(String text, int tailX){

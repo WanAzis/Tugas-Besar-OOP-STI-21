@@ -21,7 +21,7 @@ public class Makanan extends Objek {
             gp.eHandler.setCurToilet();
             gp.ui.setNotifMessage("Anda selesai makan " + name + ",\nkekenyangan +" + kekenyangan);
             if(sim.findMejaKursiIdx()!=999){
-                gp.obj[sim.findMejaKursiIdx()].unUsed();
+                gp.curSim.curRuangan.obj[sim.findMejaKursiIdx()].unUsed();
             }
             gp.gameState=gp.notifState;
             sim.getPlayerImage();

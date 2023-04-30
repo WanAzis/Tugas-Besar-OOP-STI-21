@@ -15,19 +15,19 @@ public class CollisionChecker {
 		 
 		int index = 999;
 		
-		for(int i = 0; i<gp.obj.length; i++) {
-			if(gp.obj[i]!=null) {
+		for(int i = 0; i<gp.curSim.curRuangan.obj.length; i++) {
+			if(gp.curSim.curRuangan.obj[i]!=null) {
 				entity.solidArea.x = entity.screenX + entity.solidArea.x;
 				entity.solidArea.y = entity.screenY + entity.solidArea.y;
 				
-				gp.obj[i].solidArea.x = gp.obj[i].screenX + gp.obj[i].solidArea.x;
-				gp.obj[i].solidArea.y = gp.obj[i].screenY + gp.obj[i].solidArea.y;
+				gp.curSim.curRuangan.obj[i].solidArea.x = gp.curSim.curRuangan.obj[i].screenX + gp.curSim.curRuangan.obj[i].solidArea.x;
+				gp.curSim.curRuangan.obj[i].solidArea.y = gp.curSim.curRuangan.obj[i].screenY + gp.curSim.curRuangan.obj[i].solidArea.y;
 				
 				switch(entity.direction) {
 				case "up": 
 					entity.solidArea.y -= entity.speed; 
-					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
-						if(gp.obj[i].collision) {
+					if(entity.solidArea.intersects(gp.curSim.curRuangan.obj[i].solidArea)) {
+						if(gp.curSim.curRuangan.obj[i].collision) {
 							entity.collisionOn = true;
 						}
 						if(sim) {
@@ -37,8 +37,8 @@ public class CollisionChecker {
 					break;
 				case "down": 
 					entity.solidArea.y += entity.speed; 
-					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
-						if(gp.obj[i].collision) {
+					if(entity.solidArea.intersects(gp.curSim.curRuangan.obj[i].solidArea)) {
+						if(gp.curSim.curRuangan.obj[i].collision) {
 							entity.collisionOn = true;
 						}
 						if(sim) {
@@ -48,8 +48,8 @@ public class CollisionChecker {
 					break;
 				case "left": 
 					entity.solidArea.x -= entity.speed; 
-					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
-						if(gp.obj[i].collision) {
+					if(entity.solidArea.intersects(gp.curSim.curRuangan.obj[i].solidArea)) {
+						if(gp.curSim.curRuangan.obj[i].collision) {
 							entity.collisionOn = true;
 						}
 						if(sim) {
@@ -59,8 +59,8 @@ public class CollisionChecker {
 					break;
 				case "right": 
 					entity.solidArea.x += entity.speed; 
-					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
-						if(gp.obj[i].collision) {
+					if(entity.solidArea.intersects(gp.curSim.curRuangan.obj[i].solidArea)) {
+						if(gp.curSim.curRuangan.obj[i].collision) {
 							entity.collisionOn = true;
 						}
 						if(sim) {
@@ -71,8 +71,8 @@ public class CollisionChecker {
 				}
 				entity.solidArea.x = entity.solidAreaDefaultX;
 				entity.solidArea.y = entity.solidAreaDefaultY;
-				gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
-				gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+				gp.curSim.curRuangan.obj[i].solidArea.x = gp.curSim.curRuangan.obj[i].solidAreaDefaultX;
+				gp.curSim.curRuangan.obj[i].solidArea.y = gp.curSim.curRuangan.obj[i].solidAreaDefaultY;
 				
 			}
 		}
@@ -118,15 +118,15 @@ public class CollisionChecker {
 	}
 
 	public void checkPlaceObject(Barang barang){
-		for(int i = 0; i<gp.obj.length; i++) {
-			if(gp.obj[i]!=null && !gp.obj[i].equals(barang)){
+		for(int i = 0; i<gp.curSim.curRuangan.obj.length; i++) {
+			if(gp.curSim.curRuangan.obj[i]!=null && !gp.curSim.curRuangan.obj[i].equals(barang)){
 				barang.solidArea.x = barang.screenX + barang.solidArea.x;
 				barang.solidArea.y = barang.screenY + barang.solidArea.y;
 
-				gp.obj[i].solidArea.x = gp.obj[i].screenX + gp.obj[i].solidArea.x;
-				gp.obj[i].solidArea.y = gp.obj[i].screenY + gp.obj[i].solidArea.y;
+				gp.curSim.curRuangan.obj[i].solidArea.x = gp.curSim.curRuangan.obj[i].screenX + gp.curSim.curRuangan.obj[i].solidArea.x;
+				gp.curSim.curRuangan.obj[i].solidArea.y = gp.curSim.curRuangan.obj[i].screenY + gp.curSim.curRuangan.obj[i].solidArea.y;
 
-				if(barang.solidArea.intersects(gp.obj[i].solidArea)){
+				if(barang.solidArea.intersects(gp.curSim.curRuangan.obj[i].solidArea)){
 					barang.collisionWithOthers=true;
 					break;
 				}

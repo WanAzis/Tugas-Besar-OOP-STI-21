@@ -9,12 +9,12 @@ public class Ruangan
     private int sisaLuas;
     private String nama;
     private Ruangan[] ruanganTetangga;
-    private ArrayList<Barang> listBarang;
+    public Barang obj[];
 
     public Ruangan(String nama)
     {
         this.nama = nama;
-        this.listBarang = new ArrayList<Barang>();
+        obj = new Barang[10];
         this.ruanganTetangga = new Ruangan[4];
     }
 
@@ -40,10 +40,19 @@ public class Ruangan
         this.nama = nama;
     }
 
-    public ArrayList<Barang> getListBarang() 
+    public Barang getBarang(int idx) 
     {
-        return listBarang;
+        return obj[idx];
     }
+
+    public void addBarang(Barang barang)
+    {
+		int i = 0;
+		while(i<obj.length && obj[i]!=null){
+			i++;
+		} 
+		obj[i] = barang;
+	}
 }
 /* yang masih kurang
 1. sisaLuas itu gimana???

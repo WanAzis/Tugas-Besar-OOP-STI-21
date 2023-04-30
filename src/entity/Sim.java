@@ -24,6 +24,8 @@ import objek.makanan.Makanan;
 import objek.makanan.Masakan;
 import objek.makanan.Nasi;
 import objek.makanan.NasiAyam;
+import tile.Ruangan;
+import tile.Rumah;
 
 public class Sim extends Entity{
 	
@@ -35,13 +37,14 @@ public class Sim extends Entity{
 	private String pekerjaan;
 	private int uang;
 	public ArrayList<Objek> inventory = new ArrayList<>();
-	private final int inventorySize = 32;
+	// private final int inventorySize = 32;
 	private int kekenyangan;
 	private int mood;
 	private int kesehatan;
 	private String status;
-	//rumah
-	//ruangan
+	public Rumah haveRumah;
+	public Rumah curRumah;
+	public Ruangan curRuangan;
 	//listStore
 	private Map<String,Integer> listPekerjaan;
 	
@@ -226,7 +229,7 @@ public class Sim extends Entity{
 			if(selectedItem instanceof Makanan){
 				setNullImage();
 				if(findMejaKursiIdx()!=999){
-					gp.obj[findMejaKursiIdx()].used();
+					curRuangan.obj[findMejaKursiIdx()].used();
 				}
 				gp.gameState = gp.useMakananState;
 				makanan = (Makanan) selectedItem;
@@ -235,14 +238,14 @@ public class Sim extends Entity{
 			else if(selectedItem instanceof Barang){
 				gp.gameState = gp.placeObjectState;
 				selectBarang = (Barang) selectedItem;
-				gp.addBarang(selectBarang);
+				curRuangan.addBarang(selectBarang);
 				inventory.remove(itemIdx);
 			}
 		}
 	}
 	public int findMejaKursiIdx(){
-		for(int i = 0; i<gp.obj.length; i++){
-			if(gp.obj[i].getName()=="Meja kursi"){
+		for(int i = 0; i<curRuangan.obj.length; i++){
+			if(curRuangan.obj[i].getName()=="Meja kursi"){
 				return i;
 			}
 		} return 999;

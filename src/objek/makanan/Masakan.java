@@ -18,7 +18,7 @@ public class Masakan extends Makanan{
 
     public void checkAvailable(String masakan){
         if(masakan=="Nasi Ayam"){
-            gp.sim.checkAvailableInventory(masakan);
+            gp.curSim.checkAvailableInventory(masakan);
         }
     }
 }

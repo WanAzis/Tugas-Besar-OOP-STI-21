@@ -1,18 +1,19 @@
 package tile;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Rumah
 {
     Point lokasi;
     private int luas;
-    private List<Ruangan> listRuangan;
+    private ArrayList<Ruangan> listRuangan;
+    public Ruangan curRuangan;
 
     public Rumah()
     {
         this.listRuangan = new ArrayList<Ruangan>();
         Ruangan kamar = new Ruangan("Kamar");
         this.listRuangan.add(kamar);
+        curRuangan = kamar;
         
         // gimana cara nambahin furniture ke list inventory sim
 
