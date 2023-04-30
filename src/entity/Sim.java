@@ -17,6 +17,7 @@ import main.KeyHandler;
 import objek.*;
 import objek.barang.Barang;
 import objek.barang.KasurSingle;
+import objek.barang.Sajadah;
 import objek.barang.Toilet;
 import objek.makanan.BahanMakanan;
 import objek.makanan.Makanan;
@@ -96,6 +97,7 @@ public class Sim extends Entity{
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
 		inventory.add(new Toilet(gp));
+		inventory.add(new Sajadah(gp));
 		inventory.add(new Nasi(gp));
 		inventory.add(new Nasi(gp));
 	}

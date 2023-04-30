@@ -20,25 +20,25 @@ public class Kasur extends Barang{
 		screenY = gp.tileSize;
 	}
 
-	@Override
-	public void used() {
-		gp.sim.setStatus(action);
-		try {
-			image = ImageIO.read(new File("../resources/barang/kasursingle2.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	// @Override
+	// public void used() {
+	// 	gp.sim.setStatus(action);
+	// 	try {
+	// 		image = ImageIO.read(new File("../resources/barang/kasursingle2.png"));
+	// 	} catch (IOException e) {
+	// 		e.printStackTrace();
+	// 	}
+	// }
 
-	@Override
-	public void unUsed() {
-		gp.sim.setStatus("IDLE");
-		try {
-			image = ImageIO.read(new File("../resources/barang/kasursingle1.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	// @Override
+	// public void unUsed() {
+	// 	gp.sim.setStatus("IDLE");
+	// 	try {
+	// 		image = ImageIO.read(new File("../resources/barang/kasursingle1.png"));
+	// 	} catch (IOException e) {
+	// 		e.printStackTrace();
+	// 	}
+	// }
 
 	@Override
 	public void effect(Sim sim, int duration) {

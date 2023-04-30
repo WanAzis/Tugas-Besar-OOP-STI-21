@@ -18,30 +18,99 @@ public class KomporListrik extends Kompor{
 		panjang = 1;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
+		loadImage();
+		image = down;
+	}
+
+	private void loadImage(){
 		try {
-			image = ImageIO.read(new File("../resources/barang/komlis1.png"));
-			// imageUsed = ImageIO.read(new File("../resources/barang/kasursingle2.png"));
-		}catch(IOException e){
+			down = ImageIO.read(new File("../resources/barang/komlis/komlis3.png"));
+			left = ImageIO.read(new File("../resources/barang/komlis/komlis4.png"));
+			right = ImageIO.read(new File("../resources/barang/komlis/komlis2.png"));
+			up = ImageIO.read(new File("../resources/barang/komlis/komlis1.png"));
+			// downUsed = ImageIO.read(new File("../resources/barang/komlis/komlis_down_used.png"));
+			// leftUsed = ImageIO.read(new File("../resources/barang/komlis/komlis_left_used.png"));
+			// rightUsed = ImageIO.read(new File("../resources/barang/komlis/komlis_right_used.png"));
+			// upUsed = ImageIO.read(new File("../resources/barang/komlis/komlis_up_used.png"));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
 
 	@Override
 	public void used() {
-		try {
-			image = ImageIO.read(new File("../resources/barang/komlis2.png")); //perlu diganti ke gambar yg kalo lagi masak
-		} catch (IOException e) {
-			e.printStackTrace();
+		gp.sim.setStatus(action);
+		switch(direction){
+			case "down" : image=downUsed; break;
+			case "left" : image=leftUsed; break;
+			case "right" : image=rightUsed; break;
+			case "up" : image=upUsed; break;
 		}
 	}
 
 	@Override
 	public void unUsed() {
-		try {
-			image = ImageIO.read(new File("../resources/barang/komlis1.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		gp.sim.setStatus("IDLE");
+		switch(direction){
+			case "down" : image=down; break;
+			case "left" : image=left; break;
+			case "right" : image=right; break;
+			case "up" : image=up; break;
 		}
+	}
+
+	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
+	}
+	@Override
+	public void rotate() {
+		if(direction=="down"){
+			direction="left";
+			image = left;
+			swapSize();
+		}
+		else if(direction=="left"){
+			direction="up";
+			image=up;
+			swapSize();
+		}
+		else if(direction=="up"){
+			direction="right";
+			image=right;
+			swapSize();
+		}
+		else if(direction=="right"){
+			direction="down";
+			image=down;
+			swapSize();
+		}
+	}
+	private void swapSize(){
+		int temp = panjang;
+		panjang = lebar;
+		lebar = temp;
+
+		temp = solidArea.height;
+		solidArea.height = solidArea.width;
+		solidArea.width = temp;
 	}
 }
 
