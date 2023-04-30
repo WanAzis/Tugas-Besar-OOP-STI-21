@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private int menit;
 
 	//PLAYER
-    public Sim sim = new Sim(this,keyH);
+    public Sim sim = new Sim(this ,keyH);
 	public Sim curSim;
 	public ArrayList<Sim> listSim = new ArrayList<>();
 	public ArrayList<Rumah> listRumah = new ArrayList<>(); 

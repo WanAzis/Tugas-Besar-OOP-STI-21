@@ -1,23 +1,31 @@
 package tile;
 import java.util.ArrayList;
 
+import entity.Sim;
+
 public class Rumah
 {
     Point lokasi;
     private int luas;
-    private ArrayList<Ruangan> listRuangan;
+    public ArrayList<Ruangan> listRuangan;
     public Ruangan curRuangan;
+    public Sim haveSim;
 
-    public Rumah()
+    public Rumah(Sim sim)
     {
         this.listRuangan = new ArrayList<Ruangan>();
         Ruangan kamar = new Ruangan("Kamar");
         this.listRuangan.add(kamar);
-        curRuangan = kamar;
-        
+        // curRuangan = kamar;
+        haveSim = sim;
+        haveSim.setItems();
         // gimana cara nambahin furniture ke list inventory sim
-
     }
+
+    // public Ruangan getRuangan(int index)
+    // {
+    //     return this.listRuangan.get(index);
+    // }
 
     public void tambahRuang(String arah, String newRuangan, Ruangan currentRuangan)
     {

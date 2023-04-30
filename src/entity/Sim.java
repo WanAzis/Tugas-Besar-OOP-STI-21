@@ -35,6 +35,7 @@ public class Sim extends Entity{
 	//ATRIBUT
 	private String namaLengkap;
 	private String pekerjaan;
+	private String simName;
 	private int uang;
 	public ArrayList<Objek> inventory = new ArrayList<>();
 	// private final int inventorySize = 32;
@@ -59,7 +60,7 @@ public class Sim extends Entity{
 	public Sim(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
 		this.keyH = keyH;
-		
+
 		solidArea = new Rectangle(8,16,32,32);
 		solidAreaDefaultX = 8;
 		solidAreaDefaultY = 16;
@@ -74,6 +75,11 @@ public class Sim extends Entity{
 		setDefaultValues();
 		getPlayerImage();
 		setItems();
+	}
+
+	public void setName(String simName)
+	{
+		this.simName = simName;
 	}
 	
 	public void setDefaultValues() {

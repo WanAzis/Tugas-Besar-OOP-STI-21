@@ -3,7 +3,9 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import entity.Sim;
 import objek.barang.Barang;
+import tile.Rumah;
 
 public class KeyHandler implements KeyListener{
 
@@ -58,7 +60,7 @@ public class KeyHandler implements KeyListener{
 			placeObjectScreen(code);
 		}
 		else if(gp.gameState==gp.createSimState){
-			createSimState(code);
+			// createSimState(gp, UI.simName);
 		}
 	}
 	
@@ -86,12 +88,22 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 	}
-	private void createSimState(int code){
+	public void createSimState(GamePanel gp, String simName){
 		//MEMASUKKAN NAMA PLAYER
 		//JIKA TEKAN ENTER, SIM DIBUAT DAN DITAMBAHKAN KE LIST SIM DI GP DENGAN NAMA INPUTAN
 		//OTOMATIS TAMBAHKAN RUMAH JUGA KE LIST RUMAH
 		//JANGAN LUPA BUATKAN UI DARI CREATE SIM
 		//UBAH KE STATE PLAY, DENGAN CURSIM ADALAH SIM YANG BARU DIBUAT
+		//Sim sim = new Sim(gp, gp.keyH);
+		// sim.setName(simName);
+		//gp.listSim.add(sim);
+		// gp.curSim = sim;
+		// Rumah rumah = new Rumah(sim);
+		// gp.listRumah.add(rumah);
+		// rumah.haveSim = sim;
+		// sim.curRumah = rumah;
+		// sim.curRuangan = rumah.listRuangan.get(0);
+		gp.gameState = gp.playState;
 	}
 	private void playState(int code){
 		if(code == KeyEvent.VK_ESCAPE){
