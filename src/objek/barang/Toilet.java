@@ -19,6 +19,7 @@ public class Toilet extends Barang{
 		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk buang air"; 
 		panjang = 1;
 		lebar = 1;
+		harga = 50;
 		screenX = gp.tileSize;
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);

@@ -19,6 +19,7 @@ public class Sajadah extends Barang{
 		deskripsi = "[ " + name + " ] \nDibutuhkan untuk beribadah";
 		panjang = 2;
 		lebar = 1;
+		harga = 30;
 		screenX = gp.tileSize;
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);

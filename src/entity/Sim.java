@@ -19,13 +19,11 @@ import objek.barang.Barang;
 import objek.barang.KasurSingle;
 import objek.barang.Sajadah;
 import objek.barang.Toilet;
-import objek.makanan.BahanMakanan;
 import objek.makanan.Makanan;
 import objek.makanan.Masakan;
 import objek.makanan.Nasi;
 import objek.makanan.NasiAyam;
-import tile.Ruangan;
-import tile.Rumah;
+import tile.*;
 
 public class Sim extends Entity{
 	
@@ -37,17 +35,18 @@ public class Sim extends Entity{
 	private String pekerjaan;
 	private int uang;
 	public ArrayList<Objek> inventory = new ArrayList<>();
-	// private final int inventorySize = 32;
+	public final int maxInventorySize = 32;
 	private int kekenyangan;
 	private int mood;
 	private int kesehatan;
 	private String status;
-	public Rumah haveRumah;
+	// public Rumah haveRumah;
 	public Rumah curRumah;
 	public Ruangan curRuangan;
-	//listStore
 	private Map<String,Integer> listPekerjaan;
 	
+	public int counter = 0;
+	private int durationKerja;
 	public boolean useObject;
 	public int interactObjectIdx;
 	public Makanan makanan;
@@ -73,7 +72,7 @@ public class Sim extends Entity{
 		
 		setDefaultValues();
 		getPlayerImage();
-		setItems();
+		// setItems();
 	}
 	
 	public void setDefaultValues() {
@@ -137,7 +136,11 @@ public class Sim extends Entity{
 			kesehatan=maxKesehatan;
 		}
 	}
+	public void plusUang(int plusUang){
+		uang+=plusUang;
+	}
 	public void setStatus(String status){this.status=status;}
+	public void setDurationKerja(int duration){durationKerja=duration;}
 
 	public void getPlayerImage() {
 		try {
@@ -220,6 +223,26 @@ public class Sim extends Entity{
 		}
 	}
 	
+	public void kerja(){
+		counter++;
+		if(counter>=durationKerja){
+			int effectCounter = durationKerja/1800;
+			plusKekenyangan(-10*effectCounter);
+			plusMood(-10*effectCounter);
+			int gaji = listPekerjaan.get(pekerjaan);
+			if(durationKerja==60*60*4){
+				plusUang(gaji);
+			} else if(durationKerja==60*60*8){
+				plusUang(2*gaji);
+			}
+			counter=0;
+			gp.ui.setNotifMessage("Anda telah pulang bekerja");
+			gp.gameState=gp.notifState;
+			status="IDLE";
+			getPlayerImage();
+		}
+
+	}
 	public void selectItem(){
 		int itemIdx = gp.ui.getItemIndexOnSlot();
 

@@ -17,6 +17,7 @@ public class KomporListrik extends Kompor{
 		deskripsi = "[ " + name + " ] \nDibutuhkan untuk tidur"; 
 		panjang = 1;
 		lebar = 1;
+		harga = 200;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		image = down;

@@ -19,6 +19,7 @@ public class MesinCuci extends Barang{
 		deskripsi = "[ " + name + " ] \nDibutuhkan untuk mencuci";
 		panjang = 2;
 		lebar = 2;
+		harga = 200;
 		screenX = gp.tileSize;
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);

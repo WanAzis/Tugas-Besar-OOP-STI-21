@@ -19,6 +19,7 @@ public class KasurKing extends Barang{
 		duration = 
 		panjang = 4;
 		lebar = 1;
+		harga = 150;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		try {
 			image = ImageIO.read(new File("../resources/barang/kasursingle1.png"));
