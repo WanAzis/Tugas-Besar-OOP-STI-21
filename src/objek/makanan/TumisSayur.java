@@ -7,16 +7,16 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
-public class NasiAyam extends Masakan{
+public class TumisSayur extends Masakan{
 
-    public NasiAyam(GamePanel gp) {
+    public TumisSayur(GamePanel gp) {
         super(gp);
-        name = "Nasi Ayam";
+        name = "Tumis Sayur";
         loadImage();
-        deskripsi = "[ " + name + " ] \nkekenyangan +16";
+        deskripsi = "[ " + name + " ] \nkekenyangan +5";
         listBahan = new BahanMakanan[2];
         setListBahan();
-        kekenyangan = 16;
+        kekenyangan = 5;
     }
 
     //GETTER
@@ -35,14 +35,14 @@ public class NasiAyam extends Masakan{
     //SETTER
     @Override
     public void setListBahan(){
-        listBahan[0] = new Nasi(gp);
+        listBahan[0] = new Wortel(gp);
         //BAHAN 2
-        listBahan[1] = new Ayam(gp);
+        listBahan[1] = new Bayam(gp);
     }
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/masakan/NasiAyam.png"));
+			image = ImageIO.read(new File("../../resources/makanan/masakan/TumisSayur.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
