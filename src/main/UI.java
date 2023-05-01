@@ -36,6 +36,7 @@ import objek.makanan.Nasi;
 import objek.makanan.Sapi;
 import objek.makanan.Susu;
 import objek.makanan.Wortel;
+import tile.Ruangan;
 
 public class UI {
     
@@ -50,6 +51,7 @@ public class UI {
     public int objIndex;
     private String notifMessage = "";
     public ArrayList<Objek> store = new ArrayList<>();
+    private Ruangan chooseRuangan;
     int slotCol = 0;
     int slotRow = 0;
     int subState = 0;
@@ -757,11 +759,11 @@ public class UI {
         switch(subState){
             case 0: menuSim_top(frameX, frameY, frameWidth, frameHeight); break;
             case 1: viewLocationScreen(frameX, frameY, frameWidth, frameHeight); break;
-            case 2: 
+            case 2: drawTambahRuanganScreen(frameX, frameY, frameWidth, frameHeight); break;
+            case 3: drawDaftarRuanganScreen(frameX, frameY, frameWidth, frameHeight); break;
+            case 4: drawChoosePosisiRuangan(frameX, frameY, frameWidth, frameHeight); break;
         }
-
         gp.keyH.enterPressed = false;
-
     }
     private void menuSim_top(int frameX, int frameY, int frameWidth, int frameHeigth){
 
@@ -806,6 +808,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                commandNum = 0;
+                subState = 3;
+            }
         }
 
         //KUNJUNGAN
@@ -824,9 +830,7 @@ public class UI {
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
                 commandNum = 0;
-                subState = 0;
-                gp.curSim.setStatus("Kerja");
-                gp.gameState = gp.durationState;
+                subState = 2;
             }
         }
 
@@ -844,6 +848,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==6){
             g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                commandNum = 0;
+                subState = 2;
+            }
         }
     }
     private void viewLocationScreen(int frameX, int frameY, int frameWidth, int frameHeigth){
@@ -888,6 +896,208 @@ public class UI {
             }
         }
 
+    }
+    private void drawTambahRuanganScreen(int frameX, int frameY, int frameWidth, int frameHeight){
+
+        
+        int textX;
+        int textY;
+
+        //LIST RUANGAN
+        String text = "Pilih Ruangan";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+        //LOOP
+        for(int i = 0; i<gp.curSim.curRumah.listRuangan.size(); i++){
+            text = "Ruangan" + gp.curSim.curRumah.listRuangan.get(i).getNama();
+            textX = frameX + gp.tileSize;
+            textY += gp.tileSize;
+            g2.drawString(text, textX, textY);
+            if(commandNum==i){
+                g2.drawString(">", textX-gp.tileSize/2, textY);
+                if(gp.keyH.enterPressed){
+                    chooseRuangan = gp.curSim.curRumah.listRuangan.get(i);
+                    subState = 4;
+                }
+            }
+        }
+    }
+    private void drawDaftarRuanganScreen(int frameX, int frameY, int frameWidth, int frameHeight){
+
+        int textX;
+        int textY;
+
+        String text = "Daftar Ruangan";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+        //Ruangan Atas
+        text = "Atas";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan=gp.curSim.curRuangan.getRuanganTetangga(0);
+            }
+        }
+
+        //Ruangan Bawah
+        text = "Bawah";
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan=gp.curSim.curRuangan.getRuanganTetangga(1);
+            }
+        }
+
+        //Ruangan Kiri
+        text = "Kiri";
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==2){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan=gp.curSim.curRuangan.getRuanganTetangga(2);
+            }
+        }
+
+        //Ruangan Kanan
+        text = "Kanan";
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==3){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan=gp.curSim.curRuangan.getRuanganTetangga(3);
+            }
+        }
+
+        //Nama Ruangan Atas
+        if(gp.curSim.curRuangan.getRuanganTetangga(0)!=null){
+            text = gp.curSim.curRuangan.getRuanganTetangga(0).getNama();
+            textX = getXforAligntoRightText(text, frameX+frameWidth-10);
+            textY = frameY + gp.tileSize*2;
+            g2.drawString(text, textX, textY);
+        }
+
+        //Nama Ruangan Bawah
+        if(gp.curSim.curRuangan.getRuanganTetangga(1)!=null){
+            text = gp.curSim.curRuangan.getRuanganTetangga(1).getNama();
+            textX = getXforAligntoRightText(text, frameX+frameWidth-10);
+            textY = frameY + gp.tileSize*3;
+            g2.drawString(text, textX, textY);
+        }
+
+        //Nama Ruangan Kiri
+        if(gp.curSim.curRuangan.getRuanganTetangga(2)!=null){
+            text = gp.curSim.curRuangan.getRuanganTetangga(2).getNama();
+            textX = getXforAligntoRightText(text, frameX+frameWidth-10);
+            textY = frameY + gp.tileSize*4;
+            g2.drawString(text, textX, textY);
+        }
+
+        //Nama Ruangan Kanan
+        if(gp.curSim.curRuangan.getRuanganTetangga(3)!=null){
+            text = gp.curSim.curRuangan.getRuanganTetangga(3).getNama();
+            textX = getXforAligntoRightText(text, frameX+frameWidth-10);
+            textY = frameY + gp.tileSize*5;
+            g2.drawString(text, textX, textY);
+        }
+    }
+    private void drawChoosePosisiRuangan(int frameX, int frameY, int frameWidth, int frameHeight){
+
+        int textX;
+        int textY;
+
+        String text = "Pilih Ruangan";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+        //Ruangan Atas
+        text = "Atas";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(0)!=null){
+                //MASUK KE STATE MASUKKAN NAMA RUANGAN 
+                gp.curSim.curRumah.tambahRuang("Atas", "Default", chooseRuangan);
+            }
+        }
+
+        //Ruangan Bawah
+        text = "Bawah";
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(1)!=null){
+                gp.curSim.curRumah.tambahRuang("Bawah", "Default", chooseRuangan);
+            }
+        }
+
+        //Ruangan Kiri
+        text = "Kiri";
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==2){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(2)!=null){
+                gp.curSim.curRumah.tambahRuang("Kiri", "Default", chooseRuangan);
+            }
+        }
+
+        //Ruangan Kanan
+        text = "Kanan";
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==3){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(3)!=null){
+                gp.curSim.curRumah.tambahRuang("Kanan", "Default", chooseRuangan);
+            }
+        }
+
+        //Nama Ruangan Atas
+        if(gp.curSim.curRuangan.getRuanganTetangga(0)!=null){
+            text = gp.curSim.curRuangan.getRuanganTetangga(0).getNama();
+            textX = getXforAligntoRightText(text, frameX+frameWidth-10);
+            textY = frameY + gp.tileSize*2;
+            g2.drawString(text, textX, textY);
+        }
+
+        //Nama Ruangan Bawah
+        if(gp.curSim.curRuangan.getRuanganTetangga(1)!=null){
+            text = gp.curSim.curRuangan.getRuanganTetangga(1).getNama();
+            textX = getXforAligntoRightText(text, frameX+frameWidth-10);
+            textY = frameY + gp.tileSize*3;
+            g2.drawString(text, textX, textY);
+        }
+
+        //Nama Ruangan Kiri
+        if(gp.curSim.curRuangan.getRuanganTetangga(2)!=null){
+            text = gp.curSim.curRuangan.getRuanganTetangga(2).getNama();
+            textX = getXforAligntoRightText(text, frameX+frameWidth-10);
+            textY = frameY + gp.tileSize*4;
+            g2.drawString(text, textX, textY);
+        }
+
+        //Nama Ruangan Kanan
+        if(gp.curSim.curRuangan.getRuanganTetangga(3)!=null){
+            text = gp.curSim.curRuangan.getRuanganTetangga(3).getNama();
+            textX = getXforAligntoRightText(text, frameX+frameWidth-10);
+            textY = frameY + gp.tileSize*5;
+            g2.drawString(text, textX, textY);
+        }
     }
     public void drawUseObject(Barang obj){
         

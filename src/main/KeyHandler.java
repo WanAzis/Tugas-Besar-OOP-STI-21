@@ -189,15 +189,21 @@ public class KeyHandler implements KeyListener{
 	}
 	private void menuSimState(int code){
 		if(code == KeyEvent.VK_M){
+			gp.ui.subState = 0;
+			gp.ui.commandNum = 0;
 			gp.gameState=gp.playState;
 		}
 		if(code == KeyEvent.VK_ENTER){
 			enterPressed=true;
 		}
+		if(code==KeyEvent.VK_ESCAPE){
+			gp.ui.subState=0;
+		}
 
 		int maxCommandNum = 0;
 		switch(gp.ui.subState){
 			case 0: maxCommandNum=6;
+			case 3: maxCommandNum=3;
 		}
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
