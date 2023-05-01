@@ -1028,7 +1028,7 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(0)!=null){
+            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(0)!=null){
                 //MASUK KE STATE MASUKKAN NAMA RUANGAN 
                 gp.curSim.curRumah.tambahRuang("Atas", "Default", chooseRuangan);
             }
@@ -1040,7 +1040,7 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==1){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(1)!=null){
+            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(1)!=null){
                 gp.curSim.curRumah.tambahRuang("Bawah", "Default", chooseRuangan);
             }
         }
@@ -1051,7 +1051,7 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(2)!=null){
+            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(2)!=null){
                 gp.curSim.curRumah.tambahRuang("Kiri", "Default", chooseRuangan);
             }
         }
@@ -1062,7 +1062,7 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(3)!=null){
+            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(3)!=null){
                 gp.curSim.curRumah.tambahRuang("Kanan", "Default", chooseRuangan);
             }
         }

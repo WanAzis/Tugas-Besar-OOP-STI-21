@@ -47,7 +47,7 @@ public class Rumah
                 System.out.println("Sudah ada ruangan di lokasi tersebut.");
             }
         }
-        else if(arah.equals("Kanan"))
+        else if(arah.equals("Kiri"))
         {
             if(currentRuangan.getRuanganTetangga(2) == null)
             {
@@ -58,7 +58,7 @@ public class Rumah
                 System.out.println("Sudah ada ruangan di lokasi tersebut.");
             }
         }
-        else if(arah.equals("Kiri"))
+        else if(arah.equals("Kanan"))
         {
             if(currentRuangan.getRuanganTetangga(3) == null)
             {
