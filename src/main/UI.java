@@ -88,9 +88,7 @@ public class UI {
         if(gp.gameState==gp.useMakananState){
             drawStatus();
         }
-        if(gp.gameState==gp.createSimState){
-            createSimScreen();
-        }
+
     }
 
     private void drawTitleScreen(){
@@ -139,56 +137,58 @@ public class UI {
             g2.drawString(">", x-gp.tileSize/2, y);
         }
     }
-    private void createSimScreen() {
-        //Frame
-        g2.setColor(new Color(0, 0, 0));
-        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
-        String text = "Enter SIM Name";
-        int x = getXforCenteredText(text, gp.screenWidth/2);
-        int y = gp.tileSize*2 + gp.originalTileSize;
+    // private void createSimScreen() {
+        
+        // gp.gameState = gp.playState;
+        // //Frame
+        // g2.setColor(new Color(0, 0, 0));
+        // g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        // g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+        // String text = "Enter SIM Name";
+        // int x = getXforCenteredText(text, gp.screenWidth/2);
+        // int y = gp.tileSize*2 + gp.originalTileSize;
     
-        //TEXT
-        g2.setColor(Color.white);
-        g2.drawString(text, x, y + gp.originalTileSize*6 + 20);
+        // //TEXT
+        // g2.setColor(Color.white);
+        // g2.drawString(text, x, y + gp.originalTileSize*6 + 20);
     
-        //SIM
-        x = gp.screenWidth/2 - (gp.originalTileSize*6)/2;
-        y -= 20; // Move the sim image up by 20 pixels
-        g2.drawImage(gp.sim.def, x, y, gp.originalTileSize*6, gp.originalTileSize*6, null);
+        // //SIM
+        // x = gp.screenWidth/2 - (gp.originalTileSize*6)/2;
+        // y -= 20; // Move the sim image up by 20 pixels
+        // g2.drawImage(gp.sim.def, x, y, gp.originalTileSize*6, gp.originalTileSize*6, null);
     
-        //TEXT BOX
-        JTextField textField = new JTextField();
-        Dimension size = new Dimension(300, 40); // set the preferred size to be 300 pixels wide and 40 pixels high
-        textField.setPreferredSize(size);
-        textField.setBounds(gp.screenWidth/2 - size.width/2, y + gp.originalTileSize*6 + 50, size.width, size.height);
-        textField.setFont(new Font("Arial", Font.PLAIN, 24));
-        textField.setHorizontalAlignment(JTextField.CENTER);
-        textField.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        textField.setBackground(new Color(220, 220, 220));
+        // //TEXT BOX
+        // JTextField textField = new JTextField();
+        // Dimension size = new Dimension(300, 40); // set the preferred size to be 300 pixels wide and 40 pixels high
+        // textField.setPreferredSize(size);
+        // textField.setBounds(gp.screenWidth/2 - size.width/2, y + gp.originalTileSize*6 + 50, size.width, size.height);
+        // textField.setFont(new Font("Arial", Font.PLAIN, 24));
+        // textField.setHorizontalAlignment(JTextField.CENTER);
+        // textField.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        // textField.setBackground(new Color(220, 220, 220));
 
-        // cari tau gimana cara ngilangin text field sama ngubah screeen karena looping terus
-        // Add the text field to the frame
-        gp.add(textField);
-        textField.requestFocusInWindow();
-        gp.gameState = gp.createSimState;
-        System.out.println("before: " + gp.gameState);
-        textField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
+        // // cari tau gimana cara ngilangin text field sama ngubah screen karena looping terus
+        // // Add the text field to the frame
+        // gp.add(textField);
+        // textField.requestFocusInWindow();
+        // gp.gameState = gp.createSimState;
+        // System.out.println("before: " + gp.gameState);
+        // textField.addKeyListener(new KeyAdapter() {
+        //     @Override
+        //     public void keyPressed(KeyEvent e) {
                 
-                simName = textField.getText();
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        //         simName = textField.getText();
+        //         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     
-                    gp.gameState = gp.playState;
-                    System.out.println(simName);
-                    System.out.println("after: " + gp.gameState);
+        //             gp.gameState = gp.playState;
+        //             System.out.println(simName);
+        //             System.out.println("after: " + gp.gameState);
                     
-                }
-            }
-        });
+        //         }
+        //     }
+        // });
 
-    }
+    // }
     
     private void drawPauseScreen(){
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,60F));
@@ -268,7 +268,7 @@ public class UI {
         textY = frameY + 25;
         String value;
 
-        value = String.valueOf(gp.curSim.getNamaLengkap());
+        value = String.valueOf(gp.curSim.getSimName());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;

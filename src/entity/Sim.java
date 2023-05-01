@@ -119,6 +119,8 @@ public class Sim extends Entity{
 	public int getMood(){return mood;}
 	public int getKesehatan(){return kesehatan;}
 	public String getStatus(){return status;}
+	// testing
+	public String getSimName(){return simName;}
 
 	//SETTER
 	public void setUang(int uang){this.uang = uang;}

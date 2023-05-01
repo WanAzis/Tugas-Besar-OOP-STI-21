@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int menuState = 7;
 	public final int useMakananState = 8;
 	public final int placeObjectState = 9;
-	public final int createSimState = 10;
+	// public final int createSimState = 10;
 	
     
     public GamePanel(){
@@ -84,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameState = titleState;
     }
 	public void createNewGame(){
+
 		day = 1;
 		dayCounter = 0;
 		jam = 0;
@@ -205,7 +206,7 @@ public class GamePanel extends JPanel implements Runnable{
 		Graphics2D g2 = (Graphics2D)gp;
 
 		//TITLE SCREEN
-		if(gameState == titleState || gameState==createSimState){
+		if(gameState == titleState){
 			ui.draw(g2);
 		} 
 		//ELSE
