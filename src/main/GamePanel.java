@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private int menit;
 
 	//PLAYER
-    public Sim sim = new Sim(this,keyH);
+    public Sim sim = new Sim(this ,keyH);
 	public Sim curSim;
 	public ArrayList<Sim> listSim = new ArrayList<>();
 	public ArrayList<Rumah> listRumah = new ArrayList<>(); 
@@ -67,7 +67,6 @@ public class GamePanel extends JPanel implements Runnable{
     public final int menuMasakanState = 7;
 	public final int useMakananState = 8;
 	public final int placeObjectState = 9;
-	public final int createSimState = 10;
 	public final int menuSimState = 11;
 	public final int storeState = 12;
 	public final int kerjaState = 13;
@@ -86,6 +85,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameState = titleState;
     }
 	public void createNewGame(){
+
 		day = 1;
 		dayCounter = 0;
 		jam = 0;
@@ -211,7 +211,7 @@ public class GamePanel extends JPanel implements Runnable{
 		Graphics2D g2 = (Graphics2D)gp;
 
 		//TITLE SCREEN
-		if(gameState == titleState || gameState==createSimState){
+		if(gameState == titleState){
 			ui.draw(g2);
 		} 
 		//ELSE

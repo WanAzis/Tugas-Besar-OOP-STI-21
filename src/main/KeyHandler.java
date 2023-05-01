@@ -1,7 +1,10 @@
 package main;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import entity.Sim;
 import objek.barang.Barang;
@@ -63,10 +66,6 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.placeObjectState){
 			placeObjectScreen(code);
 		}
-		//CREATE SIM STATE
-		else if(gp.gameState==gp.createSimState){
-			createSimState(code);
-		}
 		//MENU SIM STATE
 		else if(gp.gameState==gp.menuSimState){
 			menuSimState(code);
@@ -90,8 +89,9 @@ public class KeyHandler implements KeyListener{
 		}
 		if(code == KeyEvent.VK_ENTER){
 			if(gp.ui.commandNum==0){
-				gp.gameState=gp.createSimState;
-				gp.createNewGame();
+				String simName = (String) JOptionPane.showInputDialog(null, "Enter SIM Name: ");
+				// gp.gameState=gp.playState;
+				createSimState(gp,simName);
 			}
 			else if(gp.ui.commandNum==1){
 				//LOAD GAME
@@ -101,23 +101,19 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 	}
-	private void createSimState(int code){
-		//MEMASUKKAN NAMA PLAYER
-		//JIKA TEKAN ENTER, SIM DIBUAT DAN DITAMBAHKAN KE LIST SIM DI GP DENGAN NAMA INPUTAN
-		//OTOMATIS TAMBAHKAN RUMAH JUGA KE LIST RUMAH
-		//JANGAN LUPA BUATKAN UI DARI CREATE SIM
-		//UBAH KE STATE PLAY, DENGAN CURSIM ADALAH SIM YANG BARU DIBUAT
-		if(code == KeyEvent.VK_ENTER){	//HAPUS BILA SUDAH
-			Sim sim = new Sim(gp, this);
-			gp.listSim.add(sim);
-			gp.curSim = sim;
-			Rumah rumah = new Rumah(sim);
-			gp.listRumah.add(rumah);
-			rumah.haveSim = sim;
-			sim.curRumah = rumah;
-			sim.curRuangan = rumah.listRuangan.get(0);
-			gp.gameState=gp.playState;
-		}
+
+	public void createSimState(GamePanel gp, String simName){
+		Sim sim = new Sim(gp, gp.keyH);
+		sim.setName(simName);
+		gp.listSim.add(sim);
+		gp.curSim = sim;
+		Rumah rumah = new Rumah(sim);
+		gp.listRumah.add(rumah);
+		rumah.haveSim = sim;
+		sim.curRumah = rumah;
+		sim.curRuangan = rumah.listRuangan.get(0);
+		gp.createNewGame();
+		gp.gameState = gp.playState;
 	}
 	private void playState(int code){
 		if(code == KeyEvent.VK_ESCAPE){

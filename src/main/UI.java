@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -10,7 +9,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import java.awt.BasicStroke;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.*;
+import java.awt.*;
+
 import java.util.ArrayList;
+
 
 import javax.imageio.ImageIO;
 
@@ -47,6 +56,7 @@ public class UI {
     File fontFile = new File("../resources/font/ZarbvilleNbpRegular-MJOJ.ttf");
     BufferedImage coin;
 
+    public static String simName;
     public int commandNum = 0;
     public int objIndex;
     private String notifMessage = "";
@@ -288,7 +298,7 @@ public class UI {
         textY = frameY + 25;
         String value;
 
-        value = String.valueOf(gp.curSim.getNamaLengkap());
+        value = String.valueOf(gp.curSim.getSimName());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
