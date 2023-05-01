@@ -2,11 +2,9 @@ package tile;
 
 import objek.barang.*;
 
-import java.util.ArrayList;
-
 public class Ruangan
 {
-    private int sisaLuas;
+    // private int sisaLuas;
     private String nama;
     private Ruangan[] ruanganTetangga;
     public Barang obj[];

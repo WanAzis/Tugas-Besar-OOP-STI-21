@@ -10,6 +10,7 @@ public class Objek {
 	protected BufferedImage image;
 	protected String name;
 	public String deskripsi = "";
+    public int harga;
 
     //Use Counter
 	protected int counter = 0;

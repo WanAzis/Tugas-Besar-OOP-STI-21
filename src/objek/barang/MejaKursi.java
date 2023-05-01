@@ -19,6 +19,7 @@ public class MejaKursi extends Barang{
 		deskripsi = "[ " + name + " ] \nDibutuhkan untuk makan";
 		panjang = 3;
 		lebar = 3;
+		harga = 50;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		image = down;

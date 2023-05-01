@@ -17,6 +17,7 @@ public class KomporGas extends Kompor{
 		deskripsi = "[ " + name + " ] \nDibutuhkan untuk tidur"; 
 		panjang = 2;
 		lebar = 1;
+		harga = 100;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		image = down;

@@ -34,7 +34,7 @@ public class TileManager {
 		try {
 			
 			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(new File("../resources/tile/ubin.png"));
+			tile[0].image = ImageIO.read(new File("../resources/tile/jendela.png"));
 
 			tile[1] = new Tile();
 			tile[1].image = ImageIO.read(new File("../resources/tile/ubin_bawah.png"));

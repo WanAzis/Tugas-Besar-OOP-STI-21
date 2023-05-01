@@ -19,6 +19,7 @@ public class RakBuku extends Barang{
 		deskripsi = "[ " + name + " ] \nDibutuhkan untuk membaca"; 
 		panjang = 3;
 		lebar = 1;
+		harga = 150;
 		screenX = gp.tileSize;
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);

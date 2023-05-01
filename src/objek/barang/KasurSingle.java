@@ -18,6 +18,7 @@ public class KasurSingle extends Kasur{
 		panjang = 4;
 		lebar = 1;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
+		harga = 50;
 		loadImage();
 		image = down;
 	}

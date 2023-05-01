@@ -5,10 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Currency;
 
 import entity.Sim;
-import objek.Objek;
-import objek.barang.Barang;
 import tile.Rumah;
 import tile.TileManager;
 
@@ -65,10 +64,12 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int useObjectState = 4;
 	public final int durationState = 5;
 	public final int notifState = 6;
-    public final int menuState = 7;
+    public final int menuMasakanState = 7;
 	public final int useMakananState = 8;
 	public final int placeObjectState = 9;
-	// public final int createSimState = 10;
+	public final int menuSimState = 11;
+	public final int storeState = 12;
+	public final int kerjaState = 13;
 	
     
     public GamePanel(){
@@ -162,6 +163,10 @@ public class GamePanel extends JPanel implements Runnable{
 		else if(gameState==placeObjectState){
 			curSim.selectBarang.collisionWithOthers=false;
 			cChecker.checkPlaceObject(curSim.selectBarang);
+		}
+		else if(gameState==kerjaState){
+			dayUpdate();
+			curSim.kerja();
 		}
 		else{}
 	}

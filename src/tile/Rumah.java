@@ -6,9 +6,9 @@ import entity.Sim;
 public class Rumah
 {
     Point lokasi;
-    private int luas;
+    // private int luas;
     public ArrayList<Ruangan> listRuangan;
-    public Ruangan curRuangan;
+    // public Ruangan curRuangan;
     public Sim haveSim;
 
     public Rumah(Sim sim)
