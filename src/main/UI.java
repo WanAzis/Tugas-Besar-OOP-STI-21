@@ -154,9 +154,6 @@ public class UI {
         if(gp.gameState==gp.useMakananState){
             drawStatus();
         }
-        if(gp.gameState==gp.createSimState){
-            drawCreateSimScreen();
-        }
         if(gp.gameState==gp.menuSimState){
             drawMenuSimScreen();
         }
