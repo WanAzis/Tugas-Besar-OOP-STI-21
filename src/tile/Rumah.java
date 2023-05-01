@@ -22,6 +22,11 @@ public class Rumah
         // gimana cara nambahin furniture ke list inventory sim
     }
 
+    // public Ruangan getRuangan(int index)
+    // {
+    //     return this.listRuangan.get(index);
+    // }
+
     public void tambahRuang(String arah, String newRuangan, Ruangan currentRuangan)
     {
         Ruangan ruanganBaru = new Ruangan(newRuangan);

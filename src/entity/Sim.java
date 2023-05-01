@@ -33,6 +33,7 @@ public class Sim extends Entity{
 	//ATRIBUT
 	private String namaLengkap;
 	private String pekerjaan;
+	private String simName;
 	private int uang;
 	public ArrayList<Objek> inventory = new ArrayList<>();
 	public final int maxInventorySize = 32;
@@ -58,7 +59,7 @@ public class Sim extends Entity{
 	public Sim(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
 		this.keyH = keyH;
-		
+
 		solidArea = new Rectangle(8,16,32,32);
 		solidAreaDefaultX = 8;
 		solidAreaDefaultY = 16;
@@ -73,6 +74,11 @@ public class Sim extends Entity{
 		setDefaultValues();
 		getPlayerImage();
 		// setItems();
+	}
+
+	public void setName(String simName)
+	{
+		this.simName = simName;
 	}
 	
 	public void setDefaultValues() {
@@ -112,6 +118,8 @@ public class Sim extends Entity{
 	public int getMood(){return mood;}
 	public int getKesehatan(){return kesehatan;}
 	public String getStatus(){return status;}
+	// testing
+	public String getSimName(){return simName;}
 
 	//SETTER
 	public void setUang(int uang){this.uang = uang;}
