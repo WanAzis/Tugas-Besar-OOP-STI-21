@@ -16,6 +16,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.*;
+
+import entity.Sim;
+
 import java.awt.*;
 
 import java.util.ArrayList;
@@ -163,6 +166,10 @@ public class UI {
         if(gp.gameState==gp.kerjaState){
             drawStatus();
         }
+        if(gp.gameState == gp.menuGameState)
+        {
+            drawMenuGameScreen();
+        }
     }
 
     private void drawTitleScreen(){
@@ -211,12 +218,12 @@ public class UI {
             g2.drawString(">", x-gp.tileSize/2, y);
         }
     }
-    private void drawCreateSimScreen(){
-        //FRAME
+    // private void drawCreateSimScreen(){
+    //     //FRAME
 
 
-        //TEXT
-    }
+    //     //TEXT
+    // }
     private void drawPauseScreen(){
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,60F));
         String text1 = "GAME";
@@ -750,6 +757,91 @@ public class UI {
         }
         
     }
+    private void drawMenuGameScreen()
+    {
+        //WINDOW
+        final int frameWidth = gp.tileSize*5;
+        final int frameHeight = gp.tileSize*7;
+        final int frameX = gp.tileSize + gp.tileSize/2;
+        final int frameY = gp.tileSize*2;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight); 
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,25F));
+        
+        //SUBSTATE
+        switch(subState){
+            case 0: menuGame_top(frameX, frameY, frameWidth, frameHeight); break;
+            case 1: drawChangeSimScreen(frameX, frameY, frameWidth, frameHeight); break;
+        }
+        gp.keyH.enterPressed = false;
+    }
+
+    private void menuGame_top(int frameX, int frameY, int frameWidth, int frameHeight){
+        int textX;
+        int textY;
+
+        //MENU
+        String text = "Menu Game";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+        text = "Add New SIM";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
+                String simName = (String) JOptionPane.showInputDialog(null, "Enter New SIM Name: ");
+				gp.keyH.createNewSimState(gp,simName);
+            }
+        }
+
+        //CHANGE SIM
+        text = "Change SIM";
+        textY += gp.tileSize/2 + 10;
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                commandNum = 0;
+                subState = 1;
+            }
+        }
+    }
+
+    private void drawChangeSimScreen(int frameX, int frameY, int frameWidth, int frameHeigth){
+        int textX;
+        int textY;
+
+        String text = "Daftar SIM";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+        for(int i = 0; i<gp.listSim.size(); i++)
+        {
+            text = gp.listSim.get(i).getSimName();
+            textX = frameX + gp.tileSize;
+            textY += gp.tileSize;
+            g2.drawString(text, textX, textY);
+            if(commandNum==i){
+                g2.drawString(">", textX-gp.tileSize/2, textY);
+                if(gp.keyH.enterPressed){
+                    gp.curSim = gp.listSim.get(i);
+                    gp.gameState = gp.playState;
+                    commandNum = 0; subState = 0;
+                }
+            }
+        }
+    }
+
     private void drawMenuSimScreen(){
         //WINDOW
         final int frameWidth = gp.tileSize*5;

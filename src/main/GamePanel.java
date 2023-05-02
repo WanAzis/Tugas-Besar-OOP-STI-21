@@ -10,6 +10,7 @@ import java.util.Currency;
 import entity.Sim;
 import tile.Rumah;
 import tile.TileManager;
+import tile.Tile;
 
 import javax.swing.JPanel;
 
@@ -67,9 +68,12 @@ public class GamePanel extends JPanel implements Runnable{
     public final int menuMasakanState = 7;
 	public final int useMakananState = 8;
 	public final int placeObjectState = 9;
+	// public final int createSimState = 10;
 	public final int menuSimState = 11;
 	public final int storeState = 12;
 	public final int kerjaState = 13;
+
+	public final int menuGameState = 15;
 	
     
     public GamePanel(){
