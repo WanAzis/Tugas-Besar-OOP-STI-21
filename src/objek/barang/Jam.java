@@ -21,7 +21,7 @@ public class Jam extends Barang{
 		harga = 10;
 		solidArea = new Rectangle(3,3,48*lebar,48*panjang);
 		try {
-			image = ImageIO.read(new File("../resources/barang/jam1.png"));
+			image = ImageIO.read(new File("../resources/barang/jam.png"));
 			
 		}catch(IOException e){
 			e.printStackTrace();
