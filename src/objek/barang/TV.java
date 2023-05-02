@@ -32,11 +32,11 @@ public class TV extends Barang{
 			down = ImageIO.read(new File("../resources/barang/TV/TV_down.png"));
 			left = ImageIO.read(new File("../resources/barang/TV/TV_left.png"));
 			right = ImageIO.read(new File("../resources/barang/TV/TV_right.png"));
-			up = ImageIO.read(new File("../resources/barang/TV/TV_up.png"));
+			// up = ImageIO.read(new File("../resources/barang/TV/TV_up.png"));
 			downUsed = ImageIO.read(new File("../resources/barang/TV/TV_down_used.png"));
 			leftUsed = ImageIO.read(new File("../resources/barang/TV/TV_left_used.png"));
 			rightUsed = ImageIO.read(new File("../resources/barang/TV/TV_right_used.png"));
-			upUsed = ImageIO.read(new File("../resources/barang/TV/TV_up_used.png"));
+			// upUsed = ImageIO.read(new File("../resources/barang/TV/TV_up_used.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
