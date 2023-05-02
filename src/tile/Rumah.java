@@ -6,9 +6,7 @@ import entity.Sim;
 public class Rumah
 {
     Point lokasi;
-    // private int luas;
     public ArrayList<Ruangan> listRuangan;
-    // public Ruangan curRuangan;
     public Sim haveSim;
 
     public Rumah(Sim sim)
@@ -16,10 +14,7 @@ public class Rumah
         this.listRuangan = new ArrayList<Ruangan>();
         Ruangan kamar = new Ruangan("Kamar");
         this.listRuangan.add(kamar);
-        // curRuangan = kamar;
         haveSim = sim;
-        haveSim.setItems();
-        // gimana cara nambahin furniture ke list inventory sim
     }
 
     // public Ruangan getRuangan(int index)
@@ -30,11 +25,15 @@ public class Rumah
     public void tambahRuang(String arah, String newRuangan, Ruangan currentRuangan)
     {
         Ruangan ruanganBaru = new Ruangan(newRuangan);
+        listRuangan.add(ruanganBaru);
+        haveSim.setItems();
+        haveSim.curRuangan = ruanganBaru;
         if(arah.equals("Atas"))
         {
             if(currentRuangan.getRuanganTetangga(0) == null)
             {
                 currentRuangan.setRuanganTetangga(0, ruanganBaru);
+                ruanganBaru.setRuanganTetangga(1, currentRuangan);
             }
             else
             {
@@ -46,6 +45,7 @@ public class Rumah
             if(currentRuangan.getRuanganTetangga(1) == null)
             {
                 currentRuangan.setRuanganTetangga(1, ruanganBaru);
+                ruanganBaru.setRuanganTetangga(0, currentRuangan);
             }
             else
             {
@@ -57,6 +57,7 @@ public class Rumah
             if(currentRuangan.getRuanganTetangga(2) == null)
             {
                 currentRuangan.setRuanganTetangga(2, ruanganBaru);
+                ruanganBaru.setRuanganTetangga(3, currentRuangan);
             }
             else
             {
@@ -68,6 +69,7 @@ public class Rumah
             if(currentRuangan.getRuanganTetangga(3) == null)
             {
                 currentRuangan.setRuanganTetangga(3, ruanganBaru);
+                ruanganBaru.setRuanganTetangga(2, currentRuangan);
             }
             else
             {

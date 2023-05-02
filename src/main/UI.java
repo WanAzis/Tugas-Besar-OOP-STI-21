@@ -19,7 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import java.util.ArrayList;
-
+import java.util.concurrent.Flow.Subscriber;
 
 import javax.imageio.ImageIO;
 
@@ -162,6 +162,9 @@ public class UI {
         }
         if(gp.gameState==gp.kerjaState){
             drawStatus();
+        }
+        if(gp.gameState==gp.editRoomState){
+            drawEditRoomScreen();
         }
     }
 
@@ -786,7 +789,7 @@ public class UI {
         //VIEW LOCATION
         text = "View Location";
         textX = frameX + gp.tileSize;
-        textY += gp.tileSize;
+        textY += gp.tileSize - 10;
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
@@ -809,11 +812,22 @@ public class UI {
             }
         }
 
+        //SIM
+        text = "SIM";
+        textY += gp.tileSize/2 + 10;
+        g2.drawString(text, textX, textY);
+        if(commandNum==2){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                
+            }
+        }
+
         //MOVE RUANGAN
         text = "Move Ruangan";
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
-        if(commandNum==2){
+        if(commandNum==3){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
                 commandNum = 0;
@@ -825,7 +839,7 @@ public class UI {
         text = "Kunjungan";
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
-        if(commandNum==3){
+        if(commandNum==4){
             g2.drawString(">", textX-gp.tileSize/2, textY);
         }
 
@@ -833,11 +847,13 @@ public class UI {
         text = "Kerja";
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
-        if(commandNum==4){
+        if(commandNum==5){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
                 commandNum = 0;
-                subState = 2;
+                subState = 0;
+                gp.curSim.setStatus("Kerja");
+                gp.gameState=gp.durationState;
             }
         }
 
@@ -845,15 +861,20 @@ public class UI {
         text = "Edit Room";
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
-        if(commandNum==5){
+        if(commandNum==6){
             g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                commandNum = 0;
+                subState = 0;
+                gp.gameState=gp.editRoomState;
+            }
         }
 
         //UPGRADE RUMAH
         text = "Upgrade Rumah";
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
-        if(commandNum==6){
+        if(commandNum==7){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
                 commandNum = 0;
@@ -873,7 +894,6 @@ public class UI {
 
 
         text = "Rumah"; 
-        // + gp.curSim.curRumah.haveSim.getName();
         textX = frameX + gp.originalTileSize;
         textY += gp.tileSize*2;
         g2.drawString(text, textX, textY);
@@ -882,7 +902,7 @@ public class UI {
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
 
-        text = "Rumah Sim-A"; 
+        text = gp.curSim.curRumah.haveSim.getSimName();
         textX = getXforAligntoRightText(text, frameX + frameWidth - gp.originalTileSize);
         textY = frameY + gp.tileSize*3;
         g2.drawString(text, textX, textY);
@@ -948,7 +968,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
+            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(0)!=null){
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
                 gp.curSim.curRuangan=gp.curSim.curRuangan.getRuanganTetangga(0);
             }
         }
@@ -959,7 +982,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==1){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
+            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(1)!=null){
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
                 gp.curSim.curRuangan=gp.curSim.curRuangan.getRuanganTetangga(1);
             }
         }
@@ -970,7 +996,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
+            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(2)!=null){
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
                 gp.curSim.curRuangan=gp.curSim.curRuangan.getRuanganTetangga(2);
             }
         }
@@ -981,7 +1010,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
+            if(gp.keyH.enterPressed && gp.curSim.curRuangan.getRuanganTetangga(4)!=null){
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
                 gp.curSim.curRuangan=gp.curSim.curRuangan.getRuanganTetangga(3);
             }
         }
@@ -1035,9 +1067,13 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(0)!=null){
+            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(0)==null){
                 //MASUK KE STATE MASUKKAN NAMA RUANGAN 
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
                 gp.curSim.curRumah.tambahRuang("Atas", "Default", chooseRuangan);
+
             }
         }
 
@@ -1047,7 +1083,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==1){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(1)!=null){
+            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(1)==null){
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
                 gp.curSim.curRumah.tambahRuang("Bawah", "Default", chooseRuangan);
             }
         }
@@ -1058,7 +1097,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(2)!=null){
+            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(2)==null){
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
                 gp.curSim.curRumah.tambahRuang("Kiri", "Default", chooseRuangan);
             }
         }
@@ -1069,7 +1111,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(3)!=null){
+            if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(3)==null){
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
                 gp.curSim.curRumah.tambahRuang("Kanan", "Default", chooseRuangan);
             }
         }
@@ -1105,6 +1150,14 @@ public class UI {
             textY = frameY + gp.tileSize*5;
             g2.drawString(text, textX, textY);
         }
+    }
+    public void drawEditRoomScreen(){
+
+        Rectangle solidAreaObj = gp.curSim.curRuangan.obj[commandNum].solidArea;
+        Color c = new Color(245, 100, 100, 200);
+        g2.setColor(c);
+        g2.fillRoundRect(solidAreaObj.x, solidAreaObj.y, solidAreaObj.width, solidAreaObj.height, 35, 35);
+        g2.drawRect(solidAreaObj.x, solidAreaObj.y, solidAreaObj.width, solidAreaObj.height);
     }
     public void drawUseObject(Barang obj){
         

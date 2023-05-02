@@ -1,13 +1,10 @@
 package main;
 
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 import entity.Sim;
-import objek.barang.Barang;
 import tile.Rumah;
 
 public class KeyHandler implements KeyListener{
@@ -74,6 +71,10 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.storeState){
 			storeState(code);
 		}
+		//EDIT ROOM STATE
+		else if(gp.gameState==gp.editRoomState){
+			editRoomState(code);
+		}
 	}
 	
 	private void titleState(int code){
@@ -90,7 +91,6 @@ public class KeyHandler implements KeyListener{
 		if(code == KeyEvent.VK_ENTER){
 			if(gp.ui.commandNum==0){
 				String simName = (String) JOptionPane.showInputDialog(null, "Enter SIM Name: ");
-				// gp.gameState=gp.playState;
 				createSimState(gp,simName);
 			}
 			else if(gp.ui.commandNum==1){
@@ -109,7 +109,6 @@ public class KeyHandler implements KeyListener{
 		gp.curSim = sim;
 		Rumah rumah = new Rumah(sim);
 		gp.listRumah.add(rumah);
-		rumah.haveSim = sim;
 		sim.curRumah = rumah;
 		sim.curRuangan = rumah.listRuangan.get(0);
 		gp.createNewGame();
@@ -198,7 +197,8 @@ public class KeyHandler implements KeyListener{
 
 		int maxCommandNum = 0;
 		switch(gp.ui.subState){
-			case 0: maxCommandNum=6; break;
+			case 0: maxCommandNum=7; break;
+			case 2: maxCommandNum=gp.curSim.curRumah.listRuangan.size()-1; break;
 			case 3: maxCommandNum=3; break;
 			case 4: maxCommandNum=3; break;
 		}
@@ -412,6 +412,26 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 		
+	}
+	public void editRoomState(int code){
+		if(code==KeyEvent.VK_ESCAPE){
+			gp.ui.commandNum=0;
+			gp.gameState=gp.playState;
+		}
+		if(code==KeyEvent.VK_ENTER){
+			enterPressed=true;
+		}
+		if(code == KeyEvent.VK_DOWN){
+			if(gp.ui.commandNum>0){
+				gp.ui.commandNum--;
+			}
+		}
+		if(code == KeyEvent.VK_UP){
+			if(gp.ui.commandNum<gp.curSim.curRuangan.arrObjLength()-1){
+				gp.ui.commandNum++;
+			}
+		}
+
 	}
 
 	@Override

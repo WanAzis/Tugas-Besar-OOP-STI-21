@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Currency;
 
 import entity.Sim;
 import tile.Rumah;
@@ -53,7 +52,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public Sim curSim;
 	public ArrayList<Sim> listSim = new ArrayList<>();
 	public ArrayList<Rumah> listRumah = new ArrayList<>(); 
-    // public Barang obj[] = new Barang[10];
     
 	//GAME STATE
 	public int gameState;
@@ -70,8 +68,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int menuSimState = 11;
 	public final int storeState = 12;
 	public final int kerjaState = 13;
+	public final int editRoomState = 20;
+
 	
-    
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -85,7 +84,6 @@ public class GamePanel extends JPanel implements Runnable{
 		gameState = titleState;
     }
 	public void createNewGame(){
-
 		day = 1;
 		dayCounter = 0;
 		jam = 0;
@@ -103,13 +101,6 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	//SETTER
-	// public void addBarang(Barang barang){
-	// 	int i = 0;
-	// 	while(i<obj.length && obj[i]!=null){
-	// 		i++;
-	// 	} 
-	// 	obj[i] = barang;
-	// }
 
     public void startGameThread() {
     	

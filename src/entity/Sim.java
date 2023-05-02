@@ -16,7 +16,10 @@ import main.GamePanel;
 import main.KeyHandler;
 import objek.*;
 import objek.barang.Barang;
+import objek.barang.Jam;
 import objek.barang.KasurSingle;
+import objek.barang.Kompor;
+import objek.barang.MejaKursi;
 import objek.barang.Sajadah;
 import objek.barang.Toilet;
 import objek.makanan.Makanan;
@@ -73,7 +76,7 @@ public class Sim extends Entity{
 		
 		setDefaultValues();
 		getPlayerImage();
-		// setItems();
+		setItems();
 	}
 
 	public void setName(String simName)
@@ -105,9 +108,9 @@ public class Sim extends Entity{
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
 		inventory.add(new Toilet(gp));
-		inventory.add(new Sajadah(gp));
-		inventory.add(new Nasi(gp));
-		inventory.add(new Nasi(gp));
+		inventory.add(new Kompor(gp));
+		inventory.add(new MejaKursi(gp));
+		inventory.add(new Jam(gp));
 	}
 	
 	//GETTER
