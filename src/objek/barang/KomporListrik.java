@@ -14,7 +14,7 @@ public class KomporListrik extends Kompor{
 
 	public KomporListrik(GamePanel gp) {
 		super(gp);
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk tidur"; 
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk masak"; 
 		panjang = 1;
 		lebar = 1;
 		harga = 200;
@@ -25,14 +25,14 @@ public class KomporListrik extends Kompor{
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/komlis/komlis3.png"));
-			left = ImageIO.read(new File("../resources/barang/komlis/komlis4.png"));
-			right = ImageIO.read(new File("../resources/barang/komlis/komlis2.png"));
-			up = ImageIO.read(new File("../resources/barang/komlis/komlis1.png"));
-			// downUsed = ImageIO.read(new File("../resources/barang/komlis/komlis_down_used.png"));
-			// leftUsed = ImageIO.read(new File("../resources/barang/komlis/komlis_left_used.png"));
-			// rightUsed = ImageIO.read(new File("../resources/barang/komlis/komlis_right_used.png"));
-			// upUsed = ImageIO.read(new File("../resources/barang/komlis/komlis_up_used.png"));
+			down = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_down.png"));
+			left = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_left.png"));
+			right = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_right.png"));
+			up = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_up.png"));
+			downUsed = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_down_used.png"));
+			leftUsed = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_left_used.png"));
+			rightUsed = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_right_used.png"));
+			upUsed = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_up_used.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -40,6 +40,7 @@ public class KasurSingle extends Kasur{
 
 	@Override
 	public void used() {
+		gp.curSim.setStatus(action);
 		switch(direction){
 			case "down" : image=downUsed; break;
 			case "left" : image=leftUsed; break;
@@ -50,6 +51,7 @@ public class KasurSingle extends Kasur{
 
 	@Override
 	public void unUsed() {
+		gp.curSim.setStatus("IDLE");
 		switch(direction){
 			case "down" : image=down; break;
 			case "left" : image=left; break;

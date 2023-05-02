@@ -29,10 +29,10 @@ public class MesinCuci extends Barang{
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_down.png"));
-			left = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_left.png"));
-			right = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_right.png"));
-			up = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_up.png"));
+			down = ImageIO.read(new File("../resources/barang/mesincuci/mesincuci_down.png"));
+			left = ImageIO.read(new File("../resources/barang/mesincuci/mesincuci_samping.png"));
+			right = ImageIO.read(new File("../resources/barang/mesincuci/mesincuci_samping.png"));
+			//up = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_up.png"));
 			// downUsed = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_down_used.png")); kayaknya buat nyuci sekedar dia berdiri aja di depan mesin cuci tapi gabisa gerak?
 			// leftUsed = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_left_used.png")); kalo ternyata ada gambarnya kabarin
 			// rightUsed = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_right_used.png"));
@@ -49,7 +49,6 @@ public class MesinCuci extends Barang{
 			case "down" : image=down; break; //up comment line 35
 			case "left" : image=left; break;
 			case "right" : image=right; break;
-			case "up" : image=up; break;
 		}
 	}
 
@@ -60,7 +59,6 @@ public class MesinCuci extends Barang{
 			case "down" : image=down; break;
 			case "left" : image=left; break;
 			case "right" : image=right; break;
-			case "up" : image=up; break;
 		}
 	}
 
@@ -78,6 +76,27 @@ public class MesinCuci extends Barang{
 	}
 
 	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
+	}
+
+	@Override
 	public void rotate() {
 		if(direction=="down"){
 			direction="left";
@@ -85,11 +104,6 @@ public class MesinCuci extends Barang{
 			swapSize();
 		}
 		else if(direction=="left"){
-			direction="up";
-			image=up;
-			swapSize();
-		}
-		else if(direction=="up"){
 			direction="right";
 			image=right;
 			swapSize();

@@ -14,9 +14,9 @@ public class KomporGas extends Kompor{
 
 	public KomporGas(GamePanel gp) {
 		super(gp);
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk tidur"; 
-		panjang = 2;
-		lebar = 1;
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk masak"; 
+		panjang = 1;
+		lebar = 2;
 		harga = 100;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
@@ -25,14 +25,14 @@ public class KomporGas extends Kompor{
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/komgas/komgas3.png"));
-			left = ImageIO.read(new File("../resources/barang/komgas/komgas4.png"));
-			right = ImageIO.read(new File("../resources/barang/komgas/komgas2.png"));
-			up = ImageIO.read(new File("../resources/barang/komgas/komgas1.png"));
-			// downUsed = ImageIO.read(new File("../resources/barang/komgas/komgas_down_used.png"));
-			// leftUsed = ImageIO.read(new File("../resources/barang/komgas/komgas_left_used.png"));
-			// rightUsed = ImageIO.read(new File("../resources/barang/komgas/komgas_right_used.png"));
-			// upUsed = ImageIO.read(new File("../resources/barang/komgas/komgas_up_used.png"));
+			down = ImageIO.read(new File("../resources/barang/komgas/komporgas_down.png"));
+			left = ImageIO.read(new File("../resources/barang/komgas/komporgas_left.png"));
+			right = ImageIO.read(new File("../resources/barang/komgas/komporgas_right.png"));
+			up = ImageIO.read(new File("../resources/barang/komgas/komporgas_up.png"));
+			downUsed = ImageIO.read(new File("../resources/barang/komgas/komporgas_down_used.png"));
+			leftUsed = ImageIO.read(new File("../resources/barang/komgas/komporgas_left_used.png"));
+			rightUsed = ImageIO.read(new File("../resources/barang/komgas/komporgas_right_used.png"));
+			upUsed = ImageIO.read(new File("../resources/barang/komgas/komporgas_up_used.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
