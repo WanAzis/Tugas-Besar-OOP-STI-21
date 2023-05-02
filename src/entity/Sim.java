@@ -105,6 +105,13 @@ public class Sim extends Entity{
 		pekerjaan = keys[n];
 	}
 
+	public void setPekerjaan(int idx)
+	{
+		String[] keys = listPekerjaan.keySet().toArray(new String[0]);
+		this.pekerjaan = keys[idx];
+	}
+
+
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
 		inventory.add(new Toilet(gp));

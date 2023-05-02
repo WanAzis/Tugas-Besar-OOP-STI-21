@@ -75,6 +75,7 @@ public class KeyHandler implements KeyListener{
 		else if (gp.gameState == gp.menuGameState)
 		{
 			menuGameState(code);
+		}
 		//EDIT ROOM STATE
 		else if(gp.gameState==gp.editRoomState){
 			editRoomState(code);
@@ -226,6 +227,8 @@ public class KeyHandler implements KeyListener{
 			case 2: maxCommandNum=gp.curSim.curRumah.listRuangan.size()-1; break;
 			case 3: maxCommandNum=3; break;
 			case 4: maxCommandNum=3; break;
+			case 5: maxCommandNum=1; break;
+			case 6: maxCommandNum=4; break;
 		}
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
