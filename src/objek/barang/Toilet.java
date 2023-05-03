@@ -29,14 +29,14 @@ public class Toilet extends Barang{
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/toilet/toilet_down.png"));
-			left = ImageIO.read(new File("../resources/barang/toilet/toilet_left.png"));
-			right = ImageIO.read(new File("../resources/barang/toilet/toilet_right.png"));
-			up = ImageIO.read(new File("../resources/barang/toilet/toilet_up.png"));
-			// downUsed = ImageIO.read(new File("../resources/barang/kasur/kasursingle_down_used.png"));
-			// leftUsed = ImageIO.read(new File("../resources/barang/kasur/kasursingle_left_used.png"));
-			// rightUsed = ImageIO.read(new File("../resources/barang/kasur/kasursingle_right_used.png"));
-			// upUsed = ImageIO.read(new File("../resources/barang/kasur/kasursingle_up_used.png"));
+			down = ImageIO.read(new File("../resources/barang/toilet/toilet_unused_down.png"));
+			left = ImageIO.read(new File("../resources/barang/toilet/toilet_unused_left.png"));
+			right = ImageIO.read(new File("../resources/barang/toilet/toilet_unused_right.png"));
+			// up = ImageIO.read(new File("../resources/barang/toilet/toilet_up.png"));
+			downUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_down.png"));
+			leftUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_left.png"));
+			rightUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_right.png"));
+			// upUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_up.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -49,7 +49,7 @@ public class Toilet extends Barang{
 			case "down" : image=downUsed; break;
 			case "left" : image=leftUsed; break;
 			case "right" : image=rightUsed; break;
-			case "up" : image=upUsed; break;
+			// case "up" : image=upUsed; break;
 		}
 	}
 
@@ -60,7 +60,7 @@ public class Toilet extends Barang{
 			case "down" : image=down; break;
 			case "left" : image=left; break;
 			case "right" : image=right; break;
-			case "up" : image=up; break;
+			// case "up" : image=up; break;
 		}
 	}
 
@@ -106,12 +106,12 @@ public class Toilet extends Barang{
 			image = left;
 			swapSize();
 		}
-		else if(direction=="left"){
+		/*  else if(direction=="left"){
 			direction="up";
 			image=up;
 			swapSize();
-		}
-		else if(direction=="up"){
+		} */
+		else if(direction=="left"){
 			direction="right";
 			image=right;
 			swapSize();

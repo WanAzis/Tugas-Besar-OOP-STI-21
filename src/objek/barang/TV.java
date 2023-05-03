@@ -77,6 +77,27 @@ public class TV extends Barang{
 		}
 	}
 
+
+	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
+	}
 	@Override
 	public void rotate() {
 		if(direction=="down"){

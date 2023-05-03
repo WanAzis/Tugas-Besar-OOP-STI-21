@@ -10,33 +10,33 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class Radio extends Barang{
+public class Treadmill extends Barang{
 
-	public Radio(GamePanel gp) {
-		this.gp = gp;
-		name = "Radio";
-		action = "MENDENGAR LAGU";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk mendengar lagu"; 
-		panjang = 1;
+	public Treadmill(GamePanel gp) {
+        this.gp = gp;
+        name = "Treadmill";
+		action = "OLAHRAGA";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk olahraga"; 
+		panjang = 2;
 		lebar = 1;
-		harga = 100;
+		harga = 200;
 		screenX = gp.tileSize;
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
-		image = down;
+        image = up;
 	}
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/radio/radio_down.png"));
-			left = ImageIO.read(new File("../resources/barang/radio/radio_left.png"));
-			right = ImageIO.read(new File("../resources/barang/radio/radio_right.png"));
-			up = ImageIO.read(new File("../resources/barang/radio/radio_up.png"));
-			//downUsed = ImageIO.read(new File("../resources/barang/radio/radio_down_used.png"));
-			//leftUsed = ImageIO.read(new File("../resources/barang/radio/radio_left_used.png"));
-			//rightUsed = ImageIO.read(new File("../resources/barang/radio/radio_right_used.png"));
-			//upUsed = ImageIO.read(new File("../resources/barang/radio/radio_up_used.png"));
+			down = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_down.png"));
+			left = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_left.png"));
+			right = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_right.png"));
+			up = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_up.png"));
+			downUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_down.png"));
+			leftUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_left.png"));
+			rightUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_right.png"));
+			upUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_up.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,7 +44,7 @@ public class Radio extends Barang{
 
 	@Override
 	public void used() {
-		gp.curSim.setStatus(action);
+        gp.curSim.setStatus(action);
 		switch(direction){
 			case "down" : image=downUsed; break;
 			case "left" : image=leftUsed; break;
@@ -55,7 +55,7 @@ public class Radio extends Barang{
 
 	@Override
 	public void unUsed() {
-		gp.curSim.setStatus("IDLE");
+        gp.curSim.setStatus("IDLE");
 		switch(direction){
 			case "down" : image=down; break;
 			case "left" : image=left; break;
@@ -64,18 +64,19 @@ public class Radio extends Barang{
 		}
 	}
 
-	@Override
+    @Override
 	public void effect(Sim sim, int duration) {
 		counter++;
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setMood(10);
-			sim.setKekenyangan(-5);
-			gp.ui.setNotifMessage("Selamat anda sudah mendengar radio, \nkekenyangan -5 dan mood +10");
+			sim.plusKekenyangan(-20);
+			sim.plusMood(10);
+			gp.ui.setNotifMessage("Selamat anda sudah olahraga, \nkekenyangan -20 dan mood +10");
 			gp.gameState=gp.notifState;
+			sim.getPlayerImage();
 		}
-	}
+    }
 
 	@Override
 	public void moveUp() {
@@ -105,12 +106,12 @@ public class Radio extends Barang{
 			image = left;
 			swapSize();
 		}
-		/*  else if(direction=="left"){
+		else if(direction=="left"){
 			direction="up";
 			image=up;
 			swapSize();
-		} */
-		else if(direction=="left"){
+		}
+		else if(direction=="up"){
 			direction="right";
 			image=right;
 			swapSize();

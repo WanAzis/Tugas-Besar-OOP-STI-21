@@ -24,7 +24,7 @@ public class Sajadah extends Barang{
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
-		image = down;
+		image = up;
 	}
 
 	private void loadImage(){
@@ -55,7 +55,7 @@ public class Sajadah extends Barang{
 
 	@Override
 	public void unUsed() {
-		gp.curSim.setStatus("IDLE");
+		gp.curSim.setStatus("IDLE"); 
 		switch(direction){
 			case "down" : image=down; break;
 			case "left" : image=left; break;
@@ -77,6 +77,27 @@ public class Sajadah extends Barang{
 		}
 	}
 
+	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
+	}
+	
 	@Override
 	public void rotate() {
 		if(direction=="down"){
