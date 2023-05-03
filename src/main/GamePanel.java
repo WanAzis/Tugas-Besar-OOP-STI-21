@@ -5,10 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Currency;
 
 import entity.Sim;
-import objek.Objek;
-import objek.barang.Barang;
+import tile.Rumah;
 import tile.TileManager;
 
 import javax.swing.JPanel;
@@ -20,10 +20,16 @@ public class GamePanel extends JPanel implements Runnable{
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale; // 48x48 pixel
-    private final int maxScreenCol = 6;
-    private final int maxScreenRow = 6;
+    private final int maxScreenCol = 10;
+    private final int maxScreenRow = 10;
     final int screenWidth = tileSize * getMaxScreenCol();
     final int screenHeight = tileSize * getMaxScreenRow();
+	final int roomWidth = tileSize * 6;
+	final int roomHeight = tileSize * 6;
+	public final int startRoomX = tileSize;
+	public final int startRoomY = tileSize * 4;
+	final int startPanelX = tileSize * 8;
+	final int startPanelY = tileSize * 0;
 
     //FPS
     final int FPS = 60;
@@ -43,9 +49,11 @@ public class GamePanel extends JPanel implements Runnable{
 	private int menit;
 
 	//PLAYER
-    public Sim sim = new Sim(this,keyH);
-	// public ArrayList<Barang> obj = new ArrayList<>();
-    public Barang obj[] = new Barang[10];
+    public Sim sim = new Sim(this ,keyH);
+	public Sim curSim;
+	public ArrayList<Sim> listSim = new ArrayList<>();
+	public ArrayList<Rumah> listRumah = new ArrayList<>(); 
+    // public Barang obj[] = new Barang[10];
     
 	//GAME STATE
 	public int gameState;
@@ -56,9 +64,13 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int useObjectState = 4;
 	public final int durationState = 5;
 	public final int notifState = 6;
-    public final int menuState = 7;
+    public final int menuMasakanState = 7;
 	public final int useMakananState = 8;
 	public final int placeObjectState = 9;
+	public final int menuSimState = 11;
+	public final int storeState = 12;
+	public final int kerjaState = 13;
+	public final int helpState = 14;
 	
     
     public GamePanel(){
@@ -71,13 +83,15 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void setUpGame() {
-    	// aSetter.setObject();
 		gameState = titleState;
+    }
+	public void createNewGame(){
+
 		day = 1;
 		dayCounter = 0;
 		jam = 0;
 		menit = 0;
-    }
+	}
     
 	//GETTER
 	public int getDay(){return day;}
@@ -90,13 +104,13 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	//SETTER
-	public void addBarang(Barang barang){
-		int i = 0;
-		while(i<obj.length && obj[i]!=null){
-			i++;
-		} 
-		obj[i] = barang;
-	}
+	// public void addBarang(Barang barang){
+	// 	int i = 0;
+	// 	while(i<obj.length && obj[i]!=null){
+	// 		i++;
+	// 	} 
+	// 	obj[i] = barang;
+	// }
 
     public void startGameThread() {
     	
@@ -132,7 +146,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update() {
 
 		if(gameState==playState){
-			sim.update();
+			curSim.update();
 			dayUpdate();
 			eHandler.checkEffect();
 		}
@@ -141,15 +155,19 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		else if(gameState==useObjectState){
 			dayUpdate();
-			useObjectUpdate(sim.interactObjectIdx, obj[sim.interactObjectIdx].getDuration());
+			useObjectUpdate(curSim.interactObjectIdx, curSim.curRuangan.obj[curSim.interactObjectIdx].getDuration());
 		}
 		else if(gameState==useMakananState){
 			dayUpdate();
 			useMakananUpdate();
 		}
 		else if(gameState==placeObjectState){
-			sim.selectBarang.collisionWithOthers=false;
-			cChecker.checkPlaceObject(sim.selectBarang);
+			curSim.selectBarang.collisionWithOthers=false;
+			cChecker.checkPlaceObject(curSim.selectBarang);
+		}
+		else if(gameState==kerjaState){
+			dayUpdate();
+			curSim.kerja();
 		}
 		else{}
 	}
@@ -183,10 +201,10 @@ public class GamePanel extends JPanel implements Runnable{
 		return time;
 	}
 	public void useObjectUpdate(int i, int duration){
-		obj[i].effect(sim, duration);
+		curSim.curRuangan.obj[i].effect(curSim, duration);
 	}
 	public void useMakananUpdate(){
-		sim.makanan.used(sim);
+		curSim.makanan.used(curSim);
 	}
 
 	public void paintComponent(Graphics gp) {
@@ -200,13 +218,13 @@ public class GamePanel extends JPanel implements Runnable{
 		//ELSE
 		else{
 			tileM.draw(g2);
-			for(int i = 0; i<obj.length; i++) {
-				if(obj[i]!=null) {
-					obj[i].draw(g2, this);
+			for(int i = 0; i<curSim.curRuangan.obj.length; i++) {
+				if(curSim.curRuangan.obj[i]!=null) {
+					curSim.curRuangan.obj[i].draw(g2, this);
 				}
 			}
 			//PLAYER
-			sim.draw(g2);
+			curSim.draw(g2);
 	
 			//UI
 			ui.draw(g2);
