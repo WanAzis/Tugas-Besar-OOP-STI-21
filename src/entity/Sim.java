@@ -328,6 +328,7 @@ public class Sim extends Entity{
     public boolean checkAvailableInventory(String masakan) {
 		switch(masakan){
 			case "Nasi Ayam" : return checkNasiAyam();
+			// case "Susu Kacang" : return checkSusuKacang();
 			default : return false;
 		}
     }
