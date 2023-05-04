@@ -71,6 +71,11 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.storeState){
 			storeState(code);
 		}
+		//MENU GAME STATE
+		else if (gp.gameState == gp.menuGameState)
+		{
+			menuGameState(code);
+		}
 		//EDIT ROOM STATE
 		else if(gp.gameState==gp.editRoomState){
 			editRoomState(code);
@@ -89,9 +94,13 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 		if(code == KeyEvent.VK_ENTER){
+
 			if(gp.ui.commandNum==0){
 				String simName = (String) JOptionPane.showInputDialog(null, "Enter SIM Name: ");
-				createSimState(gp,simName);
+				if(!(simName == null)){
+					createSimState(gp,simName);
+					// gp.gameState = gp.playState;
+				}
 			}
 			else if(gp.ui.commandNum==1){
 				//LOAD GAME
@@ -114,6 +123,19 @@ public class KeyHandler implements KeyListener{
 		gp.createNewGame();
 		gp.gameState = gp.playState;
 	}
+
+	public void createNewSimState(GamePanel gp, String simName){
+		Sim sim = new Sim(gp, gp.keyH);
+		sim.setName(simName);
+		gp.listSim.add(sim);
+		// gp.curSim = sim;
+		Rumah rumah = new Rumah(sim);
+		gp.listRumah.add(rumah);
+		rumah.haveSim = sim;
+		sim.curRumah = rumah;
+		sim.curRuangan = rumah.listRuangan.get(0);
+	}
+	
 	private void playState(int code){
 		if(code == KeyEvent.VK_ESCAPE){
 			gp.gameState = gp.titleState;
@@ -138,6 +160,10 @@ public class KeyHandler implements KeyListener{
 		}
 		if(code == KeyEvent.VK_M){
 			gp.gameState=gp.menuSimState;
+		}
+		if(code == KeyEvent.VK_G)
+		{
+			gp.gameState = gp.menuGameState;
 		}
 		if(code == KeyEvent.VK_ENTER && gp.curSim.interactObject){
 			if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kasur")
@@ -201,6 +227,37 @@ public class KeyHandler implements KeyListener{
 			case 2: maxCommandNum=gp.curSim.curRumah.listRuangan.size()-1; break;
 			case 3: maxCommandNum=3; break;
 			case 4: maxCommandNum=3; break;
+		}
+		if(code == KeyEvent.VK_UP){
+			if(gp.ui.commandNum>0){
+				gp.ui.commandNum--;
+			}
+		}
+		if(code == KeyEvent.VK_DOWN){
+			if(gp.ui.commandNum<maxCommandNum){
+				gp.ui.commandNum++;
+			}
+		}
+	}
+
+	private void menuGameState(int code)
+	{
+		if(code == KeyEvent.VK_G){
+			gp.ui.subState = 0;
+			gp.ui.commandNum = 0;
+			gp.gameState=gp.playState;
+		}
+		if(code == KeyEvent.VK_ENTER){
+			enterPressed=true;
+		}
+		if(code==KeyEvent.VK_ESCAPE){
+			gp.ui.subState=0;
+		}
+
+		int maxCommandNum = 0;
+		switch(gp.ui.subState){
+			case 0: maxCommandNum=1; break;
+			case 1: maxCommandNum=gp.listSim.size()-1; break;
 		}
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){

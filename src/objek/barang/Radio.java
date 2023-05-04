@@ -5,18 +5,23 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import entity.Sim;
 import main.GamePanel;
 
 import java.io.File;
 
-public class KomporListrik extends Kompor{
+public class Radio extends Barang{
 
-	public KomporListrik(GamePanel gp) {
-		super(gp);
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk masak"; 
-		panjang = 1;
-		lebar = 1;
+	public Radio(GamePanel gp) {
+		this.gp = gp;
+		name = "Radio";
+		action = "MENDENGAR LAGU";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk mendengar lagu"; 
+		panjang = 2;
+		lebar = 2;
 		harga = 200;
+		screenX = gp.tileSize;
+		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		image = down;
@@ -24,19 +29,18 @@ public class KomporListrik extends Kompor{
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_down.png"));
-			left = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_left.png"));
-			right = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_right.png"));
-			up = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_up.png"));
-			downUsed = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_down_used.png"));
-			leftUsed = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_left_used.png"));
-			rightUsed = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_right_used.png"));
-			upUsed = ImageIO.read(new File("../resources/barang/komlis/komporlistrik_up_used.png"));
+			down = ImageIO.read(new File("../resources/barang/TV/TV_down.png"));
+			left = ImageIO.read(new File("../resources/barang/TV/TV_left.png"));
+			right = ImageIO.read(new File("../resources/barang/TV/TV_right.png"));
+			up = ImageIO.read(new File("../resources/barang/TV/TV_up.png"));
+			downUsed = ImageIO.read(new File("../resources/barang/TV/TV_down_used.png"));
+			leftUsed = ImageIO.read(new File("../resources/barang/TV/TV_left_used.png"));
+			rightUsed = ImageIO.read(new File("../resources/barang/TV/TV_right_used.png"));
+			upUsed = ImageIO.read(new File("../resources/barang/TV/TV_up_used.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 	@Override
 	public void used() {
@@ -61,25 +65,18 @@ public class KomporListrik extends Kompor{
 	}
 
 	@Override
-	public void moveUp() {
-		screenY -= gp.tileSize;
-		solidArea.y -= gp.tileSize;
+	public void effect(Sim sim, int duration) {
+		counter++;
+		if(counter>=duration){
+			unUsed();
+			counter=0;
+			sim.setMood(10);
+			sim.setKekenyangan(-5);
+			gp.ui.setNotifMessage("Selamat anda sudah menonton TV, \nkekenyangan -5 dan mood +10");
+			gp.gameState=gp.notifState;
+		}
 	}
-	@Override
-	public void moveDown() {
-		screenY += gp.tileSize;
-		solidArea.y += gp.tileSize;
-	}
-	@Override
-	public void moveLeft() {
-		screenX -= gp.tileSize;
-		solidArea.x -= gp.tileSize;
-	}
-	@Override
-	public void moveRight() {
-		screenX += gp.tileSize;
-		solidArea.x += gp.tileSize;
-	}
+
 	@Override
 	public void rotate() {
 		if(direction=="down"){
@@ -113,5 +110,3 @@ public class KomporListrik extends Kompor{
 		solidArea.width = temp;
 	}
 }
-
-

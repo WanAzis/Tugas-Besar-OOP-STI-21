@@ -18,7 +18,7 @@ public class RakBuku extends Barang{
 		action = "MEMBACA";
 		deskripsi = "[ " + name + " ] \nDibutuhkan untuk membaca"; 
 		panjang = 3;
-		lebar = 1;
+		lebar = 2;
 		harga = 150;
 		screenX = gp.tileSize;
 		screenY = gp.tileSize;
@@ -29,10 +29,10 @@ public class RakBuku extends Barang{
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_down.png"));
-			left = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_left.png"));
-			right = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_right.png"));
-			up = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_up.png"));
+			down = ImageIO.read(new File("../resources/barang/rakbuku/rakbuku.png"));
+			left = ImageIO.read(new File("../resources/barang/rakbuku/rakbuku_kiri.png"));
+			right = ImageIO.read(new File("../resources/barang/rakbuku/rakbuku_kanan.png"));
+			//up = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_up.png"));
 			// downUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_down_used.png")); kayaknya buat baca buku sekedar dia berdiri aja di depan rak tapi gabisa gerak?
 			// leftUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_left_used.png"));
 			// rightUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_right_used.png"));
@@ -49,7 +49,6 @@ public class RakBuku extends Barang{
 			case "down" : image=down; break; //up comment di line 35
 			case "left" : image=left; break;
 			case "right" : image=right; break;
-			case "up" : image=up; break;
 		}
 	}
 
@@ -60,7 +59,6 @@ public class RakBuku extends Barang{
 			case "down" : image=down; break;
 			case "left" : image=left; break;
 			case "right" : image=right; break;
-			case "up" : image=up; break;
 		}
 	}
 
@@ -78,6 +76,27 @@ public class RakBuku extends Barang{
 	}
 
 	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
+	}
+
+	@Override
 	public void rotate() {
 		if(direction=="down"){
 			direction="left";
@@ -85,11 +104,6 @@ public class RakBuku extends Barang{
 			swapSize();
 		}
 		else if(direction=="left"){
-			direction="up";
-			image=up;
-			swapSize();
-		}
-		else if(direction=="up"){
 			direction="right";
 			image=right;
 			swapSize();
