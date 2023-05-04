@@ -18,33 +18,47 @@ public class RakBuku extends Barang{
 		action = "MEMBACA";
 		deskripsi = "[ " + name + " ] \nDibutuhkan untuk membaca"; 
 		panjang = 3;
-		lebar = 1;
+		lebar = 2;
+		harga = 150;
+		screenX = gp.tileSize;
+		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
-		try {
-			image = ImageIO.read(new File("../resources/barang/toilet.png")); //ganti foto
-			
-		}catch(IOException e){
-			e.printStackTrace();
-		}
+		loadImage();
+		image = down;
 	}
 
-	@Override
-	public void used() {
+	private void loadImage(){
 		try {
-			image = ImageIO.read(new File("../resources/barang/toilet.png"));
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void unUsed()
-	{
-		gp.sim.setStatus("IDLE");
-		try {
-			image = ImageIO.read(new File("../resources/barang/toilet.png"));
+			down = ImageIO.read(new File("../resources/barang/rakbuku/rakbuku.png"));
+			left = ImageIO.read(new File("../resources/barang/rakbuku/rakbuku_kiri.png"));
+			right = ImageIO.read(new File("../resources/barang/rakbuku/rakbuku_kanan.png"));
+			//up = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_up.png"));
+			// downUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_down_used.png")); kayaknya buat baca buku sekedar dia berdiri aja di depan rak tapi gabisa gerak?
+			// leftUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_left_used.png"));
+			// rightUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_right_used.png"));
+			// upUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_up_used.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void used() { 
+		gp.curSim.setStatus(action);
+		switch(direction){
+			case "down" : image=down; break; //up comment di line 35
+			case "left" : image=left; break;
+			case "right" : image=right; break;
+		}
+	}
+
+	@Override
+	public void unUsed() {
+		gp.curSim.setStatus("IDLE");
+		switch(direction){
+			case "down" : image=down; break;
+			case "left" : image=left; break;
+			case "right" : image=right; break;
 		}
 	}
 
@@ -59,5 +73,54 @@ public class RakBuku extends Barang{
 			gp.gameState=gp.notifState;
 			// sim.getPlayerImage(); ini gatau kalo baca gambarannya gmn guys? ini asumsi klo dia ga ilang ya ky berdiri doang
 		}
+	}
+
+	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
+	}
+
+	@Override
+	public void rotate() {
+		if(direction=="down"){
+			direction="left";
+			image = left;
+			swapSize();
+		}
+		else if(direction=="left"){
+			direction="right";
+			image=right;
+			swapSize();
+		}
+		else if(direction=="right"){
+			direction="down";
+			image=down;
+			swapSize();
+		}
+	}
+	private void swapSize(){
+		int temp = panjang;
+		panjang = lebar;
+		lebar = temp;
+
+		temp = solidArea.height;
+		solidArea.height = solidArea.width;
+		solidArea.width = temp;
 	}
 }

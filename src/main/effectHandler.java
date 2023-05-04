@@ -20,16 +20,16 @@ public class effectHandler {
         {
             gp.ui.setNotifMessage("Anda belum tidur, kesehatan \ndan mood -5");
             gp.gameState=gp.notifState;
-            gp.sim.setKesehatan(gp.sim.getKesehatan() - 5);
-            gp.sim.setMood(gp.sim.getMood() - 5);
+            gp.curSim.setKesehatan(gp.curSim.getKesehatan() - 5);
+            gp.curSim.setMood(gp.curSim.getMood() - 5);
             counter = 0;
         }
         if(!checkToilet())
         {
             gp.ui.setNotifMessage("Anda belum buang air, kesehatan \ndan mood -5");
             gp.gameState=gp.notifState;
-            gp.sim.setKesehatan(gp.sim.getKesehatan() - 5);
-            gp.sim.setMood(gp.sim.getMood() - 5);
+            gp.curSim.setKesehatan(gp.curSim.getKesehatan() - 5);
+            gp.curSim.setMood(gp.curSim.getMood() - 5);
             counter = 0;
         }
     }

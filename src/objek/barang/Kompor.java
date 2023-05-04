@@ -1,13 +1,7 @@
 package objek.barang;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import entity.Sim;
 import main.GamePanel;
-
-import java.io.File;
 
 public class Kompor extends Barang {
     //konstruktor
@@ -17,6 +11,8 @@ public class Kompor extends Barang {
         name = "Kompor";
         action = "MEMASAK";
         direction = "down";
+        screenX = gp.tileSize;
+		screenY = gp.tileSize;
     }
     //effect
     public void effect(Sim sim, int duration)

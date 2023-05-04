@@ -16,13 +16,15 @@ import main.GamePanel;
 import main.KeyHandler;
 import objek.*;
 import objek.barang.Barang;
+import objek.barang.Jam;
 import objek.barang.KasurSingle;
+import objek.barang.Kompor;
+import objek.barang.MejaKursi;
 import objek.barang.Toilet;
-import objek.makanan.BahanMakanan;
 import objek.makanan.Makanan;
 import objek.makanan.Masakan;
-import objek.makanan.Nasi;
 import objek.makanan.NasiAyam;
+import tile.*;
 
 public class Sim extends Entity{
 	
@@ -32,18 +34,21 @@ public class Sim extends Entity{
 	//ATRIBUT
 	private String namaLengkap;
 	private String pekerjaan;
+	private String simName;
 	private int uang;
 	public ArrayList<Objek> inventory = new ArrayList<>();
-	private final int inventorySize = 32;
+	public final int maxInventorySize = 32;
 	private int kekenyangan;
 	private int mood;
 	private int kesehatan;
 	private String status;
-	//rumah
-	//ruangan
-	//listStore
+	// public Rumah haveRumah;
+	public Rumah curRumah;
+	public Ruangan curRuangan;
 	private Map<String,Integer> listPekerjaan;
 	
+	public int counter = 0;
+	private int durationKerja;
 	public boolean useObject;
 	public int interactObjectIdx;
 	public Makanan makanan;
@@ -55,7 +60,7 @@ public class Sim extends Entity{
 	public Sim(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
 		this.keyH = keyH;
-		
+
 		solidArea = new Rectangle(8,16,32,32);
 		solidAreaDefaultX = 8;
 		solidAreaDefaultY = 16;
@@ -71,10 +76,15 @@ public class Sim extends Entity{
 		getPlayerImage();
 		setItems();
 	}
+
+	public void setName(String simName)
+	{
+		this.simName = simName;
+	}
 	
 	public void setDefaultValues() {
-		screenX = 100;
-		screenY = 100;
+		screenX = gp.startRoomX + gp.tileSize*2 + gp.tileSize/2;
+		screenY = gp.startRoomY + gp.tileSize*2 + gp.tileSize/2;
 		speed = 2;
 		direction = "down";
 
@@ -93,11 +103,19 @@ public class Sim extends Entity{
 		pekerjaan = keys[n];
 	}
 
+	public void setPekerjaan(int idx)
+	{
+		String[] keys = listPekerjaan.keySet().toArray(new String[0]);
+		this.pekerjaan = keys[idx];
+	}
+
+
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
 		inventory.add(new Toilet(gp));
-		inventory.add(new Nasi(gp));
-		inventory.add(new Nasi(gp));
+		inventory.add(new Kompor(gp));
+		inventory.add(new MejaKursi(gp));
+		inventory.add(new Jam(gp));
 	}
 	
 	//GETTER
@@ -108,6 +126,8 @@ public class Sim extends Entity{
 	public int getMood(){return mood;}
 	public int getKesehatan(){return kesehatan;}
 	public String getStatus(){return status;}
+	// testing
+	public String getSimName(){return simName;}
 
 	//SETTER
 	public void setUang(int uang){this.uang = uang;}
@@ -132,7 +152,11 @@ public class Sim extends Entity{
 			kesehatan=maxKesehatan;
 		}
 	}
+	public void plusUang(int plusUang){
+		uang+=plusUang;
+	}
 	public void setStatus(String status){this.status=status;}
+	public void setDurationKerja(int duration){durationKerja=duration;}
 
 	public void getPlayerImage() {
 		try {
@@ -198,6 +222,12 @@ public class Sim extends Entity{
 				spriteCounter=0;
 			}
 		}
+
+		//CHECK GAME OVER
+		if(kekenyangan <= 0 || mood <= 0 || kesehatan <= 0){
+			gp.ui.setNotifMessage("Salah satu dari kesejahteraan SIM\nhabis sehingga SIM mati");
+			//MASUK STATE GAME OVER
+		}
 	}
 	
 	public void interactObject(int i) {
@@ -209,6 +239,26 @@ public class Sim extends Entity{
 		}
 	}
 	
+	public void kerja(){
+		counter++;
+		if(counter>=durationKerja){
+			int effectCounter = durationKerja/1800;
+			plusKekenyangan(-10*effectCounter);
+			plusMood(-10*effectCounter);
+			int gaji = listPekerjaan.get(pekerjaan);
+			if(durationKerja==60*60*4){
+				plusUang(gaji);
+			} else if(durationKerja==60*60*8){
+				plusUang(2*gaji);
+			}
+			counter=0;
+			gp.ui.setNotifMessage("Anda telah pulang bekerja");
+			gp.gameState=gp.notifState;
+			status="IDLE";
+			getPlayerImage();
+		}
+
+	}
 	public void selectItem(){
 		int itemIdx = gp.ui.getItemIndexOnSlot();
 
@@ -218,7 +268,7 @@ public class Sim extends Entity{
 			if(selectedItem instanceof Makanan){
 				setNullImage();
 				if(findMejaKursiIdx()!=999){
-					gp.obj[findMejaKursiIdx()].used();
+					curRuangan.obj[findMejaKursiIdx()].used();
 				}
 				gp.gameState = gp.useMakananState;
 				makanan = (Makanan) selectedItem;
@@ -227,13 +277,15 @@ public class Sim extends Entity{
 			else if(selectedItem instanceof Barang){
 				gp.gameState = gp.placeObjectState;
 				selectBarang = (Barang) selectedItem;
-				gp.addBarang(selectBarang);
+				curRuangan.addBarang(selectBarang);
+				inventory.remove(itemIdx);
+				curRuangan.printArrayBarang();
 			}
 		}
 	}
 	public int findMejaKursiIdx(){
-		for(int i = 0; i<gp.obj.length; i++){
-			if(gp.obj[i].getName()=="Meja kursi"){
+		for(int i = 0; i<curRuangan.obj.length; i++){
+			if(curRuangan.obj[i].getName()=="Meja kursi"){
 				return i;
 			}
 		} return 999;

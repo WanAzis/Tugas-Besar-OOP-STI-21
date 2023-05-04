@@ -1,43 +1,16 @@
 package objek.barang;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import entity.Sim;
 import main.GamePanel;
-
-import java.io.File;
 
 public class Kasur extends Barang{
 
 	public Kasur(GamePanel gp) {
 		this.gp = gp;
-		name = "Kasur";
 		action = "TIDUR";
 		direction = "down";
 		screenX = gp.tileSize;
-		screenY = gp.tileSize;
-	}
-
-	@Override
-	public void used() {
-		gp.sim.setStatus(action);
-		try {
-			image = ImageIO.read(new File("../resources/barang/kasursingle2.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void unUsed() {
-		gp.sim.setStatus("IDLE");
-		try {
-			image = ImageIO.read(new File("../resources/barang/kasursingle1.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		screenY = gp.tileSize*3;
 	}
 
 	@Override

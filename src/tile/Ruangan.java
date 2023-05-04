@@ -2,19 +2,16 @@ package tile;
 
 import objek.barang.*;
 
-import java.util.ArrayList;
-
 public class Ruangan
 {
-    private int sisaLuas;
     private String nama;
     private Ruangan[] ruanganTetangga;
-    private ArrayList<Barang> listBarang;
+    public Barang obj[];
 
     public Ruangan(String nama)
     {
         this.nama = nama;
-        this.listBarang = new ArrayList<Barang>();
+        obj = new Barang[10];
         this.ruanganTetangga = new Ruangan[4];
     }
 
@@ -40,9 +37,34 @@ public class Ruangan
         this.nama = nama;
     }
 
-    public ArrayList<Barang> getListBarang() 
+    public Barang getBarang(int idx) 
     {
-        return listBarang;
+        return obj[idx];
+    }
+
+    public void addBarang(Barang barang)
+    {
+		int i = arrObjLength();
+		obj[i] = barang;
+	}
+
+    public int arrObjLength(){
+        int i = 0;
+		while(i<obj.length && obj[i]!=null){
+			i++;
+		} 
+        return i;
+    }
+
+
+    public void printArrayBarang(){
+        for(int i = 0; i<obj.length; i++){
+            if(obj[i]==null){
+                System.out.println("Null");
+            } else{
+                System.out.println(obj[i].getName());
+            }
+        }
     }
 }
 /* yang masih kurang

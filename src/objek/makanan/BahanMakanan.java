@@ -4,7 +4,7 @@ import main.GamePanel;
 
 public class BahanMakanan extends Makanan{
     
-    protected int harga;
+    // protected int harga;
 
     BahanMakanan(GamePanel gp){
         this.gp = gp;

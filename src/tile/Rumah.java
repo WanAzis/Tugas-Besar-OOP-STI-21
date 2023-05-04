@@ -1,31 +1,39 @@
 package tile;
 import java.util.ArrayList;
-import java.util.List;
+
+import entity.Sim;
 
 public class Rumah
 {
     Point lokasi;
-    private int luas;
-    private List<Ruangan> listRuangan;
+    public ArrayList<Ruangan> listRuangan;
+    public Sim haveSim;
 
-    public Rumah()
+    public Rumah(Sim sim)
     {
         this.listRuangan = new ArrayList<Ruangan>();
         Ruangan kamar = new Ruangan("Kamar");
         this.listRuangan.add(kamar);
-        
-        // gimana cara nambahin furniture ke list inventory sim
-
+        haveSim = sim;
     }
+
+    // public Ruangan getRuangan(int index)
+    // {
+    //     return this.listRuangan.get(index);
+    // }
 
     public void tambahRuang(String arah, String newRuangan, Ruangan currentRuangan)
     {
         Ruangan ruanganBaru = new Ruangan(newRuangan);
+        listRuangan.add(ruanganBaru);
+        haveSim.setItems();
+        haveSim.curRuangan = ruanganBaru;
         if(arah.equals("Atas"))
         {
             if(currentRuangan.getRuanganTetangga(0) == null)
             {
                 currentRuangan.setRuanganTetangga(0, ruanganBaru);
+                ruanganBaru.setRuanganTetangga(1, currentRuangan);
             }
             else
             {
@@ -37,17 +45,7 @@ public class Rumah
             if(currentRuangan.getRuanganTetangga(1) == null)
             {
                 currentRuangan.setRuanganTetangga(1, ruanganBaru);
-            }
-            else
-            {
-                System.out.println("Sudah ada ruangan di lokasi tersebut.");
-            }
-        }
-        else if(arah.equals("Kanan"))
-        {
-            if(currentRuangan.getRuanganTetangga(2) == null)
-            {
-                currentRuangan.setRuanganTetangga(2, ruanganBaru);
+                ruanganBaru.setRuanganTetangga(0, currentRuangan);
             }
             else
             {
@@ -56,9 +54,22 @@ public class Rumah
         }
         else if(arah.equals("Kiri"))
         {
+            if(currentRuangan.getRuanganTetangga(2) == null)
+            {
+                currentRuangan.setRuanganTetangga(2, ruanganBaru);
+                ruanganBaru.setRuanganTetangga(3, currentRuangan);
+            }
+            else
+            {
+                System.out.println("Sudah ada ruangan di lokasi tersebut.");
+            }
+        }
+        else if(arah.equals("Kanan"))
+        {
             if(currentRuangan.getRuanganTetangga(3) == null)
             {
                 currentRuangan.setRuanganTetangga(3, ruanganBaru);
+                ruanganBaru.setRuanganTetangga(2, currentRuangan);
             }
             else
             {

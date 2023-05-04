@@ -16,34 +16,51 @@ public class Sajadah extends Barang{
 		this.gp = gp;
 		name = "Sajadah";
 		action = "BERIBADAH";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk buang air";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk beribadah";
 		panjang = 2;
 		lebar = 1;
+		harga = 30;
+		screenX = gp.tileSize;
+		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
+		loadImage();
+		image = down;
+	}
+
+	private void loadImage(){
 		try {
-			image = ImageIO.read(new File("../resources/barang/toilet.png")); //ganti gambar
-			
-		}catch(IOException e){
+			down = ImageIO.read(new File("../resources/barang/sajadah/sajadah_down.png"));
+			left = ImageIO.read(new File("../resources/barang/sajadah/sajadah_left.png"));
+			right = ImageIO.read(new File("../resources/barang/sajadah/sajadah_right.png"));
+			up = ImageIO.read(new File("../resources/barang/sajadah/sajadah_up.png"));
+			downUsed = ImageIO.read(new File("../resources/barang/sajadah/sajadah_used_down.png"));
+			leftUsed = ImageIO.read(new File("../resources/barang/sajadah/sajadah_used_left.png"));
+			rightUsed = ImageIO.read(new File("../resources/barang/sajadah/sajadah_used_right.png"));
+			upUsed = ImageIO.read(new File("../resources/barang/sajadah/sajadah_used_up.png"));
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void used() {
-		try {
-			image = ImageIO.read(new File("../resources/barang/toilet.png"));
-		}catch(IOException e){
-			e.printStackTrace();
+		gp.curSim.setStatus(action);
+		switch(direction){
+			case "down" : image=downUsed; break;
+			case "left" : image=leftUsed; break;
+			case "right" : image=rightUsed; break;
+			case "up" : image=upUsed; break;
 		}
 	}
+
 	@Override
-	public void unUsed()
-	{
-		gp.sim.setStatus("IDLE");
-		try {
-			image = ImageIO.read(new File("../resources/barang/toilet.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void unUsed() {
+		gp.curSim.setStatus("IDLE");
+		switch(direction){
+			case "down" : image=down; break;
+			case "left" : image=left; break;
+			case "right" : image=right; break;
+			case "up" : image=up; break;
 		}
 	}
 
@@ -58,5 +75,38 @@ public class Sajadah extends Barang{
 			gp.gameState=gp.notifState;
 			sim.getPlayerImage();
 		}
+	}
+
+	@Override
+	public void rotate() {
+		if(direction=="down"){
+			direction="left";
+			image = left;
+			swapSize();
+		}
+		else if(direction=="left"){
+			direction="up";
+			image=up;
+			swapSize();
+		}
+		else if(direction=="up"){
+			direction="right";
+			image=right;
+			swapSize();
+		}
+		else if(direction=="right"){
+			direction="down";
+			image=down;
+			swapSize();
+		}
+	}
+	private void swapSize(){
+		int temp = panjang;
+		panjang = lebar;
+		lebar = temp;
+
+		temp = solidArea.height;
+		solidArea.height = solidArea.width;
+		solidArea.width = temp;
 	}
 }
