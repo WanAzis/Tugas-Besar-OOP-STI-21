@@ -105,7 +105,7 @@ public class UI {
         store.add(new Sajadah(gp));
         store.add(new Toilet(gp));
         store.add(new TV(gp));
-        // store.add(new Treadmil(gp));
+        // store.add(new Treadmill(gp));
 
         //ADD BAHAN MAKANAN
         store.add(new Nasi(gp));
