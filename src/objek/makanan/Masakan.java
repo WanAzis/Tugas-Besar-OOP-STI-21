@@ -18,7 +18,14 @@ public class Masakan extends Makanan{
 
     public void checkAvailable(String masakan){
         if(masakan=="Nasi Ayam"){
-            gp.curSim.checkAvailableInventory(masakan);
-        }
+            gp.curSim.checkAvailableInventory(masakan);}
+        else if (masakan=="Nasi Kari"){
+            gp.curSim.checkAvailableInventory(masakan);}
+        else if (masakan=="Bistik"){
+            gp.curSim.checkAvailableInventory(masakan);}
+        else if (masakan=="Tumis Sayur"){
+            gp.curSim.checkAvailableInventory(masakan);}
+        else if (masakan=="Susu Kacang"){
+            gp.curSim.checkAvailableInventory(masakan);}
     }
 }
