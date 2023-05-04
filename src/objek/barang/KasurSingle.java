@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import entity.Sim;
 import main.GamePanel;
 
 import java.io.File;
@@ -14,6 +13,7 @@ public class KasurSingle extends Kasur{
 
 	public KasurSingle(GamePanel gp) {
 		super(gp);
+		name = "Kasur Single";
 		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk tidur"; 
 		panjang = 4;
 		lebar = 1;

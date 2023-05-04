@@ -44,10 +44,7 @@ public class Ruangan
 
     public void addBarang(Barang barang)
     {
-		int i = 0;
-		while(i<obj.length && obj[i]!=null){
-			i++;
-		} 
+		int i = arrObjLength();
 		obj[i] = barang;
 	}
 
@@ -57,6 +54,17 @@ public class Ruangan
 			i++;
 		} 
         return i;
+    }
+
+
+    public void printArrayBarang(){
+        for(int i = 0; i<obj.length; i++){
+            if(obj[i]==null){
+                System.out.println("Null");
+            } else{
+                System.out.println(obj[i].getName());
+            }
+        }
     }
 }
 /* yang masih kurang

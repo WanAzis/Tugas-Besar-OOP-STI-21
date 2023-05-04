@@ -20,11 +20,9 @@ import objek.barang.Jam;
 import objek.barang.KasurSingle;
 import objek.barang.Kompor;
 import objek.barang.MejaKursi;
-import objek.barang.Sajadah;
 import objek.barang.Toilet;
 import objek.makanan.Makanan;
 import objek.makanan.Masakan;
-import objek.makanan.Nasi;
 import objek.makanan.NasiAyam;
 import tile.*;
 
@@ -274,6 +272,7 @@ public class Sim extends Entity{
 				selectBarang = (Barang) selectedItem;
 				curRuangan.addBarang(selectBarang);
 				inventory.remove(itemIdx);
+				curRuangan.printArrayBarang();
 			}
 		}
 	}

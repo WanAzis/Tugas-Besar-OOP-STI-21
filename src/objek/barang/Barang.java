@@ -35,6 +35,7 @@ public class Barang extends Objek implements canMove{
 	public void draw(Graphics2D g2, GamePanel gp) {
 		g2.drawImage(image, screenX, screenY, gp.tileSize*lebar, gp.tileSize*panjang, null);
 	}
+	public Rectangle getSolidArea(){return solidArea;}
 
 	//SETTER
 	public void setDuration(int duration){this.duration=duration;}

@@ -12,14 +12,9 @@ import java.io.InputStream;
 
 import java.awt.BasicStroke;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.*;
 import java.awt.*;
 
 import java.util.ArrayList;
-import java.util.concurrent.Flow.Subscriber;
 
 import javax.imageio.ImageIO;
 
@@ -62,6 +57,7 @@ public class UI {
     private String notifMessage = "";
     public ArrayList<Objek> store = new ArrayList<>();
     private Ruangan chooseRuangan;
+    public Barang chooseBarang;
     int slotCol = 0;
     int slotRow = 0;
     int subState = 0;
@@ -214,12 +210,12 @@ public class UI {
             g2.drawString(">", x-gp.tileSize/2, y);
         }
     }
-    private void drawCreateSimScreen(){
-        //FRAME
+    // private void drawCreateSimScreen(){
+    //     //FRAME
 
 
-        //TEXT
-    }
+    //     //TEXT
+    // }
     private void drawPauseScreen(){
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,60F));
         String text1 = "GAME";
@@ -1153,11 +1149,22 @@ public class UI {
     }
     public void drawEditRoomScreen(){
 
-        Rectangle solidAreaObj = gp.curSim.curRuangan.obj[commandNum].solidArea;
-        Color c = new Color(245, 100, 100, 200);
+        Barang chooseBarang = gp.curSim.curRuangan.getBarang(0);
+        Color c = new Color(255, 255, 255);
         g2.setColor(c);
-        g2.fillRoundRect(solidAreaObj.x, solidAreaObj.y, solidAreaObj.width, solidAreaObj.height, 35, 35);
-        g2.drawRect(solidAreaObj.x, solidAreaObj.y, solidAreaObj.width, solidAreaObj.height);
+        g2.fill(chooseBarang.getSolidArea());
+        g2.draw(chooseBarang.getSolidArea());
+        // g2.fillRect(chooseBarang);
+        // drawSubWindow(0, 0, 96,96);
+        // drawSubWindow((int) chooseBarang.solidArea.x,(int) chooseBarang.solidArea.getY(),(int) chooseBarang.solidArea.getWidth(),(int) chooseBarang.solidArea.getHeight());
+        // g2.fillRoundRect(gp.curSim.curRuangan.obj[commandNum].solidArea.x+gp.tileSize, gp.curSim.curRuangan.obj[commandNum].solidArea.y+gp.tileSize, 
+        // gp.curSim.curRuangan.obj[commandNum].solidArea.width, gp.curSim.curRuangan.obj[commandNum].solidArea.height, 35, 35);
+        // // g2.drawRect(solidAreaObj.x, solidAreaObj.y, solidAreaObj.width, solidAreaObj.height);
+        // c = new Color(255,255,255);
+        // g2.setColor(c);
+        // g2.setStroke(new BasicStroke(3));
+        // g2.drawRoundRect(gp.curSim.curRuangan.obj[commandNum].solidArea.x+2, gp.curSim.curRuangan.obj[commandNum].solidArea.y+2, 
+        // gp.curSim.curRuangan.obj[commandNum].solidArea.width-2, gp.curSim.curRuangan.obj[commandNum].solidArea.height-2, 20, 20);
     }
     public void drawUseObject(Barang obj){
         
