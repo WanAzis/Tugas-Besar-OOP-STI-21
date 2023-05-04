@@ -1,10 +1,13 @@
 package main;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import entity.Sim;
+import objek.barang.Barang;
 import tile.Rumah;
 
 public class KeyHandler implements KeyListener{
@@ -71,6 +74,9 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.storeState){
 			storeState(code);
 		}
+		//HELP STATE
+		else if(gp.gameState==gp.helpState){
+			helpState(code);
 		//MENU GAME STATE
 		else if (gp.gameState == gp.menuGameState)
 		{
@@ -161,6 +167,8 @@ public class KeyHandler implements KeyListener{
 		if(code == KeyEvent.VK_M){
 			gp.gameState=gp.menuSimState;
 		}
+		if(code == KeyEvent.VK_H){
+			gp.gameState=gp.helpState;
 		if(code == KeyEvent.VK_G)
 		{
 			gp.gameState = gp.menuGameState;
@@ -227,6 +235,8 @@ public class KeyHandler implements KeyListener{
 			case 2: maxCommandNum=gp.curSim.curRumah.listRuangan.size()-1; break;
 			case 3: maxCommandNum=3; break;
 			case 4: maxCommandNum=3; break;
+			case 5: maxCommandNum=1; break;
+			case 6: maxCommandNum=4; break;
 		}
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
@@ -403,6 +413,30 @@ public class KeyHandler implements KeyListener{
 			gp.curSim.selectItem();
 		}
 	}
+	private void helpState(int code){
+		if(code == KeyEvent.VK_H){
+			gp.ui.subState = 0;
+			gp.ui.commandNum = 0;
+			gp.gameState=gp.playState;
+		}
+		if(code == KeyEvent.VK_ENTER){
+			enterPressed=true;
+		}
+		if(code==KeyEvent.VK_ESCAPE){
+			gp.ui.subState=0;
+		}
+		int maxCommandNum=1;
+		if(code == KeyEvent.VK_UP){
+			if(gp.ui.commandNum>0){
+				gp.ui.commandNum--;
+			}
+		}
+		if(code == KeyEvent.VK_DOWN){
+			if(gp.ui.commandNum<maxCommandNum){
+				gp.ui.commandNum++;
+			}
+		}
+	}
 	private void placeObjectScreen(int code) {
 		if(code == KeyEvent.VK_R){
 			gp.curSim.selectBarang.rotate();
@@ -418,6 +452,8 @@ public class KeyHandler implements KeyListener{
 		}
 		if(code == KeyEvent.VK_LEFT){
 			gp.curSim.selectBarang.moveLeft();
+		}
+		if(code == KeyEvent.VK_ENTER && !gp.curSim.selectBarang.collisionWithOthers){
 		}
 		if(code == KeyEvent.VK_ENTER && !gp.curSim.selectBarang.collisionWithOthers){
 			gp.gameState=gp.playState;
@@ -489,6 +525,53 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 
+	}
+	public void storeState(int code){
+		if(code == KeyEvent.VK_ENTER){
+			enterPressed = true;
+		}
+		if(code == KeyEvent.VK_ESCAPE){
+			gp.ui.subState = 0;
+			gp.gameState=gp.menuSimState;
+		}
+		if(gp.ui.subState == 0){
+			if(code == KeyEvent.VK_UP){
+				if(gp.ui.commandNum>0){
+					gp.ui.commandNum--;
+				}
+			}
+			if(code == KeyEvent.VK_DOWN){
+				if(gp.ui.commandNum<1){
+					gp.ui.commandNum++;
+				}
+			}
+		}
+		if(gp.ui.subState == 1 || gp.ui.subState == 2){
+			if(code == KeyEvent.VK_UP){
+				if(gp.ui.slotRow>0){
+					gp.ui.slotRow--;
+				}
+			}
+			if(code == KeyEvent.VK_DOWN){
+				if(gp.ui.slotRow<3){
+					gp.ui.slotRow++;
+				}
+			}
+			if(code == KeyEvent.VK_RIGHT){
+				if(gp.ui.slotCol<7){
+					gp.ui.slotCol++;
+				}
+			}
+			if(code == KeyEvent.VK_LEFT){
+				if(gp.ui.slotCol>0){
+					gp.ui.slotCol--;
+				}
+			}
+			if(code == KeyEvent.VK_ESCAPE){
+				gp.ui.subState = 0;
+			}
+		}
+		
 	}
 
 	@Override

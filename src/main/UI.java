@@ -64,7 +64,6 @@ public class UI {
     private String notifMessage = "";
     public ArrayList<Objek> store = new ArrayList<>();
     private Ruangan chooseRuangan;
-    public Barang chooseBarang;
     int slotCol = 0;
     int slotRow = 0;
     int subState = 0;
@@ -166,6 +165,8 @@ public class UI {
         if(gp.gameState==gp.kerjaState){
             drawStatus();
         }
+        if(gp.gameState==gp.helpState){
+            drawHelp();
         if(gp.gameState == gp.menuGameState)
         {
             drawMenuGameScreen();
@@ -334,6 +335,244 @@ public class UI {
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
     }
+
+    private void drawHelp(){
+        //WINDOW
+        final int frameWidth = gp.tileSize*5;
+        final int frameHeight = gp.tileSize*7;
+        final int frameX = gp.tileSize + gp.tileSize/2;
+        final int frameY = gp.tileSize*2;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,25F));
+
+        //SUBSTATE
+        switch(subState){
+            case 0: drawHelp_top(frameX,frameY,frameWidth,frameHeight);break;
+            case 1: drawHelp_control(frameX,frameY,frameWidth,frameHeight);break;
+            case 2: drawHelp_Deskripsi(frameX,frameY,frameWidth,frameHeight);break;
+        }
+        gp.keyH.enterPressed=false;
+    }
+
+    private void drawHelp_top(int frameX, int frameY, int frameWidth, int frameHeight){
+
+        int textX;
+        int textY;
+
+        //MENU
+        String text = "Menu Help";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY); 
+
+        text = "Deskripsi  Permainan";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                subState = 2;
+                commandNum = 0;
+            }
+        }
+        //BELI JUAL BARANG
+        text = "Kontrol  Permainan";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                subState = 1;
+                commandNum = 0;
+            }
+        }
+    }
+    private void drawHelp_Deskripsi(int frameX,int frameY, int frameWidth,int frameHeight){
+        //FRAME
+
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(17F));
+
+        String text = "Deskripsi  Permainan";
+        int textX = getXforCenteredText(text, frameX + frameWidth/2);
+        int textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY); 
+        textX = frameX + 10;
+        textY = frameY + 80;
+        final int lineHeight = 20;
+
+        //INFO
+        text="Tujuan dari permainan ini adalah\n menjaga kesejahteraan SIM yang telah\n dibuat agar tidak depresi dan mati.\n Untuk mewujudkan hal tersebut, ada\n banyak aksi yang dapat dilakukan.";
+        for(String line : text.split("\n")){
+            g2.drawString(line, textX, textY);
+            textY+=lineHeight;
+        }
+        // g2.drawString("Tujuan dari permainan ini adalah menjaga kesejahteraan SIM yang telah dibuat agar tidak depresi dan mati. Untuk mewujudkan hal tersebut, ada banyak aksi yang dapat dilakukan.", textX, textY);
+        // textY+=lineHeight;
+        // g2.drawString("Mundur", textX, textY);
+        // textY+=lineHeight;
+        // g2.drawString("Kanan", textX, textY);
+        // textY+=lineHeight;
+        // g2.drawString("Kiri", textX, textY);
+        // textY+=lineHeight;
+        // g2.drawString("Info SIM", textX, textY);
+        // textY+=lineHeight;
+        // g2.drawString("Pause", textX, textY);
+        // textY+=lineHeight;
+        // g2.drawString("Menu SIM", textX, textY);
+        // textY+=lineHeight;
+        // g2.drawString("Exit Game", textX, textY);
+        // textY+=lineHeight;
+        // //VALUES
+        // int tailX = (frameX + frameWidth) - 10;
+        // textY = frameY + 25;
+        // String value;
+
+        // value = String.valueOf("W");
+        // textX = getXforAligntoRightText(value, tailX);
+        // g2.drawString(value,textX,textY);
+        // textY+=lineHeight;
+
+        // value = String.valueOf("S");
+        // textX = getXforAligntoRightText(value, tailX);
+        // g2.drawString(value,textX,textY);
+        // textY+=lineHeight;
+
+        // value = String.valueOf("D");
+        // textX = getXforAligntoRightText(value, tailX);
+        // g2.drawString(value,textX,textY);
+        // textY+=lineHeight;
+
+        // value = String.valueOf("A");
+        // textX = getXforAligntoRightText(value, tailX);
+        // g2.drawString(value,textX,textY);
+        // textY+=lineHeight;
+
+        // value = String.valueOf("F");
+        // textX = getXforAligntoRightText(value, tailX);
+        // g2.drawString(value,textX,textY);
+        // textY+=lineHeight;
+
+        // value = String.valueOf("P");
+        // textX = getXforAligntoRightText(value, tailX);
+        // g2.drawString(value,textX,textY);
+        // textY+=lineHeight;
+
+        // value = String.valueOf("M");
+        // textX = getXforAligntoRightText(value, tailX);
+        // g2.drawString(value,textX,textY);
+        // textY+=lineHeight;
+
+        // value = String.valueOf("Esc");
+        // textX = getXforAligntoRightText(value, tailX);
+        // g2.drawString(value,textX,textY);
+        // textY+=lineHeight;
+
+        text = "Kembali"; 
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize*3 - gp.tileSize/2;
+        g2.drawString(text, textX, textY);
+        if(commandNum == 0){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                subState = 0;
+            }
+        }     
+    }
+    private void drawHelp_control(int frameX, int frameY, int frameWidth, int frameHeight){
+        //FRAME
+
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(17F));
+
+        int textX = frameX + 10;
+        int textY = frameY + 25;
+        final int lineHeight = 20;
+
+        //INFO
+        g2.drawString("Majuuu", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Mundur", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Kanan", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Kiri", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Info SIM", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Pause", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Menu SIM", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Exit Game", textX, textY);
+        textY+=lineHeight;
+        //VALUES
+        int tailX = (frameX + frameWidth) - 10;
+        textY = frameY + 25;
+        String value;
+
+        value = String.valueOf("W");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf("S");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf("D");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf("A");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf("F");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf("P");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf("M");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf("Esc");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        String text = "Kembali"; 
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize*3 - gp.tileSize/2;
+        g2.drawString(text, textX, textY);
+        if(commandNum == 0){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                subState = 0;
+            }
+        }
+    }
+    public void drawInventory(boolean draw){
+        //FRAME
     public void drawInventory(boolean draw){
         //FRAME
         final int frameX = gp.startRoomX + gp.originalTileSize;
@@ -738,6 +977,58 @@ public class UI {
             }
         }
     }
+    private void drawOptionKerja(int frameX, int frameY, int frameWidth, int frameHeight){
+        int textX = frameX + 30;
+        int textY = frameY + 65;
+        final int lineHeight = 25;
+        
+        String text = "4 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.setDurationKerja(60*60*2);   //ganti jadi 60*2 menit
+                gp.curSim.setNullImage();
+                gp.gameState=gp.kerjaState;
+            }
+        }
+        textY+=lineHeight;
+
+        text = "8 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.setDurationKerja(60*60*4);
+                gp.curSim.setNullImage();
+                gp.gameState=gp.kerjaState;
+            }
+        }
+        textY+=lineHeight;
+
+        text = "12 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==2){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.setDurationKerja(60*60*6);
+                gp.curSim.setNullImage();
+                gp.gameState=gp.kerjaState;
+            }
+        }
+        textY+=lineHeight;
+
+        text = "16 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==3){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.setDurationKerja(60*60*8);
+                gp.curSim.setNullImage();
+                gp.gameState=gp.kerjaState;
+            }
+        }
+    }
     private void drawNotifScreen(){
         //WINDOW
         final int frameWidth = gp.tileSize*5;
@@ -844,7 +1135,6 @@ public class UI {
             }
         }
     }
-
     private void drawMenuSimScreen(){
         //WINDOW
         final int frameWidth = gp.tileSize*5;
@@ -864,6 +1154,8 @@ public class UI {
             case 2: drawTambahRuanganScreen(frameX, frameY, frameWidth, frameHeight); break;
             case 3: drawDaftarRuanganScreen(frameX, frameY, frameWidth, frameHeight); break;
             case 4: drawChoosePosisiRuangan(frameX, frameY, frameWidth, frameHeight); break;
+            case 5: drawEditSimScreen(frameX, frameY, frameWidth, frameHeight); break;
+            case 6: drawListJobScreen(frameX, frameY, frameWidth, frameHeight); break;
         }
         gp.keyH.enterPressed = false;
     }
@@ -911,7 +1203,8 @@ public class UI {
         if(commandNum==2){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
-                
+                commandNum = 0;
+                subState = 5;
             }
         }
 
@@ -974,7 +1267,126 @@ public class UI {
             }
         }
     }
-    private void viewLocationScreen(int frameX, int frameY, int frameWidth, int frameHeigth){
+
+    private void drawEditSimScreen(int frameX, int frameY, int frameWidth, int frameHeigth){
+        int textX;
+        int textY;
+
+        String text = "Edit SIM";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+        text = "Change SIM Name";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
+                String simName = (String) JOptionPane.showInputDialog(null, "Enter New SIM Name: ");
+				gp.curSim.setName(simName);
+            }
+        }
+
+        text = "Change SIM Job";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                subState = 6;
+                commandNum = 0;
+            }
+        }
+    }
+
+    private void drawListJobScreen(int frameX, int frameY, int frameWidth, int frameHeight){
+        int textX;
+        int textY;
+
+        String text = "Daftar Pekerjaan";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+        text = "Badut Sulap";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+               gp.curSim.setPekerjaan(3);
+               subState = 0;
+               commandNum = 0;
+               gp.gameState = gp.playState;
+            }
+        }
+
+        text = "Koki";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.setPekerjaan(1);
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
+            }
+        }
+
+        text = "Polisi";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==2){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.setPekerjaan(0);
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
+            }
+        }
+
+        text = "Programmer";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==3){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.setPekerjaan(2);
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
+            }
+        }
+
+        text = "Dokter";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize;
+        g2.drawString(text, textX, textY);
+        if(commandNum==4){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.setPekerjaan(4);
+                subState = 0;
+                commandNum = 0;
+                gp.gameState = gp.playState;
+            }
+        }
+
+
+    }
+    private void viewLocationScreen(int frameX, int frameY, int frameWidth, int frameHeight){
         
         int textX;
         int textY;
@@ -1165,7 +1577,6 @@ public class UI {
                 commandNum = 0;
                 gp.gameState = gp.playState;
                 gp.curSim.curRumah.tambahRuang("Atas", "Default", chooseRuangan);
-
             }
         }
 
