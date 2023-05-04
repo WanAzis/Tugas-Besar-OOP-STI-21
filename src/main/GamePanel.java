@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Currency;
 
 import entity.Sim;
 import tile.Rumah;
@@ -70,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int menuSimState = 11;
 	public final int storeState = 12;
 	public final int kerjaState = 13;
+  public final int helpState = 14;
 	public final int menuGameState = 15;
 	public final int editRoomState = 20;
   
