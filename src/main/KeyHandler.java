@@ -77,6 +77,7 @@ public class KeyHandler implements KeyListener{
 		//HELP STATE
 		else if(gp.gameState==gp.helpState){
 			helpState(code);
+		}
 		//MENU GAME STATE
 		else if (gp.gameState == gp.menuGameState)
 		{
@@ -169,6 +170,7 @@ public class KeyHandler implements KeyListener{
 		}
 		if(code == KeyEvent.VK_H){
 			gp.gameState=gp.helpState;
+		}
 		if(code == KeyEvent.VK_G)
 		{
 			gp.gameState = gp.menuGameState;
@@ -504,7 +506,6 @@ public class KeyHandler implements KeyListener{
 				gp.ui.subState = 0;
 			}
 		}
-		
 	}
 	public void editRoomState(int code){
 		if(code==KeyEvent.VK_ESCAPE){
@@ -525,53 +526,6 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 
-	}
-	public void storeState(int code){
-		if(code == KeyEvent.VK_ENTER){
-			enterPressed = true;
-		}
-		if(code == KeyEvent.VK_ESCAPE){
-			gp.ui.subState = 0;
-			gp.gameState=gp.menuSimState;
-		}
-		if(gp.ui.subState == 0){
-			if(code == KeyEvent.VK_UP){
-				if(gp.ui.commandNum>0){
-					gp.ui.commandNum--;
-				}
-			}
-			if(code == KeyEvent.VK_DOWN){
-				if(gp.ui.commandNum<1){
-					gp.ui.commandNum++;
-				}
-			}
-		}
-		if(gp.ui.subState == 1 || gp.ui.subState == 2){
-			if(code == KeyEvent.VK_UP){
-				if(gp.ui.slotRow>0){
-					gp.ui.slotRow--;
-				}
-			}
-			if(code == KeyEvent.VK_DOWN){
-				if(gp.ui.slotRow<3){
-					gp.ui.slotRow++;
-				}
-			}
-			if(code == KeyEvent.VK_RIGHT){
-				if(gp.ui.slotCol<7){
-					gp.ui.slotCol++;
-				}
-			}
-			if(code == KeyEvent.VK_LEFT){
-				if(gp.ui.slotCol>0){
-					gp.ui.slotCol--;
-				}
-			}
-			if(code == KeyEvent.VK_ESCAPE){
-				gp.ui.subState = 0;
-			}
-		}
-		
 	}
 
 	@Override

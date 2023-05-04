@@ -167,6 +167,7 @@ public class UI {
         }
         if(gp.gameState==gp.helpState){
             drawHelp();
+        }
         if(gp.gameState == gp.menuGameState)
         {
             drawMenuGameScreen();
@@ -573,8 +574,6 @@ public class UI {
     }
     public void drawInventory(boolean draw){
         //FRAME
-    public void drawInventory(boolean draw){
-        //FRAME
         final int frameX = gp.startRoomX + gp.originalTileSize;
         final int frameY = gp.startRoomY + gp.tileSize*4 - 15;
         final int frameWidth = gp.tileSize*3 + gp.originalTileSize;
@@ -923,58 +922,6 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.originalTileSize, textY);
-        }
-    }
-    private void drawOptionKerja(int frameX, int frameY, int frameWidth, int frameHeight){
-        int textX = frameX + 30;
-        int textY = frameY + 65;
-        final int lineHeight = 25;
-        
-        String text = "4 Jam";
-        g2.drawString(text, textX, textY);
-        if(commandNum==0){
-            g2.drawString(">", textX-gp.originalTileSize, textY);
-            if(gp.keyH.enterPressed){
-                gp.curSim.setDurationKerja(60*60*2);   //ganti jadi 60*2 menit
-                gp.curSim.setNullImage();
-                gp.gameState=gp.kerjaState;
-            }
-        }
-        textY+=lineHeight;
-
-        text = "8 Jam";
-        g2.drawString(text, textX, textY);
-        if(commandNum==1){
-            g2.drawString(">", textX-gp.originalTileSize, textY);
-            if(gp.keyH.enterPressed){
-                gp.curSim.setDurationKerja(60*60*4);
-                gp.curSim.setNullImage();
-                gp.gameState=gp.kerjaState;
-            }
-        }
-        textY+=lineHeight;
-
-        text = "12 Jam";
-        g2.drawString(text, textX, textY);
-        if(commandNum==2){
-            g2.drawString(">", textX-gp.originalTileSize, textY);
-            if(gp.keyH.enterPressed){
-                gp.curSim.setDurationKerja(60*60*6);
-                gp.curSim.setNullImage();
-                gp.gameState=gp.kerjaState;
-            }
-        }
-        textY+=lineHeight;
-
-        text = "16 Jam";
-        g2.drawString(text, textX, textY);
-        if(commandNum==3){
-            g2.drawString(">", textX-gp.originalTileSize, textY);
-            if(gp.keyH.enterPressed){
-                gp.curSim.setDurationKerja(60*60*8);
-                gp.curSim.setNullImage();
-                gp.gameState=gp.kerjaState;
-            }
         }
     }
     private void drawOptionKerja(int frameX, int frameY, int frameWidth, int frameHeight){
