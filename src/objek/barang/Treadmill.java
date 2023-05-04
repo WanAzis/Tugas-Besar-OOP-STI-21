@@ -132,3 +132,6 @@ public class Treadmill extends Barang{
 		solidArea.width = temp;
 	}
 }
+
+
+//gabisa rotate

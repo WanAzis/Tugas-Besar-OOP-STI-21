@@ -131,3 +131,6 @@ public class Radio extends Barang{
 		solidArea.width = temp;
 	}
 }
+
+
+// gabisa rotate

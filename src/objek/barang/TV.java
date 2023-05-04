@@ -131,3 +131,6 @@ public class TV extends Barang{
 		solidArea.width = temp;
 	}
 }
+
+
+//gabisa rotate

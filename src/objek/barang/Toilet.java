@@ -134,3 +134,4 @@ public class Toilet extends Barang{
 }
 
 /* toilet tinggal masalah sebelum makan */
+// gabisa rotate

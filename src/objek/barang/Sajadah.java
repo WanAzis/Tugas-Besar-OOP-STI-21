@@ -24,7 +24,7 @@ public class Sajadah extends Barang{
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
-		image = up;
+		image = left;
 	}
 
 	private void loadImage(){
@@ -131,3 +131,5 @@ public class Sajadah extends Barang{
 		solidArea.width = temp;
 	}
 }
+
+//gabisa rotate
