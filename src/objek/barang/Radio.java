@@ -10,16 +10,16 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class MesinCuci extends Barang{
+public class Radio extends Barang{
 
-	public MesinCuci(GamePanel gp) {
+	public Radio(GamePanel gp) {
 		this.gp = gp;
-		name = "Mesin cuci";
-		action = "MENCUCI";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk mencuci";
-		panjang = 2;
-		lebar = 2;
-		harga = 200;
+		name = "Radio";
+		action = "MENDENGAR LAGU";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk mendengar lagu"; 
+		panjang = 1;
+		lebar = 1;
+		harga = 100;
 		screenX = gp.tileSize;
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
@@ -29,9 +29,10 @@ public class MesinCuci extends Barang{
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/mesincuci/mesincuci_down.png"));
-			left = ImageIO.read(new File("../resources/barang/mesincuci/mesincuci_samping.png"));
-			right = ImageIO.read(new File("../resources/barang/mesincuci/mesincuci_samping.png"));
+			down = ImageIO.read(new File("../resources/barang/radio/radio_down.png"));
+			left = ImageIO.read(new File("../resources/barang/radio/radio_left.png"));
+			right = ImageIO.read(new File("../resources/barang/radio/radio_right.png"));
+			up = ImageIO.read(new File("../resources/barang/radio/radio_up.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -40,21 +41,23 @@ public class MesinCuci extends Barang{
 	@Override
 	public void used() {
 		gp.curSim.setStatus(action);
-		switch(direction){
-			case "down" : image=down; break; //up comment line 35
-			case "left" : image=left; break;
-			case "right" : image=right; break;
-		}
+		// switch(direction){
+		// 	case "down" : image=downUsed; break;
+		// 	case "left" : image=leftUsed; break;
+		// 	case "right" : image=rightUsed; break;
+		// 	case "up" : image=upUsed; break;
+		// }
 	}
 
 	@Override
 	public void unUsed() {
 		gp.curSim.setStatus("IDLE");
-		switch(direction){
-			case "down" : image=down; break;
-			case "left" : image=left; break;
-			case "right" : image=right; break;
-		}
+		// switch(direction){
+		// 	case "down" : image=down; break;
+		// 	case "left" : image=left; break;
+		// 	case "right" : image=right; break;
+		// 	case "up" : image=up; break;
+		// }
 	}
 
 	@Override
@@ -63,9 +66,9 @@ public class MesinCuci extends Barang{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.plusKekenyangan(-5);
-			sim.plusMood(5);
-			gp.ui.setNotifMessage("Selamat anda sudah mencuci, \nkekenyangan -5 dan mood +5");
+			sim.setMood(10);
+			sim.setKekenyangan(-5);
+			gp.ui.setNotifMessage("Selamat anda sudah mendengar radio, \nkekenyangan -5 dan mood +10");
 			gp.gameState=gp.notifState;
 		}
 	}
@@ -98,6 +101,11 @@ public class MesinCuci extends Barang{
 			image = left;
 			swapSize();
 		}
+		/*  else if(direction=="left"){
+			direction="up";
+			image=up;
+			swapSize();
+		} */
 		else if(direction=="left"){
 			direction="right";
 			image=right;
@@ -119,3 +127,6 @@ public class MesinCuci extends Barang{
 		solidArea.width = temp;
 	}
 }
+
+
+// gabisa rotate

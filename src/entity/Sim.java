@@ -16,13 +16,18 @@ import main.GamePanel;
 import main.KeyHandler;
 import objek.*;
 import objek.barang.Barang;
+import objek.barang.Jam;
 import objek.barang.KasurSingle;
-import objek.barang.Sajadah;
+import objek.barang.Kompor;
+import objek.barang.MejaKursi;
 import objek.barang.Toilet;
+import objek.makanan.Bistik;
 import objek.makanan.Makanan;
 import objek.makanan.Masakan;
-import objek.makanan.Nasi;
 import objek.makanan.NasiAyam;
+import objek.makanan.NasiKari;
+import objek.makanan.SusuKacang;
+import objek.makanan.TumisSayur;
 import tile.*;
 
 public class Sim extends Entity{
@@ -73,7 +78,7 @@ public class Sim extends Entity{
 		
 		setDefaultValues();
 		getPlayerImage();
-		// setItems();
+		setItems();
 	}
 
 	public void setName(String simName)
@@ -102,12 +107,19 @@ public class Sim extends Entity{
 		pekerjaan = keys[n];
 	}
 
+	public void setPekerjaan(int idx)
+	{
+		String[] keys = listPekerjaan.keySet().toArray(new String[0]);
+		this.pekerjaan = keys[idx];
+	}
+
+
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
 		inventory.add(new Toilet(gp));
-		inventory.add(new Sajadah(gp));
-		inventory.add(new Nasi(gp));
-		inventory.add(new Nasi(gp));
+		inventory.add(new Kompor(gp));
+		inventory.add(new MejaKursi(gp));
+		inventory.add(new Jam(gp));
 	}
 	
 	//GETTER
@@ -271,6 +283,7 @@ public class Sim extends Entity{
 				selectBarang = (Barang) selectedItem;
 				curRuangan.addBarang(selectBarang);
 				inventory.remove(itemIdx);
+				curRuangan.printArrayBarang();
 			}
 		}
 	}
@@ -325,6 +338,10 @@ public class Sim extends Entity{
     public boolean checkAvailableInventory(String masakan) {
 		switch(masakan){
 			case "Nasi Ayam" : return checkNasiAyam();
+			case "Nasi Kari" : return checkNasiKari(); 
+			case "Bistik" 	 : return checkBistik(); 
+			case "Tumis Sayur" : return checkTumisSayur(); 			
+			case "Susu Kacang" : return checkSusuKacang();
 			default : return false;
 		}
     }
@@ -337,6 +354,66 @@ public class Sim extends Entity{
 
 		while(i<nasiAyam.listBahan.length && beAble){
 			if(!inventory.contains(nasiAyam.listBahan[i])){
+				beAble = false;
+			} i++;
+		}
+
+		return beAble;
+	}
+	private boolean checkNasiKari(){
+		boolean beAble = true;
+
+		Masakan nasiKari = new NasiKari(gp);
+
+		int i = 0;
+
+		while(i<nasiKari.listBahan.length && beAble){
+			if(!inventory.contains(nasiKari.listBahan[i])){
+				beAble = false;
+			} i++;
+		}
+
+		return beAble;
+	}
+	private boolean checkBistik(){
+		boolean beAble = true;
+
+		Masakan bistik = new Bistik(gp);
+
+		int i = 0;
+
+		while(i<bistik.listBahan.length && beAble){
+			if(!inventory.contains(bistik.listBahan[i])){
+				beAble = false;
+			} i++;
+		}
+
+		return beAble;
+	}
+	private boolean checkTumisSayur(){
+		boolean beAble = true;
+
+		Masakan tumisSayur = new TumisSayur(gp);
+
+		int i = 0;
+
+		while(i<tumisSayur.listBahan.length && beAble){
+			if(!inventory.contains(tumisSayur.listBahan[i])){
+				beAble = false;
+			} i++;
+		}
+
+		return beAble;
+	}
+	private boolean checkSusuKacang(){
+		boolean beAble = true;
+
+		Masakan susuKacang = new SusuKacang(gp);
+
+		int i = 0;
+
+		while(i<susuKacang.listBahan.length && beAble){
+			if(!inventory.contains(susuKacang.listBahan[i])){
 				beAble = false;
 			} i++;
 		}

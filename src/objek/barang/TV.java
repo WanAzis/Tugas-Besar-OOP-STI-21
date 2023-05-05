@@ -32,11 +32,6 @@ public class TV extends Barang{
 			down = ImageIO.read(new File("../resources/barang/TV/TV_down.png"));
 			left = ImageIO.read(new File("../resources/barang/TV/TV_left.png"));
 			right = ImageIO.read(new File("../resources/barang/TV/TV_right.png"));
-			up = ImageIO.read(new File("../resources/barang/TV/TV_up.png"));
-			downUsed = ImageIO.read(new File("../resources/barang/TV/TV_down_used.png"));
-			leftUsed = ImageIO.read(new File("../resources/barang/TV/TV_left_used.png"));
-			rightUsed = ImageIO.read(new File("../resources/barang/TV/TV_right_used.png"));
-			upUsed = ImageIO.read(new File("../resources/barang/TV/TV_up_used.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,23 +40,23 @@ public class TV extends Barang{
 	@Override
 	public void used() {
 		gp.curSim.setStatus(action);
-		switch(direction){
-			case "down" : image=downUsed; break;
-			case "left" : image=leftUsed; break;
-			case "right" : image=rightUsed; break;
-			case "up" : image=upUsed; break;
-		}
+		// switch(direction){
+		// 	case "down" : image=downUsed; break;
+		// 	case "left" : image=leftUsed; break;
+		// 	case "right" : image=rightUsed; break;
+		// 	case "up" : image=upUsed; break;
+		// }
 	}
 
 	@Override
 	public void unUsed() {
 		gp.curSim.setStatus("IDLE");
-		switch(direction){
-			case "down" : image=down; break;
-			case "left" : image=left; break;
-			case "right" : image=right; break;
-			case "up" : image=up; break;
-		}
+		// switch(direction){
+		// 	case "down" : image=down; break;
+		// 	case "left" : image=left; break;
+		// 	case "right" : image=right; break;
+		// 	case "up" : image=up; break;
+		// }
 	}
 
 	@Override
@@ -77,36 +72,60 @@ public class TV extends Barang{
 		}
 	}
 
+
+	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
+	}
 	@Override
 	public void rotate() {
 		if(direction=="down"){
 			direction="left";
 			image = left;
-			swapSize();
+			// swapSize();
 		}
 		else if(direction=="left"){
 			direction="up";
 			image=up;
-			swapSize();
+			// swapSize();
 		}
 		else if(direction=="up"){
 			direction="right";
 			image=right;
-			swapSize();
+			// swapSize();
 		}
 		else if(direction=="right"){
 			direction="down";
 			image=down;
-			swapSize();
+			// swapSize();
 		}
 	}
-	private void swapSize(){
-		int temp = panjang;
-		panjang = lebar;
-		lebar = temp;
+	// private void swapSize(){
+	// 	int temp = panjang;
+	// 	panjang = lebar;
+	// 	lebar = temp;
 
-		temp = solidArea.height;
-		solidArea.height = solidArea.width;
-		solidArea.width = temp;
-	}
+	// 	temp = solidArea.height;
+	// 	solidArea.height = solidArea.width;
+	// 	solidArea.width = temp;
+	// }
 }
+
+
+//gabisa rotate

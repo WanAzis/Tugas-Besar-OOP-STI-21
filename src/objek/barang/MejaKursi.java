@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import entity.Sim;
 import main.GamePanel;
 
 import java.io.File;
@@ -28,13 +27,7 @@ public class MejaKursi extends Barang{
 	private void loadImage(){
 		try {
 			down = ImageIO.read(new File("../resources/barang/mejakursimakan/mejakursimakan.png"));
-			//left = ImageIO.read(new File("../resources/barang/toilet/toilet_left.png"));
-			//right = ImageIO.read(new File("../resources/barang/toilet/toilet_right.png"));
-			//up = ImageIO.read(new File("../resources/barang/toilet/toilet_up.png"));
 			downUsed = ImageIO.read(new File("../resources/barang/mejakursimakan/mejakursimakan_used.png"));
-			// leftUsed = ImageIO.read(new File("../resources/barang/kasur/kasursingle_left_used.png"));
-			// rightUsed = ImageIO.read(new File("../resources/barang/kasur/kasursingle_right_used.png"));
-			// upUsed = ImageIO.read(new File("../resources/barang/kasur/kasursingle_up_used.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
