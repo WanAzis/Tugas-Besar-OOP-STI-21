@@ -1107,6 +1107,7 @@ public class UI {
             case 4: drawChoosePosisiRuangan(frameX, frameY, frameWidth, frameHeight); break;
             case 5: drawEditSimScreen(frameX, frameY, frameWidth, frameHeight); break;
             case 6: drawListJobScreen(frameX, frameY, frameWidth, frameHeight); break;
+            case 7: drawVisitSimScreen(frameX, frameY, frameWidth, frameHeight); break;
         }
         gp.keyH.enterPressed = false;
     }
@@ -1177,6 +1178,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==4){
             g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                commandNum = 0;
+                subState = 7;
+            }
         }
 
         //KERJA
@@ -1217,6 +1222,35 @@ public class UI {
                 subState = 2;
             }
         }
+    }
+    private void drawVisitSimScreen(int frameX, int frameY, int frameWidth, int frameHeigth)
+    {
+        int textX;
+        int textY;
+
+        String text = "Pick A Neighbor";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+        
+        for(int i = 0; i<gp.listRumah.size(); i++){
+            text = "Rumah " + gp.listRumah.get(i).haveSim.getSimName();
+            textX = frameX + gp.tileSize;
+            textY += gp.tileSize;
+            g2.drawString(text, textX, textY);
+            if(commandNum==i){
+                g2.drawString(">", textX-gp.tileSize/2, textY);
+                if(gp.keyH.enterPressed){
+                    subState = 0;
+                    commandNum = 0;
+                    gp.gameState = gp.playState;
+                    System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
+                    gp.curSim.setCurRumah(gp.listRumah.get(i));
+                    System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
+                }
+            }
+        }
+
     }
 
     private void drawEditSimScreen(int frameX, int frameY, int frameWidth, int frameHeigth){
