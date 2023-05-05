@@ -10,31 +10,33 @@ import main.GamePanel;
 
 import java.io.File;
 
-public class Toilet extends Barang{
+public class Treadmill extends Barang{
 
-	public Toilet(GamePanel gp) {
-		this.gp = gp;
-		name = "Toilet";
-		action = "BUANG AIR";
-		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk buang air"; 
-		panjang = 1;
+	public Treadmill(GamePanel gp) {
+        this.gp = gp;
+        name = "Treadmill";
+		action = "OLAHRAGA";
+		deskripsi = "[ " + name + " ] \nDibutuhkan untuk olahraga"; 
+		panjang = 2;
 		lebar = 1;
-		harga = 50;
+		harga = 200;
 		screenX = gp.tileSize;
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
-		image = down;
+        image = up;
 	}
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/toilet/toilet_down.png"));
-			left = ImageIO.read(new File("../resources/barang/toilet/toilet_left.png"));
-			right = ImageIO.read(new File("../resources/barang/toilet/toilet_right.png"));
-			downUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_down.png"));
-			leftUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_left.png"));
-			rightUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_right.png"));
+			down = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_down.png"));
+			left = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_left.png"));
+			right = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_right.png"));
+			up = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_up.png"));
+			downUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_down.png"));
+			leftUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_left.png"));
+			rightUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_right.png"));
+			upUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_up.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,27 +44,27 @@ public class Toilet extends Barang{
 
 	@Override
 	public void used() {
-		gp.curSim.setStatus(action);
+        gp.curSim.setStatus(action);
 		switch(direction){
 			case "down" : image=downUsed; break;
 			case "left" : image=leftUsed; break;
 			case "right" : image=rightUsed; break;
-			// case "up" : image=upUsed; break;
+			case "up" : image=upUsed; break;
 		}
 	}
 
 	@Override
 	public void unUsed() {
-		gp.curSim.setStatus("IDLE");
+        gp.curSim.setStatus("IDLE");
 		switch(direction){
 			case "down" : image=down; break;
 			case "left" : image=left; break;
 			case "right" : image=right; break;
-			// case "up" : image=up; break;
+			case "up" : image=up; break;
 		}
 	}
 
-	@Override
+    @Override
 	public void effect(Sim sim, int duration) {
 		counter++;
 		if(counter>=duration){
@@ -70,12 +72,11 @@ public class Toilet extends Barang{
 			counter=0;
 			sim.plusKekenyangan(-20);
 			sim.plusMood(10);
-			gp.ui.setNotifMessage("Selamat anda sudah buang air, \nkekenyangan -20 dan mood +10");
+			gp.ui.setNotifMessage("Selamat anda sudah olahraga, \nkekenyangan -20 dan mood +10");
 			gp.gameState=gp.notifState;
 			sim.getPlayerImage();
 		}
-
-	}
+    }
 
 	@Override
 	public void moveUp() {
@@ -97,39 +98,40 @@ public class Toilet extends Barang{
 		screenX += gp.tileSize;
 		solidArea.x += gp.tileSize;
 	}
+
 	@Override
 	public void rotate() {
 		if(direction=="down"){
 			direction="left";
 			image = left;
-			// swapSize();
+			swapSize();
 		}
-		/*  else if(direction=="left"){
+		else if(direction=="left"){
 			direction="up";
 			image=up;
-			// swapSize();
+			swapSize();
 		}
 		else if(direction=="up"){
 			direction="right";
 			image=right;
-			// swapSize();
+			swapSize();
 		}
 		else if(direction=="right"){
 			direction="down";
 			image=down;
-			// swapSize();
+			swapSize();
 		}
 	}
-// 	private void swapSize(){
-// 		int temp = panjang;
-// 		panjang = lebar;
-// 		lebar = temp;
+	private void swapSize(){
+		int temp = panjang;
+		panjang = lebar;
+		lebar = temp;
 
-// 		temp = solidArea.height;
-// 		solidArea.height = solidArea.width;
-// 		solidArea.width = temp;
-// 	}
+		temp = solidArea.height;
+		solidArea.height = solidArea.width;
+		solidArea.width = temp;
+	}
 }
 
-/* toilet tinggal masalah sebelum makan */
-// gabisa rotate
+
+//gabisa rotate

@@ -17,9 +17,9 @@ public class Radio extends Barang{
 		name = "Radio";
 		action = "MENDENGAR LAGU";
 		deskripsi = "[ " + name + " ] \nDibutuhkan untuk mendengar lagu"; 
-		panjang = 2;
-		lebar = 2;
-		harga = 200;
+		panjang = 1;
+		lebar = 1;
+		harga = 100;
 		screenX = gp.tileSize;
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
@@ -68,9 +68,30 @@ public class Radio extends Barang{
 			counter=0;
 			sim.setMood(10);
 			sim.setKekenyangan(-5);
-			gp.ui.setNotifMessage("Selamat anda sudah menonton TV, \nkekenyangan -5 dan mood +10");
+			gp.ui.setNotifMessage("Selamat anda sudah mendengar radio, \nkekenyangan -5 dan mood +10");
 			gp.gameState=gp.notifState;
 		}
+	}
+
+	@Override
+	public void moveUp() {
+		screenY -= gp.tileSize;
+		solidArea.y -= gp.tileSize;
+	}
+	@Override
+	public void moveDown() {
+		screenY += gp.tileSize;
+		solidArea.y += gp.tileSize;
+	}
+	@Override
+	public void moveLeft() {
+		screenX -= gp.tileSize;
+		solidArea.x -= gp.tileSize;
+	}
+	@Override
+	public void moveRight() {
+		screenX += gp.tileSize;
+		solidArea.x += gp.tileSize;
 	}
 
 	@Override
@@ -80,12 +101,12 @@ public class Radio extends Barang{
 			image = left;
 			swapSize();
 		}
-		else if(direction=="left"){
+		/*  else if(direction=="left"){
 			direction="up";
 			image=up;
 			swapSize();
-		}
-		else if(direction=="up"){
+		} */
+		else if(direction=="left"){
 			direction="right";
 			image=right;
 			swapSize();
@@ -106,3 +127,6 @@ public class Radio extends Barang{
 		solidArea.width = temp;
 	}
 }
+
+
+// gabisa rotate
