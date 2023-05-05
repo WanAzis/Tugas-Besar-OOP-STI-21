@@ -5,7 +5,6 @@ import main.GamePanel;
 public class Masakan extends Makanan{
     
     public BahanMakanan[] listBahan;
-    protected int kekenyangan;
 
     public Masakan(GamePanel gp){
         this.gp = gp;

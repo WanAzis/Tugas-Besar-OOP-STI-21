@@ -31,14 +31,21 @@ import objek.barang.Sajadah;
 import objek.barang.TV;
 import objek.barang.Toilet;
 import objek.barang.Treadmill;
+import objek.makanan.Ayam;
+import objek.makanan.Bayam;
 import objek.makanan.Bistik;
+import objek.makanan.Kacang;
+import objek.makanan.Kentang;
 import objek.makanan.Makanan;
 import objek.makanan.Masakan;
 import objek.makanan.Nasi;
 import objek.makanan.NasiAyam;
 import objek.makanan.NasiKari;
+import objek.makanan.Sapi;
+import objek.makanan.Susu;
 import objek.makanan.SusuKacang;
 import objek.makanan.TumisSayur;
+import objek.makanan.Wortel;
 import tile.*;
 
 public class Sim extends Entity{
@@ -141,6 +148,22 @@ public class Sim extends Entity{
 		inventory.add(new Radio(gp));
 		inventory.add(new Treadmill(gp));
 		inventory.add(new Nasi(gp));
+		inventory.add(new NasiAyam(gp));
+		inventory.add(new Ayam(gp));
+		inventory.add(new Bayam(gp));
+		inventory.add(new Kacang(gp));
+		inventory.add(new Kentang(gp));
+		inventory.add(new Bistik(gp));
+		inventory.add(new NasiKari(gp));
+		inventory.add(new Sapi(gp));
+		inventory.add(new Susu(gp));
+		inventory.add(new SusuKacang(gp));
+		inventory.add(new TumisSayur(gp));
+		inventory.add(new Wortel(gp));
+
+
+
+
 	}
 	
 	//GETTER
@@ -359,9 +382,9 @@ public class Sim extends Entity{
     public boolean checkAvailableInventory(String masakan) {
 		switch(masakan){
 			case "Nasi Ayam" : return checkNasiAyam();
-			case "Nasi Kari" : return checkNasiKari(); 
-			case "Bistik" 	 : return checkBistik(); 
-			case "Tumis Sayur" : return checkTumisSayur(); 			
+			case "Nasi Kari" : return checkNasiKari();
+			case "Bistik" 	 : return checkBistik();
+			case "Tumis Sayur" : return checkTumisSayur();			
 			case "Susu Kacang" : return checkSusuKacang();
 			default : return false;
 		}
@@ -379,7 +402,7 @@ public class Sim extends Entity{
 			} i++;
 		}
 
-		return beAble;
+		return true;
 	}
 	private boolean checkNasiKari(){
 		boolean beAble = true;
