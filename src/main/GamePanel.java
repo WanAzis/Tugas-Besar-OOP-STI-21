@@ -32,22 +32,21 @@ public class GamePanel extends JPanel implements Runnable{
 	final int startPanelX = tileSize * 8;
 	final int startPanelY = tileSize * 0;
 
+	public final int worldTileSize = 7;
+
     //FPS
     final int FPS = 60;
     
 
 	//SYSTEM
-    TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public TileManager tileM = new TileManager(this);
+    public KeyHandler keyH = new KeyHandler(this);
+	public TimeHandler timeH = new TimeHandler(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
 	public effectHandler eHandler = new effectHandler(this);
     Thread gameThread;
-	private int dayCounter;
-	private int day;
-	private int jam;
-	private int menit;
 
 	//PLAYER
     public Sim sim = new Sim(this ,keyH);
@@ -71,9 +70,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int menuSimState = 11;
 	public final int storeState = 12;
 	public final int kerjaState = 13;
-  public final int helpState = 14;
+  	public final int helpState = 14;
 	public final int menuGameState = 15;
-	public final int editRoomState = 20;
+	public final int editRoomState = 16;
+	public final int worldState = 17;
   
 	
     public GamePanel(){
@@ -88,16 +88,8 @@ public class GamePanel extends JPanel implements Runnable{
     public void setUpGame() {
 		gameState = titleState;
     }
-	public void createNewGame(){
-		day = 1;
-		dayCounter = 0;
-		jam = 0;
-		menit = 0;
-	}
     
 	//GETTER
-	public int getDay(){return day;}
-	public int getDayCounter(){return dayCounter;}
 	public int getMaxScreenCol() {
 		return maxScreenCol;
 	}
@@ -142,18 +134,17 @@ public class GamePanel extends JPanel implements Runnable{
 
 		if(gameState==playState){
 			curSim.update();
-			dayUpdate();
-			eHandler.checkEffect();
+			timeH.update();
 		}
 		else if(gameState==pauseState){
 			//Sim tidak di update
 		}
 		else if(gameState==useObjectState){
-			dayUpdate();
+			timeH.update();
 			useObjectUpdate(curSim.interactObjectIdx, curSim.curRuangan.obj[curSim.interactObjectIdx].getDuration());
 		}
 		else if(gameState==useMakananState){
-			dayUpdate();
+			timeH.update();
 			useMakananUpdate();
 		}
 		else if(gameState==placeObjectState){
@@ -161,43 +152,16 @@ public class GamePanel extends JPanel implements Runnable{
 			cChecker.checkPlaceObject(curSim.selectBarang);
 		}
 		else if(gameState==kerjaState){
-			dayUpdate();
+			timeH.update();
 			curSim.kerja();
 		}
 		else{}
 	}
 
-	private void dayUpdate() {
-		dayCounter++;
-		if(dayCounter>=43200){
-			day++;
-			dayCounter=0;
-		}
-	}
-	public String getTime(){
-		String time, strJam, strMenit;
-		jam = dayCounter/1800;
-		int curMenit = dayCounter - (1800*jam);
-
-		if(curMenit%300 == 0){
-			menit+=10;
-		}
-		if(menit==60){
-			menit=0;
-		}
-		if(jam<10){
-			strJam = "0"+String.valueOf(jam);
-		} else strJam = String.valueOf(jam);
-		if(menit==0){
-			strMenit = "00";
-		} else strMenit = String.valueOf(menit);
-		time = strJam + " : " + strMenit;
-
-		return time;
-	}
 	public void useObjectUpdate(int i, int duration){
 		curSim.curRuangan.obj[i].effect(curSim, duration);
 	}
+
 	public void useMakananUpdate(){
 		curSim.makanan.used(curSim);
 	}
@@ -210,6 +174,9 @@ public class GamePanel extends JPanel implements Runnable{
 		if(gameState == titleState){
 			ui.draw(g2);
 		} 
+		else if(gameState == worldState){
+			tileM.drawWorld(g2);
+		}
 		//ELSE
 		else{
 			tileM.draw(g2);

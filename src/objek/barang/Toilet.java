@@ -74,7 +74,6 @@ public class Toilet extends Barang{
 			gp.gameState=gp.notifState;
 			sim.getPlayerImage();
 		}
-
 	}
 
 	@Override
@@ -104,21 +103,21 @@ public class Toilet extends Barang{
 			image = left;
 			// swapSize();
 		}
-		/*  else if(direction=="left"){
-			direction="up";
-			image=up;
-			// swapSize();
-		}
-		else if(direction=="up"){
-			direction="right";
-			image=right;
-			// swapSize();
-		}
-		else if(direction=="right"){
-			direction="down";
-			image=down;
-			// swapSize();
-		}
+		// else if(direction=="left"){
+		// 	direction="up";
+		// 	image=up;
+		// 	// swapSize();
+		// }
+		// else if(direction=="up"){
+		// 	direction="right";
+		// 	image=right;
+		// 	// swapSize();
+		// }
+		// else if(direction=="right"){
+		// 	direction="down";
+		// 	image=down;
+		// 	// swapSize();
+		// }
 	}
 // 	private void swapSize(){
 // 		int temp = panjang;
@@ -130,6 +129,3 @@ public class Toilet extends Barang{
 // 		solidArea.width = temp;
 // 	}
 }
-
-/* toilet tinggal masalah sebelum makan */
-// gabisa rotate

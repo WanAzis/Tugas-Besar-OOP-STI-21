@@ -87,6 +87,10 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.editRoomState){
 			editRoomState(code);
 		}
+		//WORLD VIEW STATE
+		else if(gp.gameState==gp.worldState){
+			worldViewState(code);
+		}
 	}
 	
 	private void titleState(int code){
@@ -127,7 +131,7 @@ public class KeyHandler implements KeyListener{
 		gp.listRumah.add(rumah);
 		sim.curRumah = rumah;
 		sim.curRuangan = rumah.listRuangan.get(0);
-		gp.createNewGame();
+		// gp.timeH.createNewGame();
 		gp.gameState = gp.playState;
 	}
 
@@ -175,8 +179,14 @@ public class KeyHandler implements KeyListener{
 		{
 			gp.gameState = gp.menuGameState;
 		}
+		if(code == KeyEvent.VK_N)
+		{
+			gp.gameState = gp.worldState;
+		}
 		if(code == KeyEvent.VK_ENTER && gp.curSim.interactObject){
-			if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kasur")
+			if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kasur Single" || 
+			gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kasur Queen" ||
+			gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kasur King")
 			{
 				gp.gameState=gp.durationState;
 			}
@@ -239,6 +249,7 @@ public class KeyHandler implements KeyListener{
 			case 4: maxCommandNum=3; break;
 			case 5: maxCommandNum=1; break;
 			case 6: maxCommandNum=4; break;
+			case 7: maxCommandNum = gp.listSim.size();
 		}
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
@@ -284,7 +295,7 @@ public class KeyHandler implements KeyListener{
 	}
 	private void durationState(int code, String entitas){
 		switch(entitas){
-			case "Kasur  Single" : durationKasurState(code);
+			case "Kasur Single" : durationKasurState(code);
 			case "Kasur Queen" : durationKasurState(code);
 			case "Kasur King" : durationKasurState(code);
 			case "Kerja" : durationKerjaState(code);
@@ -528,6 +539,11 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 
+	}
+	public void worldViewState(int code){
+		if(code==KeyEvent.VK_ESCAPE){
+			gp.gameState=gp.playState;
+		}
 	}
 
 	@Override
