@@ -8,11 +8,11 @@ public class Kompor extends Barang {
     public Kompor(GamePanel gp)
     {
         this.gp = gp;
-        name = "Kompor";
+        // name = "Kompor";
         action = "MEMASAK";
         direction = "down";
-        screenX = gp.tileSize;
-		screenY = gp.tileSize;
+        screenX = gp.tileSize*2;
+		screenY = gp.tileSize*3;
     }
     //effect
     public void effect(Sim sim, int duration)
@@ -25,6 +25,7 @@ public class Kompor extends Barang {
             sim.plusMood(10);
             gp.ui.setNotifMessage("Selamat anda sudah memasak, \nmood +10");
             gp.gameState=gp.notifState;
+            sim.getPlayerImage();
         }
     }
 }

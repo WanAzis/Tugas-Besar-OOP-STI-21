@@ -67,8 +67,8 @@ public class Radio extends Barang{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.setMood(10);
-			sim.setKekenyangan(-5);
+			sim.plusMood(10);
+			sim.plusKekenyangan(-5);
 			gp.ui.setNotifMessage("Selamat anda sudah mendengar radio, \nkekenyangan -5 dan mood +10");
 			gp.gameState=gp.notifState;
 		}

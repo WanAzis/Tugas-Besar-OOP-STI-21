@@ -8,8 +8,12 @@ import javax.swing.JTextField;
 
 import entity.Sim;
 import objek.barang.Barang;
+import objek.makanan.Ayam;
+import objek.makanan.Masakan;
+import objek.makanan.Nasi;
+import objek.makanan.NasiAyam;
 import tile.Rumah;
-
+import objek.makanan.Masakan;
 public class KeyHandler implements KeyListener{
 
 	public GamePanel gp;
@@ -344,9 +348,17 @@ public class KeyHandler implements KeyListener{
 			gp.gameState=gp.playState;
 		}
 		if(code == KeyEvent.VK_ENTER){
+			System.out.println("masuk");
+			
 			if(gp.ui.commandNum==0 && gp.curSim.checkAvailableInventory("Nasi Ayam")){ //nasiayam
+				System.out.println("masuk2");
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(16+(16/2)));
-				//nasi ayam masuk ke inventory
+				gp.gameState=gp.useObjectState;
+				Masakan nasiAyam = new NasiAyam(gp);
+				gp.curSim.inventory.add(nasiAyam);
+				gp.curSim.inventory.remove(new Nasi(gp));
+				gp.curSim.inventory.remove(new Ayam(gp));
+
 			}
 			else if(gp.ui.commandNum==1){//nasikari
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(30+(30/2)));
@@ -357,8 +369,12 @@ public class KeyHandler implements KeyListener{
 			else if(gp.ui.commandNum==3){//tumissayur
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
 			}
-			else if(gp.ui.commandNum==3){//bistik
+			else if(gp.ui.commandNum==4){//bistik
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(22+(22/2)));
+			}
+			else{
+				System.out.println(gp.ui.commandNum);
+				
 			}
 			gp.gameState=gp.useObjectState;
 			gp.curSim.setNullImage();
@@ -459,7 +475,9 @@ public class KeyHandler implements KeyListener{
 		}
 	}
 	private void jamState(int code){
-		
+		if(code == KeyEvent.VK_ENTER) {
+			gp.gameState = gp.playState;
+		}
 	}
 	private void simInfoState(int code){
 		if(code == KeyEvent.VK_F){

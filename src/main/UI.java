@@ -171,8 +171,139 @@ public class UI {
         if(gp.gameState==gp.editRoomState){
             drawEditRoomScreen();
         }
+        if(gp.gameState==gp.jamState){
+            drawJam();
+        }
+        if(gp.gameState==gp.menuMasakanState){
+            drawMasakan();
+        }
     }
 
+    private void drawMasakan(){
+        final int frameWidth = gp.tileSize*5;
+        final int frameHeight = gp.tileSize*6;
+        final int frameX = gp.tileSize + gp.tileSize/2;
+        final int frameY = gp.tileSize*2+gp.tileSize/2;   
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,25F));
+        int textX;
+        int textY;
+
+        //MENU
+        String text = "Menu Masakan";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+        textY += gp.tileSize/2-gp.tileSize/4;
+
+        
+        //VIEW LOCATION
+        text = "Nasi Ayam";
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize - 10;
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                // commandNum = 0;
+            }
+        }
+
+        //BELI JUAL BARANG
+        text = "Nasi Kari";
+        textY += gp.tileSize/2 + 10;
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                // commandNum = 1;
+            }
+        }
+
+        //SIM
+        text = "Susu Kacang";
+        textY += gp.tileSize/2 + 10;
+        g2.drawString(text, textX, textY);
+        if(commandNum==2){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                // commandNum = 2;
+            }
+        }
+
+        //MOVE RUANGAN
+        text = "Tumis Sayur";
+        textY += gp.tileSize/2 + 10;
+        g2.drawString(text, textX, textY);
+        if(commandNum==3){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                // commandNum = 3;
+            }
+        }
+
+        //KUNJUNGAN
+        text = "Bistik";
+        textY += gp.tileSize/2 + 10;
+        g2.drawString(text, textX, textY);
+        if(commandNum==4){
+            g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                // commandNum = 3;
+            }
+        }
+        gp.keyH.enterPressed = false;
+    }
+    private void drawJam(){
+        //FRAME
+        final int frameWidth = gp.tileSize*4;
+        final int frameHeight = gp.tileSize*3;
+        final int frameX = gp.startRoomX + gp.roomWidth/2 - frameWidth/2;
+        final int frameY = gp.startRoomY + gp.tileSize/2;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(17F));
+
+        int textX = frameX + 10;
+        int textY = frameY + 25;
+        final int lineHeight = 20;
+
+        //INFO
+        g2.drawString("Waktu saat ini", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Waktu upgrade rumah", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("Waktu beli rumah", textX, textY);
+        textY+=lineHeight;
+        textY+=lineHeight;
+        textY+=lineHeight;
+        g2.drawString("> Kembali", textX, textY);
+
+
+        //VALUES
+        int tailX = (frameX + frameWidth) - 10;
+        textY = frameY + 25;
+        String value;
+
+        value = String.valueOf(gp.getTime());
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf("()");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
+        value = String.valueOf("()");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+    }
     private void drawTitleScreen(){
 
         g2.setColor(new Color(0, 0, 0));
@@ -496,7 +627,7 @@ public class UI {
         final int lineHeight = 20;
 
         //INFO
-        g2.drawString("Majuuu", textX, textY);
+        g2.drawString("Maju", textX, textY);
         textY+=lineHeight;
         g2.drawString("Mundur", textX, textY);
         textY+=lineHeight;
@@ -504,11 +635,15 @@ public class UI {
         textY+=lineHeight;
         g2.drawString("Kiri", textX, textY);
         textY+=lineHeight;
+        g2.drawString("Interaksi Objek", textX, textY);
+        textY+=lineHeight;
         g2.drawString("Info SIM", textX, textY);
         textY+=lineHeight;
         g2.drawString("Pause", textX, textY);
         textY+=lineHeight;
         g2.drawString("Menu SIM", textX, textY);
+        textY+=lineHeight;
+        g2.drawString("View World", textX, textY);
         textY+=lineHeight;
         g2.drawString("Exit Game", textX, textY);
         textY+=lineHeight;
@@ -537,6 +672,11 @@ public class UI {
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
+        value = String.valueOf("Enter");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
         value = String.valueOf("F");
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
@@ -552,6 +692,11 @@ public class UI {
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
+        value = String.valueOf("N");
+        textX = getXforAligntoRightText(value, tailX);
+        g2.drawString(value,textX,textY);
+        textY+=lineHeight;
+
         value = String.valueOf("Esc");
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
@@ -559,7 +704,7 @@ public class UI {
 
         String text = "Kembali"; 
         textX = frameX + gp.tileSize;
-        textY += gp.tileSize*3 - gp.tileSize/2;
+        textY += gp.tileSize*2 - 10;
         g2.drawString(text, textX, textY);
         if(commandNum == 0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
