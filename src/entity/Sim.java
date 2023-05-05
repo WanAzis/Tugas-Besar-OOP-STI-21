@@ -17,13 +17,24 @@ import main.KeyHandler;
 import objek.*;
 import objek.barang.Barang;
 import objek.barang.Jam;
+import objek.barang.KasurKing;
+import objek.barang.KasurQueen;
 import objek.barang.KasurSingle;
 import objek.barang.Kompor;
+import objek.barang.KomporGas;
+import objek.barang.KomporListrik;
 import objek.barang.MejaKursi;
+import objek.barang.MesinCuci;
+import objek.barang.Radio;
+import objek.barang.RakBuku;
+import objek.barang.Sajadah;
+import objek.barang.TV;
 import objek.barang.Toilet;
+import objek.barang.Treadmill;
 import objek.makanan.Bistik;
 import objek.makanan.Makanan;
 import objek.makanan.Masakan;
+import objek.makanan.Nasi;
 import objek.makanan.NasiAyam;
 import objek.makanan.NasiKari;
 import objek.makanan.SusuKacang;
@@ -116,10 +127,20 @@ public class Sim extends Entity{
 
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
+		inventory.add(new KasurQueen(gp));
+		inventory.add(new KasurKing(gp));
 		inventory.add(new Toilet(gp));
-		inventory.add(new Kompor(gp));
+		inventory.add(new KomporGas(gp));
+		inventory.add(new KomporListrik(gp));
 		inventory.add(new MejaKursi(gp));
 		inventory.add(new Jam(gp));
+		inventory.add(new TV(gp));
+		inventory.add(new Sajadah(gp));
+		inventory.add(new RakBuku(gp));
+		inventory.add(new MesinCuci(gp));
+		inventory.add(new Radio(gp));
+		inventory.add(new Treadmill(gp));
+		inventory.add(new Nasi(gp));
 	}
 	
 	//GETTER

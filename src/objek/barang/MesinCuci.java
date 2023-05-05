@@ -16,7 +16,7 @@ public class MesinCuci extends Barang{
 		this.gp = gp;
 		name = "Mesin cuci";
 		action = "MENCUCI";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk mencuci";
+		deskripsi = "[ " + name + " ] \nDibutuhkan \nuntuk mencuci";
 		panjang = 2;
 		lebar = 2;
 		harga = 200;
@@ -25,6 +25,8 @@ public class MesinCuci extends Barang{
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		image = down;
+		direction="down";
+
 	}
 
 	private void loadImage(){
@@ -40,11 +42,6 @@ public class MesinCuci extends Barang{
 	@Override
 	public void used() {
 		gp.curSim.setStatus(action);
-		switch(direction){
-			case "down" : image=down; break; //up comment line 35
-			case "left" : image=left; break;
-			case "right" : image=right; break;
-		}
 	}
 
 	@Override

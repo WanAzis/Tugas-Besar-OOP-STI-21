@@ -16,7 +16,7 @@ public class Treadmill extends Barang{
         this.gp = gp;
         name = "Treadmill";
 		action = "OLAHRAGA";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk olahraga"; 
+		deskripsi = "[ " + name + " ] \nDibutuhkan \nuntuk olahraga"; 
 		panjang = 2;
 		lebar = 1;
 		harga = 200;
@@ -24,15 +24,16 @@ public class Treadmill extends Barang{
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
+		direction="up";
         image = up;
 	}
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_down.png"));
-			left = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_left.png"));
-			right = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_right.png"));
-			up = ImageIO.read(new File("../resources/barang/treadmill/treadmill_unused_up.png"));
+			down = ImageIO.read(new File("../resources/barang/treadmill/treadmill_down.png"));
+			left = ImageIO.read(new File("../resources/barang/treadmill/treadmill_left.png"));
+			right = ImageIO.read(new File("../resources/barang/treadmill/treadmill_right.png"));
+			up = ImageIO.read(new File("../resources/barang/treadmill/treadmill_up.png"));
 			downUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_down.png"));
 			leftUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_left.png"));
 			rightUsed = ImageIO.read(new File("../resources/barang/treadmill/treadmill_used_right.png"));

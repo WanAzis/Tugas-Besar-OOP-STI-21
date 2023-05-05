@@ -893,6 +893,7 @@ public class UI {
             case "Kasur Queen": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
             case "Kasur King": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
             case "Kerja": drawOptionKerja(frameX, frameY, frameWidth, frameHeigth);
+            case "Treadmill" : drawOptionOlahraga(frameX, frameY, frameWidth, frameHeigth);
         }
         gp.keyH.enterPressed = false;
     }
@@ -927,6 +928,38 @@ public class UI {
         if(commandNum==3){
             g2.drawString(">", textX-gp.originalTileSize, textY);
         }
+    }
+    private void drawOptionOlahraga(int frameX, int frameY, int frameWidth, int frameHeigth){
+        int textX = frameX + 30;
+        int textY = frameY + 65;
+        final int lineHeight = 25;
+        
+        String text = "4 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+        }
+        textY+=lineHeight;
+
+        text = "8 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+        }
+        textY+=lineHeight;
+
+        text = "12 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==2){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+        }
+        textY+=lineHeight;
+
+        text = "16 Jam";
+        g2.drawString(text, textX, textY);
+        if(commandNum==3){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+        } 
     }
     private void drawOptionKerja(int frameX, int frameY, int frameWidth, int frameHeight){
         int textX = frameX + 30;

@@ -14,6 +14,7 @@ public class KasurKing extends Kasur{
 
 	public KasurKing(GamePanel gp) {
 		super(gp);
+		name = "Kasur King";
 		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk tidur"; 
 		panjang = 5;
 		lebar = 2;

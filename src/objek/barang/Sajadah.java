@@ -16,7 +16,7 @@ public class Sajadah extends Barang{
 		this.gp = gp;
 		name = "Sajadah";
 		action = "BERIBADAH";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk beribadah";
+		deskripsi = "[ " + name + " ] \nDibutuhkan \nuntuk beribadah";
 		panjang = 2;
 		lebar = 1;
 		harga = 30;
@@ -24,7 +24,8 @@ public class Sajadah extends Barang{
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
-		image = left;
+		direction="up";
+		image = up;
 	}
 
 	private void loadImage(){

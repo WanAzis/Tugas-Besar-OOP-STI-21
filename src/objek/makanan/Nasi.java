@@ -20,7 +20,7 @@ public class Nasi extends BahanMakanan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/nasi.png"));
+			image = ImageIO.read(new File("../resources/makanan/nasi.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

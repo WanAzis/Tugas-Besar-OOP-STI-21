@@ -15,7 +15,9 @@ public class Jam extends Barang{
     public Jam(GamePanel gp) {
 		this.gp = gp;
 		name = "Jam";
-		action = "lihat waktu";
+		action = "LIHAT WAKTU";
+		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk melihat\n waktu"; 
+
 		panjang = 1;
 		lebar = 1;
 		harga = 10;
@@ -25,19 +27,6 @@ public class Jam extends Barang{
 			
 		}catch(IOException e){
 			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void effect(Sim sim, int duration) {
-		counter++;
-		if(counter>=duration){
-			unUsed();
-			counter=0;
-			sim.plusKesehatan(20);
-			sim.plusMood(30);
-			gp.gameState=gp.playState;
-			sim.getPlayerImage();
 		}
 	}
 	

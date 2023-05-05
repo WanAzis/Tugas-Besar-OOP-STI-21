@@ -13,7 +13,8 @@ public class KomporGas extends Kompor{
 
 	public KomporGas(GamePanel gp) {
 		super(gp);
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk masak"; 
+		name = "Kompor Gas";
+		deskripsi = "[ " + name + " ] \nDibutuhkan \nuntuk masak"; 
 		panjang = 1;
 		lebar = 2;
 		harga = 100;

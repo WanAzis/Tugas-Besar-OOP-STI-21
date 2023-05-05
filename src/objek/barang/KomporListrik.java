@@ -13,7 +13,8 @@ public class KomporListrik extends Kompor{
 
 	public KomporListrik(GamePanel gp) {
 		super(gp);
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk masak"; 
+		name = "Kompor Listrik";
+		deskripsi = "[ " + name + " ] \nDibutuhkan \nuntuk masak"; 
 		panjang = 1;
 		lebar = 1;
 		harga = 200;

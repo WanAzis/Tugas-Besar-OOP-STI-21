@@ -20,7 +20,7 @@ public class Kentang extends BahanMakanan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/kentang.png"));
+			image = ImageIO.read(new File("../resources/makanan/kentang.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

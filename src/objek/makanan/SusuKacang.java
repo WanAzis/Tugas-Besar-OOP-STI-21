@@ -42,7 +42,7 @@ public class SusuKacang extends Masakan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/masakan/SusuKacang.png"));
+			image = ImageIO.read(new File("../resources/makanan/masakan/SusuKacang.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

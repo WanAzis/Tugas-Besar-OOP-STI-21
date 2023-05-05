@@ -20,7 +20,7 @@ public class Ayam extends BahanMakanan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/ayam.png"));
+			image = ImageIO.read(new File("../resources/makanan/ayam.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

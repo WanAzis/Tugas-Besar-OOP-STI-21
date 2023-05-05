@@ -24,6 +24,7 @@ public class Toilet extends Barang{
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
+		direction="down";
 		image = down;
 	}
 
@@ -102,8 +103,17 @@ public class Toilet extends Barang{
 		if(direction=="down"){
 			direction="left";
 			image = left;
-			// swapSize();
 		}
+		else if(direction=="left"){
+			direction="right";
+			image=right;
+		}
+		else if(direction=="right"){
+			direction="down";
+			image=down;
+		}
+	}
+}
 		/*  else if(direction=="left"){
 			direction="up";
 			image=up;

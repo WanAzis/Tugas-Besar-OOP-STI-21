@@ -20,7 +20,7 @@ public class Sapi extends BahanMakanan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/sapi.png"));
+			image = ImageIO.read(new File("../resources/makanan/sapi.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
