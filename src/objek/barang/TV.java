@@ -16,7 +16,7 @@ public class TV extends Barang{
 		this.gp = gp;
 		name = "TV";
 		action = "MENONTON";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk menonton"; 
+		deskripsi = "[ " + name + " ] \nDibutuhkan \nuntuk menonton"; 
 		panjang = 2;
 		lebar = 2;
 		harga = 200;
@@ -24,14 +24,15 @@ public class TV extends Barang{
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
+		direction="down";
 		image = down;
 	}
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/TV/TV_down.png"));
-			left = ImageIO.read(new File("../resources/barang/TV/TV_left.png"));
-			right = ImageIO.read(new File("../resources/barang/TV/TV_right.png"));
+			down = ImageIO.read(new File("../resources/barang/tv/tv_down.png"));
+			left = ImageIO.read(new File("../resources/barang/tv/tv_left.png"));
+			right = ImageIO.read(new File("../resources/barang/tv/tv_right.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -101,11 +102,6 @@ public class TV extends Barang{
 			// swapSize();
 		}
 		else if(direction=="left"){
-			direction="up";
-			image=up;
-			// swapSize();
-		}
-		else if(direction=="up"){
 			direction="right";
 			image=right;
 			// swapSize();

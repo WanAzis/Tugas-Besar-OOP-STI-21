@@ -24,6 +24,7 @@ public class Toilet extends Barang{
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
+		direction="down";
 		image = down;
 	}
 
@@ -101,23 +102,32 @@ public class Toilet extends Barang{
 		if(direction=="down"){
 			direction="left";
 			image = left;
+		}
+		else if(direction=="left"){
+			direction="right";
+			image=right;
+		}
+		else if(direction=="right"){
+			direction="down";
+			image=down;
+		}
+	}
+}
+		/*  else if(direction=="left"){
+			direction="up";
+			image=up;
 			// swapSize();
 		}
-		// else if(direction=="left"){
-		// 	direction="up";
-		// 	image=up;
-		// 	// swapSize();
-		// }
-		// else if(direction=="up"){
-		// 	direction="right";
-		// 	image=right;
-		// 	// swapSize();
-		// }
-		// else if(direction=="right"){
-		// 	direction="down";
-		// 	image=down;
-		// 	// swapSize();
-		// }
+		else if(direction=="up"){
+			direction="right";
+			image=right;
+			// swapSize();
+		}
+		else if(direction=="right"){
+			direction="down";
+			image=down;
+			// swapSize();
+		}
 	}
 // 	private void swapSize(){
 // 		int temp = panjang;

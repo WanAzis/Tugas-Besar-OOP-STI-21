@@ -20,7 +20,7 @@ public class Bayam extends BahanMakanan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/bayam.png"));
+			image = ImageIO.read(new File("../resources/makanan/bayam.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -87,6 +87,8 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.editRoomState){
 			editRoomState(code);
 		}
+		else if (gp.gameState==gp.jamState){
+			jamState(code);
 		//WORLD VIEW STATE
 		else if(gp.gameState==gp.worldState){
 			worldViewState(code);
@@ -197,7 +199,7 @@ public class KeyHandler implements KeyListener{
 				gp.curSim.setNullImage();
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
 			}
-			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kompor")
+			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kompor Listrik" || gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kompor Gas")
 			{
 				gp.gameState = gp.menuMasakanState;
 			}
@@ -219,12 +221,34 @@ public class KeyHandler implements KeyListener{
 				// gp.curSim.setNullImage();
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
 			}
+			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="TV")
+			{
+				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
+				gp.gameState=gp.useObjectState;
+				// gp.curSim.setNullImage();
+				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
+			}
+			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Radio")
+			{
+				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
+				gp.gameState=gp.useObjectState;
+				// gp.curSim.setNullImage();
+				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
+			}
+			
 			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Sajadah")
 			{
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*45);
 				gp.gameState=gp.useObjectState;
 				gp.curSim.setNullImage();
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+			}
+			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Treadmill")
+			{
+				gp.gameState=gp.durationState;
+			}
+			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Jam"){
+				gp.gameState=gp.jamState;
 			}
 		}
 	}
@@ -299,6 +323,7 @@ public class KeyHandler implements KeyListener{
 			case "Kasur Queen" : durationKasurState(code);
 			case "Kasur King" : durationKasurState(code);
 			case "Kerja" : durationKerjaState(code);
+			case "Treadmill" : durationOlahragaState(code);
 		}
 	}
 
@@ -372,6 +397,38 @@ public class KeyHandler implements KeyListener{
 			gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
 		}
 	}
+	private void durationOlahragaState(int code){
+		if(code == KeyEvent.VK_UP){
+			if(gp.ui.commandNum>0){
+				gp.ui.commandNum--;
+			}
+		}
+		if(code == KeyEvent.VK_DOWN){
+			if(gp.ui.commandNum<3){
+				gp.ui.commandNum++;
+			}
+		}
+		if(code == KeyEvent.VK_ESCAPE){
+			gp.gameState=gp.playState;
+		}
+		if(code == KeyEvent.VK_ENTER){
+			if(gp.ui.commandNum==0){
+				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*5);
+			}
+			else if(gp.ui.commandNum==1){
+				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*4);
+			}
+			else if(gp.ui.commandNum==2){
+				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*6);
+			}
+			else if(gp.ui.commandNum==3){
+				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*8);
+			}
+			gp.gameState=gp.useObjectState;
+			gp.curSim.setNullImage();
+			gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();		
+		}
+	}
 	private void durationKerjaState(int code){
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
@@ -397,6 +454,11 @@ public class KeyHandler implements KeyListener{
 	}
 	private void pauseState(int code){
 		if(code == KeyEvent.VK_P) {
+			gp.gameState = gp.playState;
+		}
+	}
+	private void jamState(int code){
+		if(code == KeyEvent.VK_) {
 			gp.gameState = gp.playState;
 		}
 	}

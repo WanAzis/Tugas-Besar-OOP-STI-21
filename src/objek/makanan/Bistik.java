@@ -42,7 +42,7 @@ public class Bistik extends Masakan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/masakan/Bistik.png"));
+			image = ImageIO.read(new File("../resources/makanan/masakan/Bistik.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

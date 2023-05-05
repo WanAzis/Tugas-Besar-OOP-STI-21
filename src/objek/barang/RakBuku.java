@@ -16,7 +16,7 @@ public class RakBuku extends Barang{
 		this.gp = gp;
 		name = "Rak buku";
 		action = "MEMBACA";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk membaca"; 
+		deskripsi = "[ " + name + " ] \nDibutuhkan \nuntuk membaca"; 
 		panjang = 3;
 		lebar = 2;
 		harga = 150;
@@ -24,6 +24,7 @@ public class RakBuku extends Barang{
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
+		direction="down";
 		image = down;
 	}
 
@@ -40,21 +41,11 @@ public class RakBuku extends Barang{
 	@Override
 	public void used() { 
 		gp.curSim.setStatus(action);
-		// switch(direction){
-		// 	case "down" : image=down; break; //up comment di line 35
-		// 	case "left" : image=left; break;
-		// 	case "right" : image=right; break;
-		// }
 	}
 
 	@Override
 	public void unUsed() {
 		gp.curSim.setStatus("IDLE");
-		// switch(direction){
-		// 	case "down" : image=down; break;
-		// 	case "left" : image=left; break;
-		// 	case "right" : image=right; break;
-		// }
 	}
 
 	@Override
@@ -96,26 +87,17 @@ public class RakBuku extends Barang{
 		if(direction=="down"){
 			direction="left";
 			image = left;
-			swapSize();
+			// swapSize();
 		}
 		else if(direction=="left"){
 			direction="right";
 			image=right;
-			swapSize();
+			// swapSize();
 		}
 		else if(direction=="right"){
 			direction="down";
 			image=down;
-			swapSize();
+			// swapSize();
 		}
-	}
-	private void swapSize(){
-		int temp = panjang;
-		panjang = lebar;
-		lebar = temp;
-
-		temp = solidArea.height;
-		solidArea.height = solidArea.width;
-		solidArea.width = temp;
 	}
 }

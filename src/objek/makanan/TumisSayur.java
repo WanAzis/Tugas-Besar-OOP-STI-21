@@ -42,7 +42,7 @@ public class TumisSayur extends Masakan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/masakan/TumisSayur.png"));
+			image = ImageIO.read(new File("../resources/makanan/masakan/TumisSayur.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

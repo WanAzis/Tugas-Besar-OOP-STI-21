@@ -20,7 +20,7 @@ public class Kacang extends BahanMakanan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/kacang.png"));
+			image = ImageIO.read(new File("../resources/makanan/kacang.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

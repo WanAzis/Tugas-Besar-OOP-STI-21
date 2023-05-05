@@ -20,7 +20,7 @@ public class Wortel extends BahanMakanan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/wortel.png"));
+			image = ImageIO.read(new File("../resources/makanan/wortel.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

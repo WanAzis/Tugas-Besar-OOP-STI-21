@@ -20,7 +20,7 @@ public class Susu extends BahanMakanan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/susu.png"));
+			image = ImageIO.read(new File("../resources/makanan/susu.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

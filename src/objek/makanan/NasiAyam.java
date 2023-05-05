@@ -42,7 +42,7 @@ public class NasiAyam extends Masakan{
 
     private void loadImage(){
         try {
-			image = ImageIO.read(new File("../../resources/makanan/masakan/NasiAyam.png"));
+			image = ImageIO.read(new File("../resources/makanan/masakan/NasiAyam.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

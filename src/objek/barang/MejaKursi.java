@@ -15,7 +15,7 @@ public class MejaKursi extends Barang{
 		this.gp = gp;
 		name = "Meja kursi";
 		action = "MAKAN";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk makan";
+		deskripsi = "[ " + name + " ] \nDibutuhkan \nuntuk makan";
 		panjang = 3;
 		lebar = 3;
 		harga = 50;

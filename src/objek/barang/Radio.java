@@ -16,7 +16,7 @@ public class Radio extends Barang{
 		this.gp = gp;
 		name = "Radio";
 		action = "MENDENGAR LAGU";
-		deskripsi = "[ " + name + " ] \nDibutuhkan untuk mendengar lagu"; 
+		deskripsi = "[ " + name + " ] \nDibutuhkan \nuntuk mendengar \nlagu"; 
 		panjang = 1;
 		lebar = 1;
 		harga = 100;
@@ -24,6 +24,7 @@ public class Radio extends Barang{
 		screenY = gp.tileSize;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
+		direction="down";
 		image = down;
 	}
 
