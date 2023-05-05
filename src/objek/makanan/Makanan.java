@@ -18,7 +18,7 @@ public class Makanan extends Objek {
             counter = 0;
             sim.makanan = null;
             sim.plusKekenyangan(kekenyangan);
-            gp.eHandler.setCurToilet();
+            gp.timeH.setCurToilet();
             gp.ui.setNotifMessage("Anda selesai makan " + name + ",\nkekenyangan +" + kekenyangan);
             if(sim.findMejaKursiIdx()!=999){
                 gp.curSim.curRuangan.obj[sim.findMejaKursiIdx()].unUsed();

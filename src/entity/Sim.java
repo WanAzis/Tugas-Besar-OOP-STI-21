@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.List;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class Sim extends Entity{
 	KeyHandler keyH;
 
 	//ATRIBUT
-	private String namaLengkap;
+	// private String namaLengkap;
 	private String pekerjaan;
 	private String simName;
 	private int uang;
@@ -64,10 +65,10 @@ public class Sim extends Entity{
 	private int mood;
 	private int kesehatan;
 	private String status;
-	// public Rumah haveRumah;
 	public Rumah curRumah;
 	public Ruangan curRuangan;
 	private Map<String,Integer> listPekerjaan;
+	public ArrayList<Objek> listBelanja;
 	
 	public int counter = 0;
 	private int durationKerja;
@@ -93,6 +94,8 @@ public class Sim extends Entity{
 		listPekerjaan.put("Polisi",35);
 		listPekerjaan.put("Programmer",45);
 		listPekerjaan.put("Dokter",50);
+
+		listBelanja = new ArrayList<>();
 		
 		setDefaultValues();
 		getPlayerImage();
@@ -111,7 +114,7 @@ public class Sim extends Entity{
 		direction = "down";
 
 		//ATRIBUT SIM
-		namaLengkap = "Sim-A";
+		simName = "Sim-A";
 		kekenyangan = 80;
 		mood = 80;
 		kesehatan = 80;
@@ -131,6 +134,10 @@ public class Sim extends Entity{
 		this.pekerjaan = keys[idx];
 	}
 
+	public void setCurRumah(Rumah rumah)
+	{
+		this.curRumah = rumah;
+	}
 
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
@@ -167,7 +174,7 @@ public class Sim extends Entity{
 	}
 	
 	//GETTER
-	public String getNamaLengkap(){return namaLengkap;}
+	// public String getNamaLengkap(){return si;}
 	public String getPekerjaan(){return pekerjaan;}
 	public int getUang(){return uang;}
 	public int getKekenyangan(){return kekenyangan;}

@@ -12,16 +12,10 @@ import java.io.InputStream;
 
 import java.awt.BasicStroke;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 import javax.swing.*;
 
-import entity.Sim;
-
-import java.awt.*;
-
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -929,9 +923,15 @@ public class UI {
                     gp.gameState = gp.notifState;
                     notifMessage = "Inventory anda tidak cukup \nmenampung barang";
                     drawNotifScreen();
-                } else {
+                } else {    //BARANG BERHASIL DIBELI
                     gp.curSim.setUang(gp.curSim.getUang() - store.get(itemIdx).harga);
-                    gp.curSim.inventory.add(store.get(itemIdx));
+                    if(gp.timeH.getBeliBarang()==0){
+                        Random rand = new Random();
+                        int n = rand.nextInt(5);
+                        int waktu = n*30;
+                        gp.timeH.setBeliBarang(waktu);
+                    }
+                    gp.curSim.listBelanja.add(store.get(itemIdx));
                 }
             }
         }
@@ -993,14 +993,14 @@ public class UI {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,16F));
         
-        String text = "Day - " + gp.getDay();
+        String text = "Day - " + gp.timeH.getDay();
         int textX = frameX + 10;
         int textY = frameY + 20;
         final int lineHeight = 20;
         
         g2.drawString(text, textX, textY);
         
-        text = gp.getTime();
+        text = gp.timeH.getTime();
         textX = getXforAligntoRightText(text, frameX+frameWidth-10);
         g2.drawString(text, textX, textY);
         textY+=lineHeight;
@@ -1011,7 +1011,9 @@ public class UI {
         g2.drawString(text, textX, textY);
         textY+=lineHeight;
 
-        //DRAW NAMA RUANGAN
+        text = gp.curSim.curRuangan.getNama();
+        textX = getXforCenteredText(text, frameX+(frameWidth/2));
+        g2.drawString(text, textX, textY);
     }
     public void drawDurationState(String entitas){
 
@@ -1285,6 +1287,7 @@ public class UI {
             case 4: drawChoosePosisiRuangan(frameX, frameY, frameWidth, frameHeight); break;
             case 5: drawEditSimScreen(frameX, frameY, frameWidth, frameHeight); break;
             case 6: drawListJobScreen(frameX, frameY, frameWidth, frameHeight); break;
+            case 7: drawVisitSimScreen(frameX, frameY, frameWidth, frameHeight); break;
         }
         gp.keyH.enterPressed = false;
     }
@@ -1355,6 +1358,10 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==4){
             g2.drawString(">", textX-gp.tileSize/2, textY);
+            if(gp.keyH.enterPressed){
+                commandNum = 0;
+                subState = 7;
+            }
         }
 
         //KERJA
@@ -1395,6 +1402,35 @@ public class UI {
                 subState = 2;
             }
         }
+    }
+    private void drawVisitSimScreen(int frameX, int frameY, int frameWidth, int frameHeigth)
+    {
+        int textX;
+        int textY;
+
+        String text = "Pick A Neighbor";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+        
+        for(int i = 0; i<gp.listRumah.size(); i++){
+            text = "Rumah " + gp.listRumah.get(i).haveSim.getSimName();
+            textX = frameX + gp.tileSize;
+            textY += gp.tileSize;
+            g2.drawString(text, textX, textY);
+            if(commandNum==i){
+                g2.drawString(">", textX-gp.tileSize/2, textY);
+                if(gp.keyH.enterPressed){
+                    subState = 0;
+                    commandNum = 0;
+                    gp.gameState = gp.playState;
+                    System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
+                    gp.curSim.setCurRumah(gp.listRumah.get(i));
+                    System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
+                }
+            }
+        }
+
     }
 
     private void drawEditSimScreen(int frameX, int frameY, int frameWidth, int frameHeigth){
