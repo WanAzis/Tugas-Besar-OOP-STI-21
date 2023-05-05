@@ -249,6 +249,7 @@ public class KeyHandler implements KeyListener{
 			case 4: maxCommandNum=3; break;
 			case 5: maxCommandNum=1; break;
 			case 6: maxCommandNum=4; break;
+			case 7: maxCommandNum = gp.listSim.size();
 		}
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
