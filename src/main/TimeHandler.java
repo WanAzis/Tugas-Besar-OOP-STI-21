@@ -1,5 +1,7 @@
 package main;
 
+import objek.Objek;
+
 public class TimeHandler {
     //ATRIBUT
     private GamePanel gp;
@@ -25,14 +27,26 @@ public class TimeHandler {
     //GETTER
     public int getDay(){return day;}
     public int getDetik(){return detik;}
+    public String getTime(){
+        String value = String.valueOf(720-detik);
+        return value;
+    }
+    public int getBeliBarang() {
+        return beliBarang;
+    }
 
     //SETTER
+    public void setBeliBarang(int beliBarang){this.beliBarang = beliBarang;}
+
     public void update() {
         if(!gp.curSim.getStatus().equals("IDLE")){
             dayCounter++;
             if(dayCounter>=60){
                 detik++;
                 dayCounter=0;
+                if(beliBarang>0){
+                    checkBeliBarang();
+                }
             }
             if(detik>=720){
                 day++;
@@ -62,7 +76,7 @@ public class TimeHandler {
             gp.gameState=gp.notifState;
             gp.curSim.setKesehatan(gp.curSim.getKesehatan() - 5);
             gp.curSim.setMood(gp.curSim.getMood() - 5);
-            dayCounter = 0;
+            setCurTidur();
         }
         if(!checkToilet())
         {
@@ -70,12 +84,12 @@ public class TimeHandler {
             gp.gameState=gp.notifState;
             gp.curSim.setKesehatan(gp.curSim.getKesehatan() - 5);
             gp.curSim.setMood(gp.curSim.getMood() - 5);
-            dayCounter = 0;
+            setCurToilet();
         }
     }
     public boolean checkTidur()
     {
-        if(detik - curTidur >= (5))
+        if(detik - curTidur >= (60*10))
         {
             return false;
         }
@@ -84,11 +98,10 @@ public class TimeHandler {
             return true;
         }
     }
-
     public boolean checkToilet()
     {
         if(curToilet!=0){
-            if(detik - curToilet >= (60*5))   //GANTI
+            if(detik - curToilet >= (60*4))
             {
                 return false;
             }
@@ -99,26 +112,15 @@ public class TimeHandler {
         } return true;
     }
     
-    public String getTime(){
-		// String time, strJam, strMenit;
-		// jam = dayCounter/1800;
-		// int curMenit = dayCounter - (1800*jam);
-
-		// if(curMenit%300 == 0){
-		// 	menit+=10;
-		// }
-		// if(menit==60){
-		// 	menit=0;
-		// }
-		// if(jam<10){
-		// 	strJam = "0"+String.valueOf(jam);
-		// } else strJam = String.valueOf(jam);
-		// if(menit==0){
-		// 	strMenit = "00";
-		// } else strMenit = String.valueOf(menit);
-		// time = strJam + " : " + strMenit;
-
-        String value = String.valueOf(720-detik);
-		return value;
-	}
+    public void checkBeliBarang(){
+        beliBarang--;
+        if(beliBarang==0){
+            gp.ui.setNotifMessage("Barang delivery anda sudah datang!");
+            gp.gameState=gp.notifState;
+            for(Objek obj : gp.curSim.listBelanja){
+                gp.curSim.inventory.add(obj);
+            }
+            gp.curSim.listBelanja.clear();
+        }
+    }
 }

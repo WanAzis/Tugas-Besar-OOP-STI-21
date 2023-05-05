@@ -89,6 +89,7 @@ public class KeyHandler implements KeyListener{
 		}
 		else if (gp.gameState==gp.jamState){
 			jamState(code);
+		}
 		//WORLD VIEW STATE
 		else if(gp.gameState==gp.worldState){
 			worldViewState(code);
@@ -458,9 +459,7 @@ public class KeyHandler implements KeyListener{
 		}
 	}
 	private void jamState(int code){
-		if(code == KeyEvent.VK_) {
-			gp.gameState = gp.playState;
-		}
+		
 	}
 	private void simInfoState(int code){
 		if(code == KeyEvent.VK_F){

@@ -32,7 +32,7 @@ public class Kasur extends Barang{
 			else{
 				gp.ui.setNotifMessage("Anda belum cukup tidur");
 			}
-			gp.eHandler.setCurTidur();
+			gp.timeH.setCurTidur();
 			gp.gameState=gp.notifState;
 			sim.getPlayerImage();
 		}

@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.List;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -57,10 +58,10 @@ public class Sim extends Entity{
 	private int mood;
 	private int kesehatan;
 	private String status;
-	// public Rumah haveRumah;
 	public Rumah curRumah;
 	public Ruangan curRuangan;
 	private Map<String,Integer> listPekerjaan;
+	public ArrayList<Objek> listBelanja;
 	
 	public int counter = 0;
 	private int durationKerja;
@@ -86,6 +87,8 @@ public class Sim extends Entity{
 		listPekerjaan.put("Polisi",35);
 		listPekerjaan.put("Programmer",45);
 		listPekerjaan.put("Dokter",50);
+
+		listBelanja = new ArrayList<>();
 		
 		setDefaultValues();
 		getPlayerImage();

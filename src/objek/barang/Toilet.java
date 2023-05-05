@@ -113,29 +113,3 @@ public class Toilet extends Barang{
 		}
 	}
 }
-		/*  else if(direction=="left"){
-			direction="up";
-			image=up;
-			// swapSize();
-		}
-		else if(direction=="up"){
-			direction="right";
-			image=right;
-			// swapSize();
-		}
-		else if(direction=="right"){
-			direction="down";
-			image=down;
-			// swapSize();
-		}
-	}
-// 	private void swapSize(){
-// 		int temp = panjang;
-// 		panjang = lebar;
-// 		lebar = temp;
-
-// 		temp = solidArea.height;
-// 		solidArea.height = solidArea.width;
-// 		solidArea.width = temp;
-// 	}
-}

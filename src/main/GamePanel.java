@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
-	public effectHandler eHandler = new effectHandler(this);
+	// public effectHandler eHandler = new effectHandler(this);
     Thread gameThread;
 
 	//PLAYER
@@ -72,10 +72,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int kerjaState = 13;
   	public final int helpState = 14;
 	public final int menuGameState = 15;
-	public final int editRoomState = 20;
-	public final int jamState= 21;
 	public final int editRoomState = 16;
 	public final int worldState = 17;
+	public final int jamState= 21;
   
 	
     public GamePanel(){

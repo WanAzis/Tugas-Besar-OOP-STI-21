@@ -12,16 +12,10 @@ import java.io.InputStream;
 
 import java.awt.BasicStroke;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 import javax.swing.*;
 
-import entity.Sim;
-
-import java.awt.*;
-
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -784,9 +778,15 @@ public class UI {
                     gp.gameState = gp.notifState;
                     notifMessage = "Inventory anda tidak cukup \nmenampung barang";
                     drawNotifScreen();
-                } else {
+                } else {    //BARANG BERHASIL DIBELI
                     gp.curSim.setUang(gp.curSim.getUang() - store.get(itemIdx).harga);
-                    gp.curSim.inventory.add(store.get(itemIdx));
+                    if(gp.timeH.getBeliBarang()==0){
+                        Random rand = new Random();
+                        int n = rand.nextInt(5);
+                        int waktu = n*30;
+                        gp.timeH.setBeliBarang(waktu);
+                    }
+                    gp.curSim.listBelanja.add(store.get(itemIdx));
                 }
             }
         }
