@@ -75,7 +75,6 @@ public class Toilet extends Barang{
 			gp.gameState=gp.notifState;
 			sim.getPlayerImage();
 		}
-
 	}
 
 	@Override
@@ -140,6 +139,3 @@ public class Toilet extends Barang{
 // 		solidArea.width = temp;
 // 	}
 }
-
-/* toilet tinggal masalah sebelum makan */
-// gabisa rotate

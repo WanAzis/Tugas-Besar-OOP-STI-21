@@ -70,4 +70,3 @@ public class effectHandler {
         } return true;
     }
 }
-/*yang toilet belom dibenerin*/

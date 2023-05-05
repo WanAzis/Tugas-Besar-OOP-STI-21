@@ -47,7 +47,7 @@ public class Sim extends Entity{
 	KeyHandler keyH;
 
 	//ATRIBUT
-	private String namaLengkap;
+	// private String namaLengkap;
 	private String pekerjaan;
 	private String simName;
 	private int uang;
@@ -104,7 +104,7 @@ public class Sim extends Entity{
 		direction = "down";
 
 		//ATRIBUT SIM
-		namaLengkap = "Sim-A";
+		simName = "Sim-A";
 		kekenyangan = 80;
 		mood = 80;
 		kesehatan = 80;
@@ -124,6 +124,10 @@ public class Sim extends Entity{
 		this.pekerjaan = keys[idx];
 	}
 
+	public void setCurRumah(Rumah rumah)
+	{
+		this.curRumah = rumah;
+	}
 
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
@@ -144,7 +148,7 @@ public class Sim extends Entity{
 	}
 	
 	//GETTER
-	public String getNamaLengkap(){return namaLengkap;}
+	// public String getNamaLengkap(){return si;}
 	public String getPekerjaan(){return pekerjaan;}
 	public int getUang(){return uang;}
 	public int getKekenyangan(){return kekenyangan;}
