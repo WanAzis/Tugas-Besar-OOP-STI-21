@@ -32,11 +32,6 @@ public class RakBuku extends Barang{
 			down = ImageIO.read(new File("../resources/barang/rakbuku/rakbuku.png"));
 			left = ImageIO.read(new File("../resources/barang/rakbuku/rakbuku_kiri.png"));
 			right = ImageIO.read(new File("../resources/barang/rakbuku/rakbuku_kanan.png"));
-			//up = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_up.png"));
-			// downUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_down_used.png")); kayaknya buat baca buku sekedar dia berdiri aja di depan rak tapi gabisa gerak?
-			// leftUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_left_used.png"));
-			// rightUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_right_used.png"));
-			// upUsed = ImageIO.read(new File("../resources/barang/RakBuku/RakBuku_up_used.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,21 +40,21 @@ public class RakBuku extends Barang{
 	@Override
 	public void used() { 
 		gp.curSim.setStatus(action);
-		switch(direction){
-			case "down" : image=down; break; //up comment di line 35
-			case "left" : image=left; break;
-			case "right" : image=right; break;
-		}
+		// switch(direction){
+		// 	case "down" : image=down; break; //up comment di line 35
+		// 	case "left" : image=left; break;
+		// 	case "right" : image=right; break;
+		// }
 	}
 
 	@Override
 	public void unUsed() {
 		gp.curSim.setStatus("IDLE");
-		switch(direction){
-			case "down" : image=down; break;
-			case "left" : image=left; break;
-			case "right" : image=right; break;
-		}
+		// switch(direction){
+		// 	case "down" : image=down; break;
+		// 	case "left" : image=left; break;
+		// 	case "right" : image=right; break;
+		// }
 	}
 
 	@Override

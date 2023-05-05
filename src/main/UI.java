@@ -35,6 +35,7 @@ import objek.barang.KomporGas;
 import objek.barang.KomporListrik;
 import objek.barang.MejaKursi;
 import objek.barang.MesinCuci;
+import objek.barang.Radio;
 import objek.barang.RakBuku;
 import objek.barang.Sajadah;
 import objek.barang.TV;
@@ -104,6 +105,7 @@ public class UI {
         store.add(new Sajadah(gp));
         store.add(new Toilet(gp));
         store.add(new TV(gp));
+        store.add(new Radio(gp));
         // store.add(new Treadmill(gp));
 
         //ADD BAHAN MAKANAN
@@ -887,7 +889,9 @@ public class UI {
         g2.drawString(text, textX, textY);
         textY+=lineHeight;
         switch(entitas){
-            case "Kasur": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
+            case "Kasur Single": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
+            case "Kasur Queen": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
+            case "Kasur King": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
             case "Kerja": drawOptionKerja(frameX, frameY, frameWidth, frameHeigth);
         }
         gp.keyH.enterPressed = false;

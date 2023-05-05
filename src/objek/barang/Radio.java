@@ -29,14 +29,10 @@ public class Radio extends Barang{
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/TV/TV_down.png"));
-			left = ImageIO.read(new File("../resources/barang/TV/TV_left.png"));
-			right = ImageIO.read(new File("../resources/barang/TV/TV_right.png"));
-			up = ImageIO.read(new File("../resources/barang/TV/TV_up.png"));
-			downUsed = ImageIO.read(new File("../resources/barang/TV/TV_down_used.png"));
-			leftUsed = ImageIO.read(new File("../resources/barang/TV/TV_left_used.png"));
-			rightUsed = ImageIO.read(new File("../resources/barang/TV/TV_right_used.png"));
-			upUsed = ImageIO.read(new File("../resources/barang/TV/TV_up_used.png"));
+			down = ImageIO.read(new File("../resources/barang/radio/radio_down.png"));
+			left = ImageIO.read(new File("../resources/barang/radio/radio_left.png"));
+			right = ImageIO.read(new File("../resources/barang/radio/radio_right.png"));
+			up = ImageIO.read(new File("../resources/barang/radio/radio_up.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -45,23 +41,23 @@ public class Radio extends Barang{
 	@Override
 	public void used() {
 		gp.curSim.setStatus(action);
-		switch(direction){
-			case "down" : image=downUsed; break;
-			case "left" : image=leftUsed; break;
-			case "right" : image=rightUsed; break;
-			case "up" : image=upUsed; break;
-		}
+		// switch(direction){
+		// 	case "down" : image=downUsed; break;
+		// 	case "left" : image=leftUsed; break;
+		// 	case "right" : image=rightUsed; break;
+		// 	case "up" : image=upUsed; break;
+		// }
 	}
 
 	@Override
 	public void unUsed() {
 		gp.curSim.setStatus("IDLE");
-		switch(direction){
-			case "down" : image=down; break;
-			case "left" : image=left; break;
-			case "right" : image=right; break;
-			case "up" : image=up; break;
-		}
+		// switch(direction){
+		// 	case "down" : image=down; break;
+		// 	case "left" : image=left; break;
+		// 	case "right" : image=right; break;
+		// 	case "up" : image=up; break;
+		// }
 	}
 
 	@Override

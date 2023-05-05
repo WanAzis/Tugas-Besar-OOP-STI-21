@@ -32,11 +32,6 @@ public class MesinCuci extends Barang{
 			down = ImageIO.read(new File("../resources/barang/mesincuci/mesincuci_down.png"));
 			left = ImageIO.read(new File("../resources/barang/mesincuci/mesincuci_samping.png"));
 			right = ImageIO.read(new File("../resources/barang/mesincuci/mesincuci_samping.png"));
-			//up = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_up.png"));
-			// downUsed = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_down_used.png")); kayaknya buat nyuci sekedar dia berdiri aja di depan mesin cuci tapi gabisa gerak?
-			// leftUsed = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_left_used.png")); kalo ternyata ada gambarnya kabarin
-			// rightUsed = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_right_used.png"));
-			// upUsed = ImageIO.read(new File("../resources/barang/MesinCuci/MesinCuci_up_used.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

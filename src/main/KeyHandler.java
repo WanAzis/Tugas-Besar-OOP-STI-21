@@ -284,7 +284,9 @@ public class KeyHandler implements KeyListener{
 	}
 	private void durationState(int code, String entitas){
 		switch(entitas){
-			case "Kasur" : durationKasurState(code);
+			case "Kasur  Single" : durationKasurState(code);
+			case "Kasur Queen" : durationKasurState(code);
+			case "Kasur King" : durationKasurState(code);
 			case "Kerja" : durationKerjaState(code);
 		}
 	}
