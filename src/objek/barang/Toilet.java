@@ -29,14 +29,12 @@ public class Toilet extends Barang{
 
 	private void loadImage(){
 		try {
-			down = ImageIO.read(new File("../resources/barang/toilet/toilet_unused_down.png"));
-			left = ImageIO.read(new File("../resources/barang/toilet/toilet_unused_left.png"));
-			right = ImageIO.read(new File("../resources/barang/toilet/toilet_unused_right.png"));
-			// up = ImageIO.read(new File("../resources/barang/toilet/toilet_up.png"));
+			down = ImageIO.read(new File("../resources/barang/toilet/toilet_down.png"));
+			left = ImageIO.read(new File("../resources/barang/toilet/toilet_left.png"));
+			right = ImageIO.read(new File("../resources/barang/toilet/toilet_right.png"));
 			downUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_down.png"));
 			leftUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_left.png"));
 			rightUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_right.png"));
-			// upUsed = ImageIO.read(new File("../resources/barang/toilet/toilet_used_up.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -104,33 +102,33 @@ public class Toilet extends Barang{
 		if(direction=="down"){
 			direction="left";
 			image = left;
-			swapSize();
+			// swapSize();
 		}
 		/*  else if(direction=="left"){
 			direction="up";
 			image=up;
-			swapSize();
-		} */
-		else if(direction=="left"){
+			// swapSize();
+		}
+		else if(direction=="up"){
 			direction="right";
 			image=right;
-			swapSize();
+			// swapSize();
 		}
 		else if(direction=="right"){
 			direction="down";
 			image=down;
-			swapSize();
+			// swapSize();
 		}
 	}
-	private void swapSize(){
-		int temp = panjang;
-		panjang = lebar;
-		lebar = temp;
+// 	private void swapSize(){
+// 		int temp = panjang;
+// 		panjang = lebar;
+// 		lebar = temp;
 
-		temp = solidArea.height;
-		solidArea.height = solidArea.width;
-		solidArea.width = temp;
-	}
+// 		temp = solidArea.height;
+// 		solidArea.height = solidArea.width;
+// 		solidArea.width = temp;
+// 	}
 }
 
 /* toilet tinggal masalah sebelum makan */

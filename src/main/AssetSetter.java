@@ -1,6 +1,5 @@
 package main;
 
-import objek.*;
 import objek.barang.KasurSingle;
 import objek.barang.MejaKursi;
 import objek.barang.Toilet;

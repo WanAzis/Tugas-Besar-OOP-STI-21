@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import entity.Sim;
 import main.GamePanel;
 
 import java.io.File;
@@ -14,6 +13,7 @@ public class KasurSingle extends Kasur{
 
 	public KasurSingle(GamePanel gp) {
 		super(gp);
+		name = "Kasur Single";
 		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk tidur"; 
 		panjang = 4;
 		lebar = 1;
@@ -40,6 +40,7 @@ public class KasurSingle extends Kasur{
 
 	@Override
 	public void used() {
+		gp.curSim.setStatus(action);
 		switch(direction){
 			case "down" : image=downUsed; break;
 			case "left" : image=leftUsed; break;
@@ -50,6 +51,7 @@ public class KasurSingle extends Kasur{
 
 	@Override
 	public void unUsed() {
+		gp.curSim.setStatus("IDLE");
 		switch(direction){
 			case "down" : image=down; break;
 			case "left" : image=left; break;

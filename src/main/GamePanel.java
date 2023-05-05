@@ -10,6 +10,7 @@ import java.util.Currency;
 import entity.Sim;
 import tile.Rumah;
 import tile.TileManager;
+import tile.Tile;
 
 import javax.swing.JPanel;
 
@@ -53,7 +54,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public Sim curSim;
 	public ArrayList<Sim> listSim = new ArrayList<>();
 	public ArrayList<Rumah> listRumah = new ArrayList<>(); 
-    // public Barang obj[] = new Barang[10];
     
 	//GAME STATE
 	public int gameState;
@@ -67,11 +67,15 @@ public class GamePanel extends JPanel implements Runnable{
     public final int menuMasakanState = 7;
 	public final int useMakananState = 8;
 	public final int placeObjectState = 9;
+	// public final int createSimState = 10;
 	public final int menuSimState = 11;
 	public final int storeState = 12;
 	public final int kerjaState = 13;
+  public final int helpState = 14;
+	public final int menuGameState = 15;
+	public final int editRoomState = 20;
+  
 	
-    
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -85,7 +89,6 @@ public class GamePanel extends JPanel implements Runnable{
 		gameState = titleState;
     }
 	public void createNewGame(){
-
 		day = 1;
 		dayCounter = 0;
 		jam = 0;
@@ -103,13 +106,6 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	//SETTER
-	// public void addBarang(Barang barang){
-	// 	int i = 0;
-	// 	while(i<obj.length && obj[i]!=null){
-	// 		i++;
-	// 	} 
-	// 	obj[i] = barang;
-	// }
 
     public void startGameThread() {
     	

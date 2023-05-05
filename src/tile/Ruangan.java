@@ -4,7 +4,6 @@ import objek.barang.*;
 
 public class Ruangan
 {
-    // private int sisaLuas;
     private String nama;
     private Ruangan[] ruanganTetangga;
     public Barang obj[];
@@ -45,12 +44,28 @@ public class Ruangan
 
     public void addBarang(Barang barang)
     {
-		int i = 0;
+		int i = arrObjLength();
+		obj[i] = barang;
+	}
+
+    public int arrObjLength(){
+        int i = 0;
 		while(i<obj.length && obj[i]!=null){
 			i++;
 		} 
-		obj[i] = barang;
-	}
+        return i;
+    }
+
+
+    public void printArrayBarang(){
+        for(int i = 0; i<obj.length; i++){
+            if(obj[i]==null){
+                System.out.println("Null");
+            } else{
+                System.out.println(obj[i].getName());
+            }
+        }
+    }
 }
 /* yang masih kurang
 1. sisaLuas itu gimana???
