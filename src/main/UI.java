@@ -848,14 +848,14 @@ public class UI {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,16F));
         
-        String text = "Day - " + gp.getDay();
+        String text = "Day - " + gp.timeH.getDay();
         int textX = frameX + 10;
         int textY = frameY + 20;
         final int lineHeight = 20;
         
         g2.drawString(text, textX, textY);
         
-        text = gp.getTime();
+        text = gp.timeH.getTime();
         textX = getXforAligntoRightText(text, frameX+frameWidth-10);
         g2.drawString(text, textX, textY);
         textY+=lineHeight;
@@ -866,7 +866,9 @@ public class UI {
         g2.drawString(text, textX, textY);
         textY+=lineHeight;
 
-        //DRAW NAMA RUANGAN
+        text = gp.curSim.curRuangan.getNama();
+        textX = getXforCenteredText(text, frameX+(frameWidth/2));
+        g2.drawString(text, textX, textY);
     }
     public void drawDurationState(String entitas){
 
