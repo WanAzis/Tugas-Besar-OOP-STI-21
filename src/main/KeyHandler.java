@@ -105,12 +105,44 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.worldState){
 			worldViewState(code);
 		}
+		//GAME OVER SIM 1 STATE
+		else if (gp.gameState==gp.gameOverState){
+			gameOverState(code);
+		}
+		//GAME OVER MASIH ADA SIM STATE
+		else if (gp.gameState==gp.gameOverListSimState){
+			gameOverListSimState(code);
+		}
+		else if(gp.gameState==gp.radioState){
+			durationRadioState(code);
 		//PLACE HOUSE
 		else if(gp.gameState==gp.placeRumahWorldState){
 			placeRumahWorldScreen(code);
 		}
 	}
-	
+	private void gameOverState(int code){
+		if(code == KeyEvent.VK_ENTER){
+			gp.gameState=gp.titleState;
+		}
+	}
+	private void gameOverListSimState(int code){
+		int maxCommandNum=gp.listSim.size()-1;
+		if(code == KeyEvent.VK_ENTER){
+			enterPressed=true;
+		}
+		if(code == KeyEvent.VK_UP){
+			if(gp.ui.commandNum>0){
+				gp.ui.commandNum--;
+			}
+		}
+		if(code == KeyEvent.VK_DOWN){
+			if(gp.ui.commandNum<maxCommandNum){
+				gp.ui.commandNum++;
+			}
+		}
+		
+	}
+
 	private void titleState(int code){
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
@@ -241,8 +273,7 @@ public class KeyHandler implements KeyListener{
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
 			}
 			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Radio")
-			{	
-				gp.gameState=gp.durationState;
+				gp.gameState=gp.radioState;
 			}
 			
 			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Sajadah")
@@ -333,7 +364,6 @@ public class KeyHandler implements KeyListener{
 			case "Kasur King" : durationKasurState(code); break;
 			case "KERJA" : durationKerjaState(code); break;
 			case "Treadmill" : durationOlahragaState(code); break;
-			case "Radio" : durationRadioState(code); break;
 		}
 	}
 

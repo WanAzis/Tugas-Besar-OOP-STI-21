@@ -213,6 +213,8 @@ public class Sim extends Entity implements Bekerja{
 			right2 = ImageIO.read(new File("../resources/player/sim_right_2.png"));
 			left1 = ImageIO.read(new File("../resources/player/sim_left_1.png"));
 			left2 = ImageIO.read(new File("../resources/player/sim_left_2.png"));
+			gameover = ImageIO.read(new File("../resources/player/sim_gameover.png"));
+
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -271,6 +273,14 @@ public class Sim extends Entity implements Bekerja{
 		if(kekenyangan <= 0 || mood <= 0 || kesehatan <= 0){
 			gp.ui.setNotifMessage("Salah satu dari kesejahteraan SIM\nhabis sehingga SIM mati");
 			//MASUK STATE GAME OVER
+			//remove sim abis tu if else empty
+			gp.listSim.remove(this);
+			if (gp.listSim.isEmpty()){
+				gp.gameState=gp.gameOverState;
+			}
+			else{
+				gp.gameState=gp.gameOverListSimState;
+			}
 		}
 	}
 	public void interactObject(int i) {
