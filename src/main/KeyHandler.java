@@ -230,7 +230,7 @@ public class KeyHandler implements KeyListener{
 			}
 			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Rak buku")
 			{
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60);
+				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*30);
 				gp.gameState=gp.useObjectState;
 				// gp.curSim.setNullImage();
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
