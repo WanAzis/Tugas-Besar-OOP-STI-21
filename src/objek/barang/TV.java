@@ -21,7 +21,7 @@ public class TV extends Barang{
 		lebar = 2;
 		harga = 200;
 		screenX = gp.tileSize;
-		screenY = gp.tileSize;
+		screenY = gp.tileSize*3;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		direction="down";
