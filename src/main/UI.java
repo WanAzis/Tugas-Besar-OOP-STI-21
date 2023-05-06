@@ -42,6 +42,7 @@ import objek.makanan.Nasi;
 import objek.makanan.Sapi;
 import objek.makanan.Susu;
 import objek.makanan.Wortel;
+import tile.Point;
 import tile.Ruangan;
 
 public class UI {
@@ -1488,19 +1489,25 @@ public class UI {
                     subState = 0;
                     commandNum = 0;
                     gp.gameState = gp.playState;
-                    // System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
-                    // System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
                     if(gp.listRumah.get(i).haveSim.getSimName() != gp.curSim.getSimName()){
                         gp.curSim.berkunjung = true;
+                        Point temp = gp.curSim.curRumah.getPoint(); //Menyimpan point rumah sim
+                        gp.timeH.minusTime(temp.hitungJarak(gp.listRumah.get(i).getPoint()));//Mengurangi waktu dengan hitungan
                         gp.curSim.setCurRumah(gp.listRumah.get(i));
                         gp.curSim.setCurRuangan(gp.curSim.curRumah.listRuangan.get(0));
+                         
                     }
                     else{
                         gp.curSim.berkunjung = false;
                         gp.curSim.setCurRumah(gp.listRumah.get(i));
                         gp.curSim.setCurRuangan(gp.curSim.curRumah.listRuangan.get(0));
+                        Point temp = gp.curSim.curRumah.getPoint(); //Menyimpan point rumah sim
+                        gp.timeH.minusTime(temp.hitungJarak(gp.listRumah.get(i).getPoint()));//Mengurangi waktu dengan hitungan
                         //PERHITUNGAN WAKTU KUNJUNGAN
-
+                        int totalVisitTime = gp.timeH.getCounterBerkunjung()/30;
+                        gp.curSim.setMood(10*totalVisitTime);
+                        gp.curSim.setKekenyangan(-10*totalVisitTime);
+                        gp.timeH.setCounterBerkunjung(0);
                     }
                 }
             }

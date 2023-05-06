@@ -18,14 +18,18 @@ public class Rumah
     }
 
     //GETTER
+    public Point getPoint()
+    {
+        return this.lokasi;
+    }
 
     //SETTER
-    public void setPoint
+    public void setPoint(int x, int y)
+    {
+        this.lokasi.setX(x);
+        this.lokasi.setY(y);
+    }
 
-    // public Ruangan getRuangan(int index)
-    // {
-    //     return this.listRuangan.get(index);
-    // }
 
     public void tambahRuang(String arah, String newRuangan, Ruangan currentRuangan)
     {

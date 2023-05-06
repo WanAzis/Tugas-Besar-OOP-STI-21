@@ -19,6 +19,11 @@ public class TimeHandler {
         this.gp = gp;
         createNewGame();
     }
+
+    public void minusTime(int x)
+    {
+        this.detik -= x;
+    }
     
     private void createNewGame(){
         day = 1;
@@ -70,9 +75,6 @@ public class TimeHandler {
                 curToilet = 0;
             }
             checkEffect();
-            if(berkunjung){
-
-            }
         }
     }
 
@@ -149,5 +151,14 @@ public class TimeHandler {
             gp.gameState=gp.notifState;
             gp.curSim.curRumah.tambahRuang(posisiCalonRuangan, namaCalonRuangan, gp.ui.getChooseRuangan());
         }
+    }
+
+    public int getCounterBerkunjung() {
+        return this.counterBerkunjung;
+    }
+
+    public void setCounterBerkunjung(int x)
+    {
+        this.counterBerkunjung = x;
     }
 }
