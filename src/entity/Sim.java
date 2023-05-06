@@ -72,6 +72,7 @@ public class Sim extends Entity implements Bekerja{
 	public Ruangan curRuangan;
 	private Map<String,Integer> listPekerjaan;
 	public ArrayList<Objek> listBelanja;
+	public boolean berkunjung; 
 	
 	public int counter = 0;
 	private int durationKerja;
@@ -164,7 +165,7 @@ public class Sim extends Entity implements Bekerja{
 		inventory.add(new MesinCuci(gp));
 		inventory.add(new Radio(gp));
 		inventory.add(new Treadmill(gp));
-		// inventory.add(new Ayam(gp));
+		inventory.add(new Ayam(gp));
 		inventory.add(new Nasi(gp));
 		inventory.add(new NasiAyam(gp));
 		inventory.add(new Bayam(gp));
@@ -499,10 +500,13 @@ public class Sim extends Entity implements Bekerja{
 	private boolean checkBistik(){
 		boolean adaKentang = false;
 		boolean adaSapi = false;
+		Objek kentang = null;
+		Objek sapi = null;
 
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Kentang")){
 				adaKentang = true;
+				kentang= obj;
 				break;
 			}
 		}
@@ -510,8 +514,13 @@ public class Sim extends Entity implements Bekerja{
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Sapi")){
 				adaSapi = true;
+				sapi=obj;
 				break;
 			}
+		}
+		if(adaKentang && adaSapi){
+			inventory.remove(sapi);
+			inventory.remove(kentang);
 		}
 
 		return adaKentang && adaSapi;
@@ -519,10 +528,13 @@ public class Sim extends Entity implements Bekerja{
 	private boolean checkTumisSayur(){
 		boolean adaWortel = false;
 		boolean adaBayam = false;
+		Objek wortel = null;
+		Objek bayam = null;
 
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Wortel")){
 				adaWortel = true;
+				wortel= obj;
 				break;
 			}
 		}
@@ -530,8 +542,13 @@ public class Sim extends Entity implements Bekerja{
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Bayam")){
 				adaBayam = true;
+				bayam= obj;
 				break;
 			}
+		}
+		if (adaBayam&&adaWortel){
+			inventory.remove(wortel);
+			inventory.remove(bayam);
 		}
 
 		return adaWortel && adaBayam;
@@ -539,10 +556,13 @@ public class Sim extends Entity implements Bekerja{
 	private boolean checkSusuKacang(){
 		boolean adaSusu = false;
 		boolean adaKacang = false;
+		Objek susu= null;
+		Objek kacang = null;
 
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Susu")){
 				adaSusu = true;
+				susu=obj;
 				break;
 			}
 		}
@@ -550,8 +570,13 @@ public class Sim extends Entity implements Bekerja{
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Kacang")){
 				adaKacang = true;
+				kacang=obj;
 				break;
 			}
+		}
+		if (adaKacang&&adaSusu){
+			inventory.remove(kacang);
+			inventory.remove(susu);
 		}
 
 		return adaSusu && adaKacang;

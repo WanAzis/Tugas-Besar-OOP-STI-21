@@ -21,7 +21,7 @@ public class Treadmill extends Barang{
 		lebar = 1;
 		harga = 200;
 		screenX = gp.tileSize;
-		screenY = gp.tileSize;
+		screenY = gp.tileSize*5;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		direction="up";
@@ -82,22 +82,18 @@ public class Treadmill extends Barang{
 	@Override
 	public void moveUp() {
 		screenY -= gp.tileSize;
-		solidArea.y -= gp.tileSize;
 	}
 	@Override
 	public void moveDown() {
 		screenY += gp.tileSize;
-		solidArea.y += gp.tileSize;
 	}
 	@Override
 	public void moveLeft() {
 		screenX -= gp.tileSize;
-		solidArea.x -= gp.tileSize;
 	}
 	@Override
 	public void moveRight() {
 		screenX += gp.tileSize;
-		solidArea.x += gp.tileSize;
 	}
 
 	@Override
@@ -133,6 +129,3 @@ public class Treadmill extends Barang{
 		solidArea.width = temp;
 	}
 }
-
-
-//gabisa rotate

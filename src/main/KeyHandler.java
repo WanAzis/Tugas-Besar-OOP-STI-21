@@ -10,10 +10,13 @@ import entity.Sim;
 import objek.barang.Barang;
 import objek.makanan.Ayam;
 import objek.makanan.BahanMakanan;
+import objek.makanan.Bistik;
 import objek.makanan.Masakan;
 import objek.makanan.Nasi;
 import objek.makanan.NasiAyam;
 import objek.makanan.NasiKari;
+import objek.makanan.SusuKacang;
+import objek.makanan.TumisSayur;
 import tile.Rumah;
 import objek.makanan.Masakan;
 public class KeyHandler implements KeyListener{
@@ -237,10 +240,11 @@ public class KeyHandler implements KeyListener{
 			}
 			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Radio")
 			{
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
-				gp.gameState=gp.useObjectState;
-				// gp.curSim.setNullImage();
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
+				// gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
+				// gp.gameState=gp.useObjectState;
+				// // gp.curSim.setNullImage();
+				// gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
+				gp.gameState=gp.durationState;
 			}
 			
 			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Sajadah")
@@ -280,7 +284,7 @@ public class KeyHandler implements KeyListener{
 			case 4: maxCommandNum=3; break;
 			case 5: maxCommandNum=1; break;
 			case 6: maxCommandNum=4; break;
-			case 7: maxCommandNum = gp.listSim.size();
+			case 7: maxCommandNum = gp.listSim.size(); break;
 		}
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
@@ -331,6 +335,26 @@ public class KeyHandler implements KeyListener{
 			case "Kasur King" : durationKasurState(code); break;
 			case "KERJA" : durationKerjaState(code); break;
 			case "Treadmill" : durationOlahragaState(code); break;
+			case "Radio" : durationRadioState(code); break;
+		}
+	}
+
+	private void durationRadioState(int code){
+		if(code == KeyEvent.VK_UP){
+			if(gp.ui.commandNum>0){
+				gp.ui.commandNum--;
+			}
+		}
+		if(code == KeyEvent.VK_DOWN){
+			if(gp.ui.commandNum<1){
+				gp.ui.commandNum++;
+			}
+		}
+		if(code == KeyEvent.VK_ESCAPE){
+			gp.gameState=gp.playState;
+		}
+		if(code == KeyEvent.VK_ENTER){
+			enterPressed=true;
 		}
 	}
 
@@ -363,20 +387,58 @@ public class KeyHandler implements KeyListener{
 				}
 			}
 			else if(gp.ui.commandNum==1){//nasikari
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(30+(30/2)));
-				Masakan nasiKari = new NasiKari(gp);
-				gp.curSim.inventory.add(nasiKari);
-				gp.curSim.inventory.remove(new Nasi(gp));
-				gp.curSim.inventory.remove(new Ayam(gp));
+				if(gp.curSim.checkAvailableInventory("Nasi Kari")){
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(30+(30/2)));
+					Masakan nasiKari= new NasiKari(gp);
+					gp.curSim.inventory.add(nasiKari);
+					gp.gameState=gp.useObjectState;
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+					
+				}
+				else{
+					gp.ui.setNotifMessage("Bahan makanan tidak tersedia");
+					gp.gameState=gp.notifState;
+				}
 			}
 			else if(gp.ui.commandNum==2){//susukacang
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
+				if(gp.curSim.checkAvailableInventory("Susu Kacang")){
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
+					Masakan susuKacang= new SusuKacang(gp);
+					gp.curSim.inventory.add(susuKacang);
+					gp.gameState=gp.useObjectState;
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+				}
+				else{
+					gp.ui.setNotifMessage("Bahan makanan tidak tersedia");
+					gp.gameState=gp.notifState;
+				}
 			}
+			
 			else if(gp.ui.commandNum==3){//tumissayur
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
+				if(gp.curSim.checkAvailableInventory("Tumis Sayur")){
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
+					Masakan tumisSayur= new TumisSayur(gp);
+					gp.curSim.inventory.add(tumisSayur);
+					gp.gameState=gp.useObjectState;
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+				}
+				else{
+					gp.ui.setNotifMessage("Bahan makanan tidak tersedia");
+					gp.gameState=gp.notifState;
+				}
 			}
 			else if(gp.ui.commandNum==4){//bistik
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(22+(22/2)));
+				if(gp.curSim.checkAvailableInventory("Bistik")){
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(22+(22/2)));
+					Masakan bistik= new Bistik(gp);
+					gp.curSim.inventory.add(bistik);
+					gp.gameState=gp.useObjectState;
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+				}
+				else{
+					gp.ui.setNotifMessage("Bahan makanan tidak tersedia");
+					gp.gameState=gp.notifState;
+				}
 			}
 		}
 	}
@@ -519,8 +581,6 @@ public class KeyHandler implements KeyListener{
 			gp.curSim.selectBarang.moveLeft();
 		}
 		if(code == KeyEvent.VK_ENTER && !gp.curSim.selectBarang.collisionWithOthers){
-		}
-		if(code == KeyEvent.VK_ENTER && !gp.curSim.selectBarang.collisionWithOthers){
 			gp.gameState=gp.playState;
 		}
 	}
@@ -572,7 +632,6 @@ public class KeyHandler implements KeyListener{
 	}
 	public void editRoomState(int code){
 		if(code==KeyEvent.VK_ESCAPE){
-			gp.ui.commandNum=0;
 			gp.gameState=gp.playState;
 		}
 		if(code==KeyEvent.VK_ENTER){
@@ -592,10 +651,6 @@ public class KeyHandler implements KeyListener{
 				gp.ui.commandNum++;
 			}
 		}
-		if(code == KeyEvent.VK_RIGHT){
-			gp.ui.commandNum=0;
-		}
-
 	}
 	public void worldViewState(int code){
 		if(code==KeyEvent.VK_ESCAPE){

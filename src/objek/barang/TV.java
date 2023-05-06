@@ -21,7 +21,7 @@ public class TV extends Barang{
 		lebar = 2;
 		harga = 200;
 		screenX = gp.tileSize;
-		screenY = gp.tileSize;
+		screenY = gp.tileSize*3;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		direction="down";
@@ -41,23 +41,11 @@ public class TV extends Barang{
 	@Override
 	public void used() {
 		gp.curSim.setStatus(action);
-		// switch(direction){
-		// 	case "down" : image=downUsed; break;
-		// 	case "left" : image=leftUsed; break;
-		// 	case "right" : image=rightUsed; break;
-		// 	case "up" : image=upUsed; break;
-		// }
 	}
 
 	@Override
 	public void unUsed() {
 		gp.curSim.setStatus("IDLE");
-		// switch(direction){
-		// 	case "down" : image=down; break;
-		// 	case "left" : image=left; break;
-		// 	case "right" : image=right; break;
-		// 	case "up" : image=up; break;
-		// }
 	}
 
 	@Override
@@ -77,51 +65,32 @@ public class TV extends Barang{
 	@Override
 	public void moveUp() {
 		screenY -= gp.tileSize;
-		solidArea.y -= gp.tileSize;
 	}
 	@Override
 	public void moveDown() {
 		screenY += gp.tileSize;
-		solidArea.y += gp.tileSize;
 	}
 	@Override
 	public void moveLeft() {
 		screenX -= gp.tileSize;
-		solidArea.x -= gp.tileSize;
 	}
 	@Override
 	public void moveRight() {
 		screenX += gp.tileSize;
-		solidArea.x += gp.tileSize;
 	}
 	@Override
 	public void rotate() {
 		if(direction=="down"){
 			direction="left";
 			image = left;
-			// swapSize();
 		}
 		else if(direction=="left"){
 			direction="right";
 			image=right;
-			// swapSize();
 		}
 		else if(direction=="right"){
 			direction="down";
 			image=down;
-			// swapSize();
 		}
 	}
-	// private void swapSize(){
-	// 	int temp = panjang;
-	// 	panjang = lebar;
-	// 	lebar = temp;
-
-	// 	temp = solidArea.height;
-	// 	solidArea.height = solidArea.width;
-	// 	solidArea.width = temp;
-	// }
 }
-
-
-//gabisa rotate

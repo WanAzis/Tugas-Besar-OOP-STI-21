@@ -21,7 +21,7 @@ public class Sajadah extends Barang{
 		lebar = 1;
 		harga = 30;
 		screenX = gp.tileSize;
-		screenY = gp.tileSize;
+		screenY = gp.tileSize*3+gp.tileSize/2+gp.tileSize/4;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		direction="up";
@@ -81,22 +81,18 @@ public class Sajadah extends Barang{
 	@Override
 	public void moveUp() {
 		screenY -= gp.tileSize;
-		solidArea.y -= gp.tileSize;
 	}
 	@Override
 	public void moveDown() {
 		screenY += gp.tileSize;
-		solidArea.y += gp.tileSize;
 	}
 	@Override
 	public void moveLeft() {
 		screenX -= gp.tileSize;
-		solidArea.x -= gp.tileSize;
 	}
 	@Override
 	public void moveRight() {
 		screenX += gp.tileSize;
-		solidArea.x += gp.tileSize;
 	}
 	
 	@Override
@@ -132,5 +128,3 @@ public class Sajadah extends Barang{
 		solidArea.width = temp;
 	}
 }
-
-//gabisa rotate

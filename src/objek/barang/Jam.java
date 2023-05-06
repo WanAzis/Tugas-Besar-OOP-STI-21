@@ -17,7 +17,8 @@ public class Jam extends Barang{
 		name = "Jam";
 		action = "LIHAT WAKTU";
 		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk melihat\n waktu"; 
-
+		screenX = gp.tileSize;
+		screenY= gp.tileSize;
 		panjang = 1;
 		lebar = 1;
 		harga = 10;
@@ -33,21 +34,17 @@ public class Jam extends Barang{
 	@Override
 	public void moveUp() {
 		screenY -= gp.tileSize;
-		solidArea.y -= gp.tileSize;
 	}
 	@Override
 	public void moveDown() {
 		screenY += gp.tileSize;
-		solidArea.y += gp.tileSize;
 	}
 	@Override
 	public void moveLeft() {
 		screenX -= gp.tileSize;
-		solidArea.x -= gp.tileSize;
 	}
 	@Override
 	public void moveRight() {
 		screenX += gp.tileSize;
-		solidArea.x += gp.tileSize;
 	}
 }

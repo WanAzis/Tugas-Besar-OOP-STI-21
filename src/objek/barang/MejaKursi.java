@@ -19,6 +19,8 @@ public class MejaKursi extends Barang{
 		panjang = 3;
 		lebar = 3;
 		harga = 50;
+		screenX=gp.tileSize;
+		screenY=gp.tileSize*3+gp.tileSize/2;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		image = down;
@@ -48,21 +50,17 @@ public class MejaKursi extends Barang{
 	@Override
 	public void moveUp() {
 		screenY -= gp.tileSize;
-		solidArea.y -= gp.tileSize;
 	}
 	@Override
 	public void moveDown() {
 		screenY += gp.tileSize;
-		solidArea.y += gp.tileSize;
 	}
 	@Override
 	public void moveLeft() {
 		screenX -= gp.tileSize;
-		solidArea.x -= gp.tileSize;
 	}
 	@Override
 	public void moveRight() {
 		screenX += gp.tileSize;
-		solidArea.x += gp.tileSize;
 	}
 }
