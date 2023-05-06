@@ -55,17 +55,6 @@ public class Ruangan
 		} 
         return i;
     }
-
-
-    public void printArrayBarang(){
-        for(int i = 0; i<obj.length; i++){
-            if(obj[i]==null){
-                System.out.println("Null");
-            } else{
-                System.out.println(obj[i].getName());
-            }
-        }
-    }
 }
 /* yang masih kurang
 1. sisaLuas itu gimana???
