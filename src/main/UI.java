@@ -289,7 +289,7 @@ public class UI {
         textY = frameY + 25;
         String value;
 
-        value = String.valueOf(gp.getTime());
+        value = String.valueOf(gp.timeH.getTime());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
@@ -1424,9 +1424,8 @@ public class UI {
                     subState = 0;
                     commandNum = 0;
                     gp.gameState = gp.playState;
-                    System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
                     gp.curSim.setCurRumah(gp.listRumah.get(i));
-                    System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
+                    gp.curSim.setCurRuangan(gp.curSim.curRumah.listRuangan.get(0));
                 }
             }
         }
