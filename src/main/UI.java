@@ -36,11 +36,17 @@ import objek.barang.TV;
 import objek.barang.Toilet;
 import objek.makanan.Ayam;
 import objek.makanan.Bayam;
+import objek.makanan.Bistik;
 import objek.makanan.Kacang;
 import objek.makanan.Kentang;
+import objek.makanan.Makanan;
 import objek.makanan.Nasi;
+import objek.makanan.NasiAyam;
+import objek.makanan.NasiKari;
 import objek.makanan.Sapi;
 import objek.makanan.Susu;
+import objek.makanan.SusuKacang;
+import objek.makanan.TumisSayur;
 import objek.makanan.Wortel;
 import tile.Ruangan;
 
@@ -144,6 +150,9 @@ public class UI {
                 drawDurationState(gp.curSim.getStatus());
             }
         }
+        if(gp.gameState==gp.radioState){
+            drawOptionRadio();
+        }
         if(gp.gameState==gp.useObjectState){
             drawStatus();
         }
@@ -178,6 +187,12 @@ public class UI {
         if(gp.gameState==gp.menuMasakanState){
             drawMasakan();
         }
+        if(gp.gameState==gp.gameOverState){
+            drawGameOver();
+        }
+        if(gp.gameState==gp.gameOverListSimState){
+            drawListSim();
+        }
     }
 
     private void resetCommand(){
@@ -209,6 +224,8 @@ public class UI {
         //VIEW LOCATION
         text = "Nasi Ayam";
         textX = frameX + gp.tileSize;
+        Makanan nasiAyam = new NasiAyam(gp);
+        g2.drawImage(nasiAyam.getImage(),textX*2,textY+10,35,35,null);
         textY += gp.tileSize - 10;
         g2.drawString(text, textX, textY);
         if(commandNum==0){
@@ -220,6 +237,8 @@ public class UI {
 
         //BELI JUAL BARANG
         text = "Nasi Kari";
+        Makanan nasiKari = new NasiKari(gp);
+        g2.drawImage(nasiKari.getImage(),textX*2,textY+10,35,35,null);
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
         if(commandNum==1){
@@ -228,6 +247,8 @@ public class UI {
 
         //SIM
         text = "Susu Kacang";
+        Makanan susuKacang = new SusuKacang(gp);
+        g2.drawImage(susuKacang.getImage(),textX*2,textY+10,35,35,null);
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
         if(commandNum==2){
@@ -239,6 +260,8 @@ public class UI {
 
         //MOVE RUANGAN
         text = "Tumis Sayur";
+        Makanan tumisSayur = new TumisSayur(gp);
+        g2.drawImage(tumisSayur.getImage(),textX*2,textY+10,35,35,null);
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
         if(commandNum==3){
@@ -250,6 +273,8 @@ public class UI {
 
         //KUNJUNGAN
         text = "Bistik";
+        Makanan bistik = new Bistik(gp);
+        g2.drawImage(bistik.getImage(),textX*2,textY+10,35,35,null);
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
         if(commandNum==4){
@@ -306,6 +331,37 @@ public class UI {
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
+    }
+    private void drawGameOver(){
+
+        g2.setColor(new Color(0, 0, 0));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,80F));
+        String text = "GAME OVER";
+        int x = getXforCenteredText(text, gp.screenWidth/2);
+        int y = gp.tileSize*2 + gp.originalTileSize;
+
+        //TEXT
+        // g2.setColor(Color.gray);
+        // g2.drawString(text, x+3, y+3);
+        // g2.setColor(Color.white);
+        // g2.drawString(text, x, y);
+
+        //SIM
+        x = gp.screenWidth/2 - (gp.originalTileSize*6)/2;
+        y += gp.tileSize - 40;
+        g2.drawImage(gp.sim.gameover, x, y, gp.originalTileSize*6, gp.originalTileSize*6, null);
+        y += gp.tileSize + 120;
+        x = getXforCenteredText(text, gp.screenWidth/2);
+
+
+
+        g2.setColor(Color.gray);
+        g2.drawString(text, x+3, y+3);
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+
     }
     private void drawTitleScreen(){
 
@@ -958,6 +1014,7 @@ public class UI {
         textX = getXforCenteredText(text, frameX+(frameWidth/2));
         g2.drawString(text, textX, textY);
     }
+    
     public void drawDurationState(String entitas){
 
         //FRAME
@@ -984,18 +1041,36 @@ public class UI {
             case "Kasur King": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth); break;
             case "KERJA": drawOptionKerja(frameX, frameY, frameWidth, frameHeigth); break;
             case "Treadmill" : drawOptionOlahraga(frameX, frameY, frameWidth, frameHeigth); break;
-            case "Radio" : drawOptionRadio(frameX,frameY,frameWidth,frameHeigth); break;
         }
         gp.keyH.enterPressed = false;
     }
 
-    private void drawOptionRadio(int frameX, int frameY, int frameWidth, int frameHeight){
-        int textX = frameX + 30;
-        int textY = frameY + 65;
-        final int lineHeight = 25;
+    private void drawOptionRadio(){
+
+        //FRAME
+        final int frameX = gp.startRoomX + gp.tileSize - gp.originalTileSize;
+        final int frameY = gp.startRoomY + gp.tileSize/2;
+        final int frameWidth = gp.roomWidth - (gp.tileSize + gp.tileSize/2);
+        final int frameHeigth = gp.roomHeight - (gp.tileSize + gp.tileSize/2);
+        drawSubWindow(frameX, frameY, frameWidth, frameHeigth);
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,25F));
+
+        String text = "Silahkan pilih Aktivitas";
+        int textX = getXforCenteredText(text, frameX+(frameWidth/2));
+        int textY = frameY + 27;
+        int lineHeight = 23;
+
+        g2.drawString(text, textX, textY);
+        textY+=lineHeight;
+        textX = frameX + 30;
+        textY = frameY + 65;
+        lineHeight = 25;
         textY+=lineHeight;
         
-        String text = "Karaoke";
+        text = "Karaoke";
         
         g2.drawString(text, textX, textY);
         if(commandNum==0){
@@ -1242,6 +1317,48 @@ public class UI {
             textY+=lineHeight;
         }
         
+    }
+    private void drawListSim(){
+        final int frameWidth = gp.tileSize*5;
+        final int frameHeight = gp.tileSize*7;
+        final int frameX = gp.tileSize + gp.tileSize/2;
+        final int frameY = gp.tileSize*2;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        //TEXT
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,25F));
+        int textX;
+        int textY;
+
+        String text = "SIM anda telah mati";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+
+
+        text = "pilih SIM lain";
+        textX = getXforCenteredText(text, frameX + frameWidth/2);
+        textY += 30;
+        g2.drawString(text, textX, textY);
+
+        for(int i = 0; i<gp.listSim.size(); i++)
+        {
+            text = gp.listSim.get(i).getSimName();
+            textX = frameX + gp.tileSize;
+            textY += gp.tileSize;
+            g2.drawString(text, textX, textY);
+            if(commandNum==i){
+                g2.drawString(">", textX-gp.tileSize/2, textY);
+                if(gp.keyH.enterPressed){
+                    gp.curSim = gp.listSim.get(i);
+                    gp.gameState = gp.playState;
+                    commandNum = 0; subState = 0;
+                }
+            }
+        }
+        gp.keyH.enterPressed = false;
     }
     private void drawMenuGameScreen()
     {

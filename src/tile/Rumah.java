@@ -20,7 +20,7 @@ public class Rumah
     //GETTER
 
     //SETTER
-    public void setPoint
+    
 
     // public Ruangan getRuangan(int index)
     // {

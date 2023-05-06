@@ -75,7 +75,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int editRoomState = 16;
 	public final int worldState = 17;
 	public final int jamState= 21;
-  
+	public final int gameOverListSimState= 22;
+	public final int gameOverState=23;
+	public final int radioState=24;
 	
     public GamePanel(){
 

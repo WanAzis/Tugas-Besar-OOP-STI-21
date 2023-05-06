@@ -70,9 +70,9 @@ public class TimeHandler {
                 curToilet = 0;
             }
             checkEffect();
-            if(berkunjung){
+            // if(berkunjung){
 
-            }
+            // }
         }
     }
 
