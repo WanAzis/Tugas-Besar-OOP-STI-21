@@ -1461,10 +1461,12 @@ public class UI {
                     if(gp.listRumah.get(i).haveSim.getSimName() != gp.curSim.getSimName()){
                         gp.curSim.berkunjung = true;
                         gp.curSim.setCurRumah(gp.listRumah.get(i));
+                        gp.curSim.setCurRuangan(gp.curSim.curRumah.listRuangan.get(0));
                     }
                     else{
                         gp.curSim.berkunjung = false;
                         gp.curSim.setCurRumah(gp.listRumah.get(i));
+                        gp.curSim.setCurRuangan(gp.curSim.curRumah.listRuangan.get(0));
                         //PERHITUNGAN WAKTU KUNJUNGAN
 
                     }

@@ -145,6 +145,11 @@ public class Sim extends Entity implements Bekerja{
 		this.curRumah = rumah;
 	}
 
+	public void setCurRuangan(Ruangan ruangan)
+	{
+		this.curRuangan = ruangan;
+	}
+
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
 		inventory.add(new KasurQueen(gp));
