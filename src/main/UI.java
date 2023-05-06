@@ -59,12 +59,12 @@ public class UI {
     private String notifMessage = "";
     public ArrayList<Objek> store = new ArrayList<>();
     private Ruangan chooseRuangan;
-    private Barang chooseBarang = null;
     int slotCol = 0;
     int slotRow = 0;
     int subState = 0;
 
     //GETTER
+    public Ruangan getChooseRuangan(){return chooseRuangan;}
 
     //SETTER
     public void setNotifMessage(String notifMessage){this.notifMessage=notifMessage;}
@@ -145,7 +145,6 @@ public class UI {
             }
         }
         if(gp.gameState==gp.useObjectState){
-            drawUseObject(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx]);
             drawStatus();
         }
         if(gp.gameState==gp.notifState){
@@ -184,6 +183,7 @@ public class UI {
     private void resetCommand(){
         commandNum=0;
         subState=0;
+        gp.keyH.enterPressed=false;
     }
     private void drawMasakan(){
         final int frameWidth = gp.tileSize*5;
@@ -838,7 +838,7 @@ public class UI {
             }
         }
     }
-    private void storeBuy(){ // DIPERBAIKI
+    private void storeBuy(){
         //DRAW INVENTORY
         drawInventory(false);
         //DRAWSTORE
@@ -869,7 +869,7 @@ public class UI {
                     gp.gameState = gp.notifState;
                     notifMessage = "Inventory anda tidak cukup \nmenampung barang";
                     drawNotifScreen();
-                } else {    //BARANG BERHASIL DIBELI
+                } else {  
                     gp.curSim.setUang(gp.curSim.getUang() - store.get(itemIdx).harga);
                     if(gp.timeH.getBeliBarang()==0){
                         Random rand = new Random();
@@ -1425,8 +1425,13 @@ public class UI {
         if(commandNum==7){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
-                commandNum = 0;
-                subState = 2;
+                if(gp.curSim.getUang()>=1500){
+                    commandNum = 0;
+                    subState = 2;
+                }else{
+                    setNotifMessage("Uang anda tidak cukup untuk upgrade,\nUang yang dibutuhkan adalah 1500");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
     }
@@ -1451,9 +1456,18 @@ public class UI {
                     subState = 0;
                     commandNum = 0;
                     gp.gameState = gp.playState;
-                    System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
-                    gp.curSim.setCurRumah(gp.listRumah.get(i));
-                    System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
+                    // System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
+                    // System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
+                    if(gp.listRumah.get(i).haveSim.getSimName() != gp.curSim.getSimName()){
+                        gp.curSim.berkunjung = true;
+                        gp.curSim.setCurRumah(gp.listRumah.get(i));
+                    }
+                    else{
+                        gp.curSim.berkunjung = false;
+                        gp.curSim.setCurRumah(gp.listRumah.get(i));
+                        //PERHITUNGAN WAKTU KUNJUNGAN
+
+                    }
                 }
             }
         }
@@ -1764,11 +1778,19 @@ public class UI {
         if(commandNum==0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(0)==null){
-                //MASUK KE STATE MASUKKAN NAMA RUANGAN 
                 subState = 0;
                 commandNum = 0;
-                gp.gameState = gp.playState;
-                gp.curSim.curRumah.tambahRuang("Atas", "Default", chooseRuangan);
+                if(gp.timeH.getUpgradeRumah()==0){
+                    String roomName = (String) JOptionPane.showInputDialog(null, "Masukkan Nama Ruangan: ");
+                    gp.gameState = gp.playState;
+                    gp.timeH.setPosisiCalonRuangan("Atas");
+                    gp.timeH.setNamaCalonRuangan(roomName);
+                    gp.timeH.setUpgradeRumah(60*18); 
+                    gp.curSim.plusUang(-1500);
+                }else{
+                    setNotifMessage("Rumah masih dalam pembangunan,\nsilahkan menunggu hingga selesai");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
 
@@ -1781,8 +1803,17 @@ public class UI {
             if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(1)==null){
                 subState = 0;
                 commandNum = 0;
-                gp.gameState = gp.playState;
-                gp.curSim.curRumah.tambahRuang("Bawah", "Default", chooseRuangan);
+                if(gp.timeH.getUpgradeRumah()==0){
+                    String roomName = (String) JOptionPane.showInputDialog(null, "Masukkan Nama Ruangan: ");
+                    gp.gameState = gp.playState;
+                    gp.timeH.setPosisiCalonRuangan("Bawah");
+                    gp.timeH.setNamaCalonRuangan(roomName);
+                    gp.timeH.setUpgradeRumah(60*18); 
+                    gp.curSim.plusUang(-1500);
+                }else{
+                    setNotifMessage("Rumah masih dalam pembangunan,\nsilahkan menunggu hingga selesai");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
 
@@ -1795,8 +1826,17 @@ public class UI {
             if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(2)==null){
                 subState = 0;
                 commandNum = 0;
-                gp.gameState = gp.playState;
-                gp.curSim.curRumah.tambahRuang("Kiri", "Default", chooseRuangan);
+                if(gp.timeH.getUpgradeRumah()==0){
+                    String roomName = (String) JOptionPane.showInputDialog(null, "Masukkan Nama Ruangan: ");
+                    gp.gameState = gp.playState;
+                    gp.timeH.setPosisiCalonRuangan("Kiri");
+                    gp.timeH.setNamaCalonRuangan(roomName);
+                    gp.timeH.setUpgradeRumah(60*18);
+                    gp.curSim.plusUang(-1500);
+                }else{
+                    setNotifMessage("Rumah masih dalam pembangunan,\nsilahkan menunggu hingga selesai");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
 
@@ -1809,8 +1849,17 @@ public class UI {
             if(gp.keyH.enterPressed && chooseRuangan.getRuanganTetangga(3)==null){
                 subState = 0;
                 commandNum = 0;
-                gp.gameState = gp.playState;
-                gp.curSim.curRumah.tambahRuang("Kanan", "Default", chooseRuangan);
+                if(gp.timeH.getUpgradeRumah()==0){
+                    String roomName = (String) JOptionPane.showInputDialog(null, "Masukkan Nama Ruangan: ");
+                    gp.gameState = gp.playState;
+                    gp.timeH.setPosisiCalonRuangan("Kanan");
+                    gp.timeH.setNamaCalonRuangan(roomName);
+                    gp.timeH.setUpgradeRumah(60*18); 
+                    gp.curSim.plusUang(-1500);
+                }else{
+                    setNotifMessage("Rumah masih dalam pembangunan,\nsilahkan menunggu hingga selesai");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
 
@@ -1847,14 +1896,19 @@ public class UI {
         }
     }
     public void drawEditRoomScreen(){
-        chooseBarang = gp.curSim.curRuangan.getBarang(commandNum);
+        Barang chooseBarang = gp.curSim.curRuangan.getBarang(commandNum);
+        int x = chooseBarang.screenX;
+		int y = chooseBarang.screenY;
+        drawSelectObjek(x, y, chooseBarang.solidArea.width, chooseBarang.solidArea.height);
+        if(gp.keyH.enterPressed){
+            gp.curSim.selectBarang = chooseBarang;
+            gp.gameState=gp.placeObjectState;
+        }
+    }
+    public void drawSelectObjek(int x, int y, int width, int height){
         Color c = new Color(245, 60, 60, 150);
         g2.setColor(c);
-        g2.fillRect(chooseBarang.solidArea.x+chooseBarang.screenX, chooseBarang.solidArea.y+chooseBarang.screenY,
-        chooseBarang.solidArea.width, chooseBarang.solidArea.height);
-    }
-    public void drawUseObject(Barang obj){
-        
+        g2.fillRect(x, y, width, height);
     }
     private void drawSubWindow(int x, int y, int width, int height){
         Color c = new Color(0, 0, 0, 200);

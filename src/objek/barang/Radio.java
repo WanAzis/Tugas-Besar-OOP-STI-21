@@ -42,23 +42,11 @@ public class Radio extends Barang{
 	@Override
 	public void used() {
 		gp.curSim.setStatus(action);
-		// switch(direction){
-		// 	case "down" : image=downUsed; break;
-		// 	case "left" : image=leftUsed; break;
-		// 	case "right" : image=rightUsed; break;
-		// 	case "up" : image=upUsed; break;
-		// }
 	}
 
 	@Override
 	public void unUsed() {
 		gp.curSim.setStatus("IDLE");
-		// switch(direction){
-		// 	case "down" : image=down; break;
-		// 	case "left" : image=left; break;
-		// 	case "right" : image=right; break;
-		// 	case "up" : image=up; break;
-		// }
 	}
 
 	@Override
@@ -77,22 +65,18 @@ public class Radio extends Barang{
 	@Override
 	public void moveUp() {
 		screenY -= gp.tileSize;
-		solidArea.y -= gp.tileSize;
 	}
 	@Override
 	public void moveDown() {
 		screenY += gp.tileSize;
-		solidArea.y += gp.tileSize;
 	}
 	@Override
 	public void moveLeft() {
 		screenX -= gp.tileSize;
-		solidArea.x -= gp.tileSize;
 	}
 	@Override
 	public void moveRight() {
 		screenX += gp.tileSize;
-		solidArea.x += gp.tileSize;
 	}
 
 	@Override
@@ -102,11 +86,6 @@ public class Radio extends Barang{
 			image = left;
 			swapSize();
 		}
-		/*  else if(direction=="left"){
-			direction="up";
-			image=up;
-			swapSize();
-		} */
 		else if(direction=="left"){
 			direction="right";
 			image=right;
@@ -128,6 +107,3 @@ public class Radio extends Barang{
 		solidArea.width = temp;
 	}
 }
-
-
-// gabisa rotate

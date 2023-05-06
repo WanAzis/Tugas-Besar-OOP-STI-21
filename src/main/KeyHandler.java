@@ -280,7 +280,7 @@ public class KeyHandler implements KeyListener{
 			case 4: maxCommandNum=3; break;
 			case 5: maxCommandNum=1; break;
 			case 6: maxCommandNum=4; break;
-			case 7: maxCommandNum = gp.listSim.size();
+			case 7: maxCommandNum = gp.listSim.size(); break;
 		}
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
@@ -519,8 +519,6 @@ public class KeyHandler implements KeyListener{
 			gp.curSim.selectBarang.moveLeft();
 		}
 		if(code == KeyEvent.VK_ENTER && !gp.curSim.selectBarang.collisionWithOthers){
-		}
-		if(code == KeyEvent.VK_ENTER && !gp.curSim.selectBarang.collisionWithOthers){
 			gp.gameState=gp.playState;
 		}
 	}
@@ -572,7 +570,6 @@ public class KeyHandler implements KeyListener{
 	}
 	public void editRoomState(int code){
 		if(code==KeyEvent.VK_ESCAPE){
-			gp.ui.commandNum=0;
 			gp.gameState=gp.playState;
 		}
 		if(code==KeyEvent.VK_ENTER){
@@ -592,10 +589,6 @@ public class KeyHandler implements KeyListener{
 				gp.ui.commandNum++;
 			}
 		}
-		if(code == KeyEvent.VK_RIGHT){
-			gp.ui.commandNum=0;
-		}
-
 	}
 	public void worldViewState(int code){
 		if(code==KeyEvent.VK_ESCAPE){

@@ -10,6 +10,9 @@ public class TimeHandler {
 	private int detik;
     private int curTidur, curToilet;
     private int sumkerja, sumTidur, sumOlahraga, sumMasak, waktuKunjung, beliBarang, upgradeRumah;
+    private String namaCalonRuangan, posisiCalonRuangan;
+    // public boolean berkunjung;
+    public int counterBerkunjung;
 
     public TimeHandler(GamePanel gp)
     {
@@ -34,9 +37,15 @@ public class TimeHandler {
     public int getBeliBarang() {
         return beliBarang;
     }
+    public int getUpgradeRumah(){
+        return upgradeRumah;
+    }
 
     //SETTER
     public void setBeliBarang(int beliBarang){this.beliBarang = beliBarang;}
+    public void setUpgradeRumah(int upgradeRumah){this.upgradeRumah=upgradeRumah;}
+    public void setNamaCalonRuangan(String namaCalonRuangan){this.namaCalonRuangan=namaCalonRuangan;}
+    public void setPosisiCalonRuangan(String posisiCalonRuangan){this.posisiCalonRuangan=posisiCalonRuangan;}
 
     public void update() {
         if(!gp.curSim.getStatus().equals("IDLE")){
@@ -47,6 +56,12 @@ public class TimeHandler {
                 if(beliBarang>0){
                     checkBeliBarang();
                 }
+                if(upgradeRumah>0){
+                    checkUpgradeRumah();
+                }
+                if(gp.curSim.berkunjung){
+                    counterBerkunjung++;
+                }
             }
             if(detik>=720){
                 day++;
@@ -55,6 +70,9 @@ public class TimeHandler {
                 curToilet = 0;
             }
             checkEffect();
+            if(berkunjung){
+
+            }
         }
     }
 
@@ -121,6 +139,15 @@ public class TimeHandler {
                 gp.curSim.inventory.add(obj);
             }
             gp.curSim.listBelanja.clear();
+        }
+    }
+
+    public void checkUpgradeRumah(){
+        upgradeRumah--;
+        if(upgradeRumah==0){
+            gp.ui.setNotifMessage("Rumah sudah selesai di upgrade");
+            gp.gameState=gp.notifState;
+            gp.curSim.curRumah.tambahRuang(posisiCalonRuangan, namaCalonRuangan, gp.ui.getChooseRuangan());
         }
     }
 }

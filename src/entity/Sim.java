@@ -72,6 +72,7 @@ public class Sim extends Entity implements Bekerja{
 	public Ruangan curRuangan;
 	private Map<String,Integer> listPekerjaan;
 	public ArrayList<Objek> listBelanja;
+	public boolean berkunjung; 
 	
 	public int counter = 0;
 	private int durationKerja;
