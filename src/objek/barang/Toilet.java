@@ -21,7 +21,7 @@ public class Toilet extends Barang{
 		lebar = 1;
 		harga = 50;
 		screenX = gp.tileSize;
-		screenY = gp.tileSize*3;
+		screenY = gp.tileSize*3+gp.tileSize/2;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		direction="down";

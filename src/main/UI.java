@@ -263,7 +263,7 @@ public class UI {
         textY+=lineHeight;
         g2.drawString("Waktu upgrade rumah", textX, textY);
         textY+=lineHeight;
-        g2.drawString("Waktu beli rumah", textX, textY);
+        g2.drawString("Waktu beli barang", textX, textY);
         textY+=lineHeight;
         textY+=lineHeight;
         textY+=lineHeight;
@@ -280,12 +280,12 @@ public class UI {
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        value = String.valueOf("()");
+        value = String.valueOf(gp.timeH.getUpgradeRumah());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        value = String.valueOf("()");
+        value = String.valueOf(gp.timeH.getBeliBarang());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
@@ -967,8 +967,43 @@ public class UI {
             case "Kasur King": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth); break;
             case "KERJA": drawOptionKerja(frameX, frameY, frameWidth, frameHeigth); break;
             case "Treadmill" : drawOptionOlahraga(frameX, frameY, frameWidth, frameHeigth); break;
+            case "Radio" : drawOptionRadio(frameX,frameY,frameWidth,frameHeigth); break;
         }
         gp.keyH.enterPressed = false;
+    }
+
+    private void drawOptionRadio(int frameX, int frameY, int frameWidth, int frameHeight){
+        int textX = frameX + 30;
+        int textY = frameY + 65;
+        final int lineHeight = 25;
+        textY+=lineHeight;
+        
+        String text = "Karaoke";
+        
+        g2.drawString(text, textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
+        }
+        textY+=lineHeight;
+        textY+=lineHeight;
+
+
+        text = "Musik";
+        g2.drawString(text, textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*40);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
+        }
+        textY+=lineHeight;
     }
     private void drawOptionKasur(int frameX, int frameY, int frameWidth, int frameHeight){
         int textX = frameX + 30;
@@ -1441,10 +1476,12 @@ public class UI {
                     if(gp.listRumah.get(i).haveSim.getSimName() != gp.curSim.getSimName()){
                         gp.curSim.berkunjung = true;
                         gp.curSim.setCurRumah(gp.listRumah.get(i));
+                        gp.curSim.setCurRuangan(gp.curSim.curRumah.listRuangan.get(0));
                     }
                     else{
                         gp.curSim.berkunjung = false;
                         gp.curSim.setCurRumah(gp.listRumah.get(i));
+                        gp.curSim.setCurRuangan(gp.curSim.curRumah.listRuangan.get(0));
                         //PERHITUNGAN WAKTU KUNJUNGAN
 
                     }

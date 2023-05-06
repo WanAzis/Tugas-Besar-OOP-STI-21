@@ -244,10 +244,11 @@ public class KeyHandler implements KeyListener{
 			}
 			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Radio")
 			{
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
-				gp.gameState=gp.useObjectState;
-				// gp.curSim.setNullImage();
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
+				// gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
+				// gp.gameState=gp.useObjectState;
+				// // gp.curSim.setNullImage();
+				// gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
+				gp.gameState=gp.durationState;
 			}
 			
 			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Sajadah")
@@ -338,6 +339,26 @@ public class KeyHandler implements KeyListener{
 			case "Kasur King" : durationKasurState(code); break;
 			case "KERJA" : durationKerjaState(code); break;
 			case "Treadmill" : durationOlahragaState(code); break;
+			case "Radio" : durationRadioState(code); break;
+		}
+	}
+
+	private void durationRadioState(int code){
+		if(code == KeyEvent.VK_UP){
+			if(gp.ui.commandNum>0){
+				gp.ui.commandNum--;
+			}
+		}
+		if(code == KeyEvent.VK_DOWN){
+			if(gp.ui.commandNum<1){
+				gp.ui.commandNum++;
+			}
+		}
+		if(code == KeyEvent.VK_ESCAPE){
+			gp.gameState=gp.playState;
+		}
+		if(code == KeyEvent.VK_ENTER){
+			enterPressed=true;
 		}
 	}
 
@@ -393,6 +414,7 @@ public class KeyHandler implements KeyListener{
 					gp.gameState=gp.notifState;
 				}
 			}
+			
 			else if(gp.ui.commandNum==3){//tumissayur
 				if(gp.curSim.checkAvailableInventory("Tumis Sayur")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));

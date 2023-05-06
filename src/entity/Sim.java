@@ -145,6 +145,11 @@ public class Sim extends Entity implements Bekerja{
 		this.curRumah = rumah;
 	}
 
+	public void setCurRuangan(Ruangan ruangan)
+	{
+		this.curRuangan = ruangan;
+	}
+
 	public void setItems(){
 		inventory.add(new KasurSingle(gp));
 		inventory.add(new KasurQueen(gp));
@@ -160,7 +165,7 @@ public class Sim extends Entity implements Bekerja{
 		inventory.add(new MesinCuci(gp));
 		inventory.add(new Radio(gp));
 		inventory.add(new Treadmill(gp));
-		// inventory.add(new Ayam(gp));
+		inventory.add(new Ayam(gp));
 		inventory.add(new Nasi(gp));
 		inventory.add(new NasiAyam(gp));
 		inventory.add(new Bayam(gp));
@@ -501,6 +506,7 @@ public class Sim extends Entity implements Bekerja{
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Kentang")){
 				adaKentang = true;
+				kentang= obj;
 				break;
 			}
 		}
@@ -508,10 +514,10 @@ public class Sim extends Entity implements Bekerja{
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Sapi")){
 				adaSapi = true;
+				sapi=obj;
 				break;
 			}
 		}
-
 		if(adaKentang && adaSapi){
 			inventory.remove(kentang);
 			inventory.remove(sapi);
@@ -528,6 +534,7 @@ public class Sim extends Entity implements Bekerja{
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Wortel")){
 				adaWortel = true;
+				wortel= obj;
 				break;
 			}
 		}
@@ -535,6 +542,7 @@ public class Sim extends Entity implements Bekerja{
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Bayam")){
 				adaBayam = true;
+				bayam= obj;
 				break;
 			}
 		}
@@ -555,6 +563,7 @@ public class Sim extends Entity implements Bekerja{
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Susu")){
 				adaSusu = true;
+				susu=obj;
 				break;
 			}
 		}
@@ -562,10 +571,11 @@ public class Sim extends Entity implements Bekerja{
 		for(Objek obj : inventory){
 			if(obj.getName().equals("Kacang")){
 				adaKacang = true;
+				kacang=obj;
 				break;
 			}
 		}
-
+		
 		if(adaSusu && adaKacang){
 			inventory.remove(susu);
 			inventory.remove(kacang);
