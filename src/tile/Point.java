@@ -4,10 +4,10 @@ public class Point
     private int x;
     private int y;
 
-    public Point(int x, int y)
+    public Point()
     {
-        this.x = x;
-        this.y = y;
+        x = 25;
+        y = 25;
     }
     
     //getter
@@ -31,10 +31,10 @@ public class Point
     }
 
     //jarak
-    public int hitungJarak(Point p1, Point p2)
+    public int hitungJarak(Point p)
     {
-        int xDiff = p2.getX() - p1.getX();
-        int yDiff = p2.getY() - p1.getY();
+        int xDiff = p.getX() - this.getX();
+        int yDiff = p.getY() - this.getY();
         return (int) Math.sqrt(xDiff*xDiff + yDiff*yDiff);
     }
 }

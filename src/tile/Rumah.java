@@ -1,31 +1,49 @@
 package tile;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import entity.Sim;
+import main.GamePanel;
 
 public class Rumah
 {
+    public GamePanel gp;
     public Point lokasi;
     public ArrayList<Ruangan> listRuangan;
     public Sim haveSim;
+    public BufferedImage image;
 
-    public Rumah(Sim sim)
+    public Rumah(Sim sim, GamePanel gp)
     {
+        this.gp = gp;
+        lokasi = new Point();
         this.listRuangan = new ArrayList<Ruangan>();
         Ruangan kamar = new Ruangan("Kamar");
         this.listRuangan.add(kamar);
         haveSim = sim;
+        try {
+			image = ImageIO.read(new File("../resources/world/house.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     //GETTER
+    public Point getLokasi(){return lokasi;}
+    public Ruangan getRuangan(int index)
+    {
+        return this.listRuangan.get(index);
+    }
 
     //SETTER
-    
+    public void setLokasi(Point lokasi){this.lokasi = lokasi;}
 
-    // public Ruangan getRuangan(int index)
-    // {
-    //     return this.listRuangan.get(index);
-    // }
 
     public void tambahRuang(String arah, String newRuangan, Ruangan currentRuangan)
     {
@@ -81,9 +99,21 @@ public class Rumah
             }
         }
     }
-}
 
-/* yang masih kurang:
-1. cara nambah furniture ke inventory sim di konstruktor gimana?
-2. setter getter untuk list
-*/
+    public void moveUp(){
+        lokasi.setY(lokasi.getY()-1);
+    }
+    public void moveDown(){
+        lokasi.setY(lokasi.getY()+1);
+    }
+    public void moveLeft(){
+        lokasi.setX(lokasi.getX()-1);
+    }
+    public void moveRight(){
+        lokasi.setX(lokasi.getX()+1);
+    }
+
+    public void draw(Graphics2D g2) {
+		g2.drawImage(image, lokasi.getX()*gp.worldTileSize, lokasi.getY()*gp.worldTileSize, gp.worldTileSize, gp.worldTileSize, null);
+	}
+}

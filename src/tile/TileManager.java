@@ -205,7 +205,7 @@ public class TileManager {
 
 			int tileNum = worldMapTileNum[col][row];
 
-			g2.drawImage(tile[tileNum].image, x, y, gp.worldTileSize, gp.worldTileSize, null);
+			g2.drawImage(tile[tileNum].image, x+gp.startWorldScreen, y+gp.startWorldScreen, gp.worldTileSize, gp.worldTileSize, null);
 			col++;
 			x += gp.worldTileSize;
 			if(col==64) {

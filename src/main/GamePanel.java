@@ -17,35 +17,31 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements Runnable{
     
     // SCREEN SETTINGS
-    final int originalTileSize = 16;  // 16x16 Pixel
-    final int scale = 3;
-
+    public final int originalTileSize = 16;  // 16x16 Pixel
+    public final int scale = 3;
     public final int tileSize = originalTileSize * scale; // 48x48 pixel
-    private final int maxScreenCol = 10;
-    private final int maxScreenRow = 10;
-    final int screenWidth = tileSize * getMaxScreenCol();
-    final int screenHeight = tileSize * getMaxScreenRow();
-	final int roomWidth = tileSize * 6;
-	final int roomHeight = tileSize * 6;
+    public final int maxScreenCol = 10;
+    public final int maxScreenRow = 10;
+    public final int screenWidth = tileSize * getMaxScreenCol();
+    public final int screenHeight = tileSize * getMaxScreenRow();
+	public final int roomWidth = tileSize * 6;
+	public final int roomHeight = tileSize * 6;
 	public final int startRoomX = tileSize;
 	public final int startRoomY = tileSize * 4;
-	final int startPanelX = tileSize * 8;
-	final int startPanelY = tileSize * 0;
-
+	public final int startPanelX = tileSize * 8;
+	public final int startPanelY = tileSize * 0;
 	public final int worldTileSize = 7;
+	public final int startWorldScreen = 7*2;
 
     //FPS
-    final int FPS = 60;
+    private final int FPS = 60;
     
-
 	//SYSTEM
     public TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
 	public TimeHandler timeH = new TimeHandler(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
-    public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
-	// public effectHandler eHandler = new effectHandler(this);
     Thread gameThread;
 
 	//PLAYER
@@ -66,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int menuMasakanState = 7;
 	public final int useMakananState = 8;
 	public final int placeObjectState = 9;
-	// public final int createSimState = 10;
+	public final int placeRumahWorldState = 10;
 	public final int menuSimState = 11;
 	public final int storeState = 12;
 	public final int kerjaState = 13;
@@ -78,9 +74,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int gameOverListSimState= 22;
 	public final int gameOverState=23;
 	public final int radioState=24;
-	
+  
     public GamePanel(){
-
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -102,9 +97,10 @@ public class GamePanel extends JPanel implements Runnable{
 
 	//SETTER
 
+	//METHOD
     public void startGameThread() {
     	
-    	gameThread = new Thread(this);
+		gameThread = new Thread(this);
     	gameThread.start();
     }
 
@@ -177,8 +173,12 @@ public class GamePanel extends JPanel implements Runnable{
 		if(gameState == titleState){
 			ui.draw(g2);
 		} 
-		else if(gameState == worldState){
+		//WORLD SCREEN
+		else if(gameState == worldState || gameState==placeRumahWorldState){
 			tileM.drawWorld(g2);
+			for(Rumah rm : listRumah){
+				rm.draw(g2);
+			}
 		}
 		//ELSE
 		else{

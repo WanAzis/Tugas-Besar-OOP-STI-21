@@ -71,7 +71,8 @@ public class Treadmill extends Barang{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			sim.plusKekenyangan(-20);
+			sim.plusKekenyangan(-5);
+			sim.plusKesehatan(5);
 			sim.plusMood(10);
 			gp.ui.setNotifMessage("Selamat anda sudah olahraga, \nkekenyangan -20 dan mood +10");
 			gp.gameState=gp.notifState;

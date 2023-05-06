@@ -14,6 +14,8 @@ import java.awt.BasicStroke;
 
 import javax.swing.*;
 
+import entity.Sim;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -33,6 +35,7 @@ import objek.barang.Radio;
 import objek.barang.RakBuku;
 import objek.barang.Sajadah;
 import objek.barang.TV;
+import objek.barang.Treadmill;
 import objek.barang.Toilet;
 import objek.makanan.Ayam;
 import objek.makanan.Bayam;
@@ -48,6 +51,7 @@ import objek.makanan.Susu;
 import objek.makanan.SusuKacang;
 import objek.makanan.TumisSayur;
 import objek.makanan.Wortel;
+import tile.Point;
 import tile.Ruangan;
 
 public class UI {
@@ -107,7 +111,7 @@ public class UI {
         store.add(new Toilet(gp));
         store.add(new TV(gp));
         store.add(new Radio(gp));
-        // store.add(new Treadmill(gp));
+        store.add(new Treadmill(gp));
 
         //ADD BAHAN MAKANAN
         store.add(new Nasi(gp));
@@ -221,7 +225,6 @@ public class UI {
         textY += gp.tileSize/2-gp.tileSize/4;
 
         
-        //VIEW LOCATION
         text = "Nasi Ayam";
         textX = frameX + gp.tileSize;
         Makanan nasiAyam = new NasiAyam(gp);
@@ -230,12 +233,8 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
-                // commandNum = 0;
-            }
         }
 
-        //BELI JUAL BARANG
         text = "Nasi Kari";
         Makanan nasiKari = new NasiKari(gp);
         g2.drawImage(nasiKari.getImage(),textX*2,textY+10,35,35,null);
@@ -245,7 +244,6 @@ public class UI {
             g2.drawString(">", textX-gp.tileSize/2, textY);
         }
 
-        //SIM
         text = "Susu Kacang";
         Makanan susuKacang = new SusuKacang(gp);
         g2.drawImage(susuKacang.getImage(),textX*2,textY+10,35,35,null);
@@ -253,12 +251,8 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
-                // commandNum = 2;
-            }
         }
 
-        //MOVE RUANGAN
         text = "Tumis Sayur";
         Makanan tumisSayur = new TumisSayur(gp);
         g2.drawImage(tumisSayur.getImage(),textX*2,textY+10,35,35,null);
@@ -266,12 +260,8 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
-                // commandNum = 3;
-            }
         }
 
-        //KUNJUNGAN
         text = "Bistik";
         Makanan bistik = new Bistik(gp);
         g2.drawImage(bistik.getImage(),textX*2,textY+10,35,35,null);
@@ -279,9 +269,6 @@ public class UI {
         g2.drawString(text, textX, textY);
         if(commandNum==4){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
-                // commandNum = 3;
-            }
         }
         gp.keyH.enterPressed = false;
     }
@@ -317,17 +304,17 @@ public class UI {
         textY = frameY + 25;
         String value;
 
-        value = String.valueOf(gp.timeH.getTime());
+        value = "" + String.valueOf(gp.timeH.getTime());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        value = String.valueOf(gp.timeH.getUpgradeRumah());
+        value = "" + String.valueOf(gp.timeH.getUpgradeRumah());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
 
-        value = String.valueOf(gp.timeH.getBeliBarang());
+        value = "" + String.valueOf(gp.timeH.getBeliBarang());
         textX = getXforAligntoRightText(value, tailX);
         g2.drawString(value,textX,textY);
         textY+=lineHeight;
@@ -917,7 +904,7 @@ public class UI {
                     gp.gameState = gp.notifState;
                     notifMessage = "Uang anda tidak cukup untuk \nmembeli barang";
                     drawNotifScreen();
-                } else if(gp.sim.inventory.size() == gp.sim.maxInventorySize){
+                } else if(gp.sim.inventory.size() == gp.sim.getMaxInventorySize()){
                     subState = 0;
                     gp.gameState = gp.notifState;
                     notifMessage = "Inventory anda tidak cukup \nmenampung barang";
@@ -934,7 +921,6 @@ public class UI {
                 }
             }
         }
-
     }
     private void storeSell(){
         //DRAW INVENTORY
@@ -1252,6 +1238,7 @@ public class UI {
             if(gp.keyH.enterPressed){
                 gp.curSim.setDurationKerja(60*60*2); 
                 gp.curSim.plusWaktuKerja(60*60*2);
+                gp.curSim.setPlusAkumulasiKerja(60*60*2);
                 gp.curSim.setNullImage();
                 gp.gameState=gp.kerjaState;
             }
@@ -1265,6 +1252,7 @@ public class UI {
             if(gp.keyH.enterPressed){
                 gp.curSim.setDurationKerja(60*60*4);
                 gp.curSim.plusWaktuKerja(60*60*4);
+                gp.curSim.setPlusAkumulasiKerja(60*60*4);
                 gp.curSim.setNullImage();
                 gp.gameState=gp.kerjaState;
             }
@@ -1278,6 +1266,7 @@ public class UI {
             if(gp.keyH.enterPressed){
                 gp.curSim.setDurationKerja(60*60*6);
                 gp.curSim.plusWaktuKerja(60*60*6);
+                gp.curSim.setPlusAkumulasiKerja(60*60*6);
                 gp.curSim.setNullImage();
                 gp.gameState=gp.kerjaState;
             }
@@ -1291,6 +1280,7 @@ public class UI {
             if(gp.keyH.enterPressed){
                 gp.curSim.setDurationKerja(60*60*8);
                 gp.curSim.plusWaktuKerja(60*60*8);
+                gp.curSim.setPlusAkumulasiKerja(60*60*8);
                 gp.curSim.setNullImage();
                 gp.gameState=gp.kerjaState;
             }
@@ -1397,14 +1387,31 @@ public class UI {
         if(commandNum==0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
-                subState = 0;
-                commandNum = 0;
-                gp.gameState = gp.playState;
-                String simName = (String) JOptionPane.showInputDialog(null, "Enter New SIM Name: ");
-				gp.keyH.createNewSimState(gp,simName);
+                if(gp.timeH.createSim){
+                    subState = 0;
+                    commandNum = 0;
+                    gp.gameState = gp.playState;
+                    gp.timeH.createSim = false;
+                    boolean simExists = false;
+                    String simName = (String) JOptionPane.showInputDialog(null, "Enter New SIM Name: ");
+                    for (Sim sim : gp.listSim) {
+                        if (sim.getSimName().equals(simName)) {
+                            simExists = true;
+                            break;
+                        }
+                    }
+                    if (simExists) {
+                        JOptionPane.showMessageDialog(null, "SIM name already exists!");
+                    } else{
+                        gp.keyH.createNewSimState(gp,simName);
+                    }
+                }
+                else{
+                    setNotifMessage("Anda sudah membuat sim baru hari ini\ncoba kembali besok");
+                    gp.gameState = gp.notifState;
+                }
             }
         }
-
         //CHANGE SIM
         text = "Change SIM";
         textY += gp.tileSize/2 + 10;
@@ -1549,8 +1556,13 @@ public class UI {
             if(gp.keyH.enterPressed){
                 commandNum = 0;
                 subState = 0;
-                gp.curSim.setStatus("KERJA");
-                gp.gameState=gp.durationState;
+                if(!gp.curSim.gantiKerja){
+                    gp.curSim.setStatus("KERJA");
+                    gp.gameState=gp.durationState;
+                }else{
+                    setNotifMessage("Anda baru mengganti pekerjaan\nAnda baru bisa bekerja besok");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
 
@@ -1605,19 +1617,25 @@ public class UI {
                     subState = 0;
                     commandNum = 0;
                     gp.gameState = gp.playState;
-                    // System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
-                    // System.out.println("Rumah " + gp.curSim.curRumah.haveSim.getSimName());
                     if(gp.listRumah.get(i).haveSim.getSimName() != gp.curSim.getSimName()){
                         gp.curSim.berkunjung = true;
+                        Point temp = gp.curSim.curRumah.getLokasi(); //Menyimpan point rumah sim
+                        gp.timeH.minusTime(temp.hitungJarak(gp.listRumah.get(i).getLokasi()));//Mengurangi waktu dengan hitungan
                         gp.curSim.setCurRumah(gp.listRumah.get(i));
                         gp.curSim.setCurRuangan(gp.curSim.curRumah.listRuangan.get(0));
+                         
                     }
                     else{
                         gp.curSim.berkunjung = false;
+                        Point temp = gp.curSim.curRumah.getLokasi(); //Menyimpan point rumah sim
+                        gp.timeH.minusTime(temp.hitungJarak(gp.listRumah.get(i).getLokasi()));//Mengurangi waktu dengan hitungan
                         gp.curSim.setCurRumah(gp.listRumah.get(i));
                         gp.curSim.setCurRuangan(gp.curSim.curRumah.listRuangan.get(0));
                         //PERHITUNGAN WAKTU KUNJUNGAN
-
+                        int totalVisitTime = gp.timeH.getCounterBerkunjung()/30;
+                        gp.curSim.plusMood(10*totalVisitTime);
+                        gp.curSim.plusKekenyangan(-10*totalVisitTime);
+                        gp.timeH.setCounterBerkunjung(0);
                     }
                 }
             }
@@ -1656,8 +1674,15 @@ public class UI {
         if(commandNum==1){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
-                subState = 6;
-                commandNum = 0;
+                if(gp.curSim.hasKerja){
+                    subState = 6;
+                    commandNum = 0;
+                    gp.curSim.hasKerja=false;
+                    gp.curSim.gantiKerja=true;
+                }else{
+                    setNotifMessage("Anda belum bekerja. Untuk mengganti\npekerjaan silahkan bekerja terlebih\ndahulu");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
     }
@@ -1678,10 +1703,15 @@ public class UI {
         if(commandNum==0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
-               gp.curSim.setPekerjaan(3);
-               subState = 0;
-               commandNum = 0;
-               gp.gameState = gp.playState;
+                subState = 0;
+                commandNum = 0;
+                if(gp.curSim.getUang()>=15/2){
+                    gp.curSim.setPekerjaan(3);
+                    gp.gameState = gp.playState;
+                }else{
+                    setNotifMessage("Uang anda tidak cukup untuk mengganti pekerjaan");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
 
@@ -1692,10 +1722,15 @@ public class UI {
         if(commandNum==1){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
-                gp.curSim.setPekerjaan(1);
                 subState = 0;
                 commandNum = 0;
-                gp.gameState = gp.playState;
+                if(gp.curSim.getUang()>=30/2){
+                    gp.curSim.setPekerjaan(1);
+                    gp.gameState = gp.playState;
+                }else{
+                    setNotifMessage("Uang anda tidak cukup untuk mengganti pekerjaan");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
 
@@ -1706,10 +1741,15 @@ public class UI {
         if(commandNum==2){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
-                gp.curSim.setPekerjaan(0);
                 subState = 0;
                 commandNum = 0;
-                gp.gameState = gp.playState;
+                if(gp.curSim.getUang()>=35/2){
+                    gp.curSim.setPekerjaan(0);
+                    gp.gameState = gp.playState;
+                }else{
+                    setNotifMessage("Uang anda tidak cukup untuk mengganti pekerjaan");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
 
@@ -1720,10 +1760,15 @@ public class UI {
         if(commandNum==3){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
-                gp.curSim.setPekerjaan(2);
                 subState = 0;
                 commandNum = 0;
-                gp.gameState = gp.playState;
+                if(gp.curSim.getUang()>=45/2){
+                    gp.curSim.setPekerjaan(2);
+                    gp.gameState = gp.playState;
+                }else{
+                    setNotifMessage("Uang anda tidak cukup untuk mengganti pekerjaan");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
 
@@ -1734,14 +1779,17 @@ public class UI {
         if(commandNum==4){
             g2.drawString(">", textX-gp.tileSize/2, textY);
             if(gp.keyH.enterPressed){
-                gp.curSim.setPekerjaan(4);
                 subState = 0;
                 commandNum = 0;
-                gp.gameState = gp.playState;
+                if(gp.curSim.getUang()>=50/2){
+                    gp.curSim.setPekerjaan(4);
+                    gp.gameState = gp.playState;
+                }else{
+                    setNotifMessage("Uang anda tidak cukup untuk mengganti pekerjaan");
+                    gp.gameState=gp.notifState;
+                }
             }
         }
-
-
     }
     private void viewLocationScreen(int frameX, int frameY, int frameWidth, int frameHeight){
         
@@ -1936,7 +1984,7 @@ public class UI {
                     gp.gameState = gp.playState;
                     gp.timeH.setPosisiCalonRuangan("Atas");
                     gp.timeH.setNamaCalonRuangan(roomName);
-                    gp.timeH.setUpgradeRumah(60*18); 
+                    gp.timeH.setUpgradeRumah(60*18);
                     gp.curSim.plusUang(-1500);
                 }else{
                     setNotifMessage("Rumah masih dalam pembangunan,\nsilahkan menunggu hingga selesai");

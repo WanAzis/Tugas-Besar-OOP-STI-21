@@ -9,15 +9,20 @@ public class TimeHandler {
 	private int day;
 	private int detik;
     private int curTidur, curToilet;
-    private int sumkerja, sumTidur, sumOlahraga, sumMasak, waktuKunjung, beliBarang, upgradeRumah;
+    private int beliBarang, upgradeRumah;
     private String namaCalonRuangan, posisiCalonRuangan;
-    // public boolean berkunjung;
     public int counterBerkunjung;
+    public boolean createSim = true;
 
     public TimeHandler(GamePanel gp)
     {
         this.gp = gp;
         createNewGame();
+    }
+
+    public void minusTime(int x)
+    {
+        this.detik += x;
     }
     
     private void createNewGame(){
@@ -65,15 +70,17 @@ public class TimeHandler {
             }
             if(detik>=720){
                 day++;
-                detik=0;
-                curTidur = 0;
-                curToilet = 0;
+                dayReset();
             }
             checkEffect();
-            // if(berkunjung){
-
-            // }
         }
+    }
+    private void dayReset(){
+        createSim = true;
+        detik=0;
+        curTidur = 0;
+        curToilet = 0; 
+        gp.curSim.gantiKerja=false;       
     }
 
     //BAGIAN EFFECT HANDLER
@@ -86,20 +93,24 @@ public class TimeHandler {
     {
         curToilet = detik;
     }
+    public int getCounterBerkunjung() {
+        return this.counterBerkunjung;
+    }
+
+    public void setCounterBerkunjung(int x)
+    {
+        this.counterBerkunjung = x;
+    }
 
     public void checkEffect(){
         if(!checkTidur())
         {
-            gp.ui.setNotifMessage("Anda belum tidur, kesehatan \ndan mood -5");
-            gp.gameState=gp.notifState;
-            gp.curSim.setKesehatan(gp.curSim.getKesehatan() - 5);
-            gp.curSim.setMood(gp.curSim.getMood() - 5);
+            gp.curSim.plusKesehatan(-5);
+            gp.curSim.plusMood(-5);
             setCurTidur();
         }
         if(!checkToilet())
         {
-            gp.ui.setNotifMessage("Anda belum buang air, kesehatan \ndan mood -5");
-            gp.gameState=gp.notifState;
             gp.curSim.setKesehatan(gp.curSim.getKesehatan() - 5);
             gp.curSim.setMood(gp.curSim.getMood() - 5);
             setCurToilet();
@@ -133,8 +144,6 @@ public class TimeHandler {
     public void checkBeliBarang(){
         beliBarang--;
         if(beliBarang==0){
-            gp.ui.setNotifMessage("Barang delivery anda sudah datang!");
-            gp.gameState=gp.notifState;
             for(Objek obj : gp.curSim.listBelanja){
                 gp.curSim.inventory.add(obj);
             }
@@ -145,9 +154,8 @@ public class TimeHandler {
     public void checkUpgradeRumah(){
         upgradeRumah--;
         if(upgradeRumah==0){
-            gp.ui.setNotifMessage("Rumah sudah selesai di upgrade");
-            gp.gameState=gp.notifState;
             gp.curSim.curRumah.tambahRuang(posisiCalonRuangan, namaCalonRuangan, gp.ui.getChooseRuangan());
         }
     }
+
 }
