@@ -115,6 +115,7 @@ public class KeyHandler implements KeyListener{
 		}
 		else if(gp.gameState==gp.radioState){
 			durationRadioState(code);
+		}
 		//PLACE HOUSE
 		else if(gp.gameState==gp.placeRumahWorldState){
 			placeRumahWorldScreen(code);
@@ -272,7 +273,7 @@ public class KeyHandler implements KeyListener{
 				gp.gameState=gp.useObjectState;
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
 			}
-			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Radio")
+			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Radio"){
 				gp.gameState=gp.radioState;
 			}
 			
