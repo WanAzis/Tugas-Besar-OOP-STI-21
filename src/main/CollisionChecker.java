@@ -5,12 +5,13 @@ import objek.barang.Barang;
 
 public class CollisionChecker {
 	
-	GamePanel gp;
+	private GamePanel gp;
 
 	public CollisionChecker(GamePanel gp) {
 		this.gp = gp;
 	}
 	
+	//METHOD
 	public int checkObjek(Entity entity, boolean sim) {
 		 
 		int index = 999;
@@ -79,7 +80,6 @@ public class CollisionChecker {
 		
 		return index;
 	}
-
 	public void checkScreen(Entity entity){
 
 		entity.solidArea.x = entity.screenX + entity.solidArea.x;
@@ -116,7 +116,6 @@ public class CollisionChecker {
 			entity.solidArea.x = entity.solidAreaDefaultX;
 			entity.solidArea.y = entity.solidAreaDefaultY;
 	}
-
 	public void checkPlaceObject(Barang barang){
 		for(int i = 0; i<gp.curSim.curRuangan.obj.length; i++) {
 			if(gp.curSim.curRuangan.obj[i]!=null && !gp.curSim.curRuangan.obj[i].equals(barang)){

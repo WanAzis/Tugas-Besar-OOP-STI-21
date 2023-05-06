@@ -19,9 +19,10 @@ import objek.makanan.SusuKacang;
 import objek.makanan.TumisSayur;
 import tile.Rumah;
 import objek.makanan.Masakan;
+
 public class KeyHandler implements KeyListener{
 
-	public GamePanel gp;
+	protected GamePanel gp;
 	public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
 	public int objDuration;
 
@@ -29,6 +30,7 @@ public class KeyHandler implements KeyListener{
 		this.gp = gp;
 	}
 
+	//METHOD
 	@Override
 	public void keyTyped(KeyEvent e) {
 		
@@ -210,7 +212,6 @@ public class KeyHandler implements KeyListener{
 			{
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*10);
 				gp.gameState=gp.useObjectState;
-				// gp.curSim.setNullImage();
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
 			}
 			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kompor Listrik" || gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kompor Gas")
@@ -225,29 +226,22 @@ public class KeyHandler implements KeyListener{
 			{
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
 				gp.gameState=gp.useObjectState;
-				// gp.curSim.setNullImage();
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
 			}
 			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Rak buku")
 			{
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*30);
 				gp.gameState=gp.useObjectState;
-				// gp.curSim.setNullImage();
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
 			}
 			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="TV")
 			{
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
 				gp.gameState=gp.useObjectState;
-				// gp.curSim.setNullImage();
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
 			}
 			else if (gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Radio")
-			{
-				// gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
-				// gp.gameState=gp.useObjectState;
-				// // gp.curSim.setNullImage();
-				// gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();	
+			{	
 				gp.gameState=gp.durationState;
 			}
 			
@@ -288,7 +282,7 @@ public class KeyHandler implements KeyListener{
 			case 4: maxCommandNum=3; break;
 			case 5: maxCommandNum=1; break;
 			case 6: maxCommandNum=4; break;
-			case 7: maxCommandNum = gp.listSim.size(); break;
+			case 7: maxCommandNum = gp.listSim.size()-1; break;
 		}
 		if(code == KeyEvent.VK_UP){
 			if(gp.ui.commandNum>0){
@@ -378,7 +372,7 @@ public class KeyHandler implements KeyListener{
 			gp.gameState=gp.playState;
 		}
 		if(code == KeyEvent.VK_ENTER){
-			if(gp.ui.commandNum==0){ //nasiayam
+			if(gp.ui.commandNum==0){
 				if(gp.curSim.checkAvailableInventory("Nasi Ayam")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(16+(16/2)));
 					Masakan nasiAyam = new NasiAyam(gp);
@@ -390,7 +384,7 @@ public class KeyHandler implements KeyListener{
 					gp.gameState=gp.notifState;
 				}
 			}
-			else if(gp.ui.commandNum==1){//nasikari
+			else if(gp.ui.commandNum==1){
 				if(gp.curSim.checkAvailableInventory("Nasi Kari")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(30+(30/2)));
 					Masakan nasiKari = new NasiKari(gp);
@@ -402,7 +396,7 @@ public class KeyHandler implements KeyListener{
 					gp.gameState=gp.notifState;
 				}
 			}
-			else if(gp.ui.commandNum==2){//susukacang
+			else if(gp.ui.commandNum==2){
 				if(gp.curSim.checkAvailableInventory("Susu Kacang")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
 					Masakan susuKacang = new SusuKacang(gp);
@@ -414,8 +408,7 @@ public class KeyHandler implements KeyListener{
 					gp.gameState=gp.notifState;
 				}
 			}
-			
-			else if(gp.ui.commandNum==3){//tumissayur
+			else if(gp.ui.commandNum==3){
 				if(gp.curSim.checkAvailableInventory("Tumis Sayur")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
 					Masakan tumisSayur = new TumisSayur(gp);
@@ -427,7 +420,7 @@ public class KeyHandler implements KeyListener{
 					gp.gameState=gp.notifState;
 				}
 			}
-			else if(gp.ui.commandNum==4){//bistik
+			else if(gp.ui.commandNum==4){
 				if(gp.curSim.checkAvailableInventory("Bistik")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(22+(22/2)));
 					Masakan bistik = new Bistik(gp);

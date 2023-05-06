@@ -6,8 +6,8 @@ public class Point
 
     public Point()
     {
-        x = 20;
-        y = 20;
+        x = 25;
+        y = 25;
     }
     
     //getter

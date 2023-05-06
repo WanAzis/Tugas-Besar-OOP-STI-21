@@ -14,7 +14,7 @@ public class Makanan extends Objek {
 
     public void used(Sim sim){
         counter++;
-        if(counter>=60*5){
+        if(counter>=60*30){
             counter = 0;
             sim.makanan = null;
             sim.plusKekenyangan(kekenyangan);
