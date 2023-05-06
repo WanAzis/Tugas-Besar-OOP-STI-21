@@ -17,7 +17,8 @@ public class Jam extends Barang{
 		name = "Jam";
 		action = "LIHAT WAKTU";
 		deskripsi = "[ " + name + " ] \nDibutuhkan\nuntuk melihat\n waktu"; 
-
+		screenX = gp.tileSize;
+		screenY= gp.tileSize;
 		panjang = 1;
 		lebar = 1;
 		harga = 10;

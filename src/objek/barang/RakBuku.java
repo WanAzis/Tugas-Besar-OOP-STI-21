@@ -21,7 +21,7 @@ public class RakBuku extends Barang{
 		lebar = 2;
 		harga = 150;
 		screenX = gp.tileSize;
-		screenY = gp.tileSize;
+		screenY = gp.tileSize*2-gp.tileSize/4;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		direction="down";

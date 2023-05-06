@@ -21,7 +21,7 @@ public class Treadmill extends Barang{
 		lebar = 1;
 		harga = 200;
 		screenX = gp.tileSize;
-		screenY = gp.tileSize;
+		screenY = gp.tileSize*5;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		direction="up";

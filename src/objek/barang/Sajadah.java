@@ -21,7 +21,7 @@ public class Sajadah extends Barang{
 		lebar = 1;
 		harga = 30;
 		screenX = gp.tileSize;
-		screenY = gp.tileSize;
+		screenY = gp.tileSize*3+gp.tileSize/2+gp.tileSize/4;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		direction="up";

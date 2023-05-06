@@ -11,7 +11,7 @@ public class Kompor extends Barang {
         // name = "Kompor";
         action = "MEMASAK";
         direction = "down";
-        screenX = gp.tileSize*2;
+        screenX = gp.tileSize*1;
 		screenY = gp.tileSize*3;
     }
     //effect

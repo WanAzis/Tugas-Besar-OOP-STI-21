@@ -34,6 +34,9 @@ public class TimeHandler {
     public int getBeliBarang() {
         return beliBarang;
     }
+    public int getUpgradeRumah(){
+        return upgradeRumah;
+    }
 
     //SETTER
     public void setBeliBarang(int beliBarang){this.beliBarang = beliBarang;}

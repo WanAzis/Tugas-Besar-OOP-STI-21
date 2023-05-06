@@ -19,6 +19,8 @@ public class MejaKursi extends Barang{
 		panjang = 3;
 		lebar = 3;
 		harga = 50;
+		screenX=gp.tileSize;
+		screenY=gp.tileSize*3+gp.tileSize/2;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		image = down;
