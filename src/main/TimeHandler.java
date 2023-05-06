@@ -70,9 +70,9 @@ public class TimeHandler {
                 curToilet = 0;
             }
             checkEffect();
-            if(berkunjung){
+            // if(berkunjung){
 
-            }
+            // }
         }
     }
 
@@ -90,16 +90,16 @@ public class TimeHandler {
     public void checkEffect(){
         if(!checkTidur())
         {
-            gp.ui.setNotifMessage("Anda belum tidur, kesehatan \ndan mood -5");
-            gp.gameState=gp.notifState;
+            // gp.ui.setNotifMessage("Anda belum tidur, kesehatan \ndan mood -5");
+            // gp.gameState=gp.notifState;
             gp.curSim.setKesehatan(gp.curSim.getKesehatan() - 5);
             gp.curSim.setMood(gp.curSim.getMood() - 5);
             setCurTidur();
         }
         if(!checkToilet())
         {
-            gp.ui.setNotifMessage("Anda belum buang air, kesehatan \ndan mood -5");
-            gp.gameState=gp.notifState;
+            // gp.ui.setNotifMessage("Anda belum buang air, kesehatan \ndan mood -5");
+            // gp.gameState=gp.notifState;
             gp.curSim.setKesehatan(gp.curSim.getKesehatan() - 5);
             gp.curSim.setMood(gp.curSim.getMood() - 5);
             setCurToilet();
@@ -133,8 +133,8 @@ public class TimeHandler {
     public void checkBeliBarang(){
         beliBarang--;
         if(beliBarang==0){
-            gp.ui.setNotifMessage("Barang delivery anda sudah datang!");
-            gp.gameState=gp.notifState;
+            // gp.ui.setNotifMessage("Barang delivery anda sudah datang!");
+            // gp.gameState=gp.notifState;
             for(Objek obj : gp.curSim.listBelanja){
                 gp.curSim.inventory.add(obj);
             }
@@ -145,8 +145,8 @@ public class TimeHandler {
     public void checkUpgradeRumah(){
         upgradeRumah--;
         if(upgradeRumah==0){
-            gp.ui.setNotifMessage("Rumah sudah selesai di upgrade");
-            gp.gameState=gp.notifState;
+            // gp.ui.setNotifMessage("Rumah sudah selesai di upgrade");
+            // gp.gameState=gp.notifState;
             gp.curSim.curRumah.tambahRuang(posisiCalonRuangan, namaCalonRuangan, gp.ui.getChooseRuangan());
         }
     }

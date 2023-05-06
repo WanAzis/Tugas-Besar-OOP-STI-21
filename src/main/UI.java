@@ -206,60 +206,40 @@ public class UI {
         textY += gp.tileSize/2-gp.tileSize/4;
 
         
-        //VIEW LOCATION
         text = "Nasi Ayam";
         textX = frameX + gp.tileSize;
         textY += gp.tileSize - 10;
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
-                // commandNum = 0;
-            }
         }
 
-        //BELI JUAL BARANG
         text = "Nasi Kari";
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
         if(commandNum==1){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
-                // commandNum = 1;
-            }
         }
 
-        //SIM
         text = "Susu Kacang";
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
-                // commandNum = 2;
-            }
         }
 
-        //MOVE RUANGAN
         text = "Tumis Sayur";
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
-                // commandNum = 3;
-            }
         }
 
-        //KUNJUNGAN
         text = "Bistik";
         textY += gp.tileSize/2 + 10;
         g2.drawString(text, textX, textY);
         if(commandNum==4){
             g2.drawString(">", textX-gp.tileSize/2, textY);
-            if(gp.keyH.enterPressed){
-                // commandNum = 3;
-            }
         }
         gp.keyH.enterPressed = false;
     }
@@ -1785,7 +1765,7 @@ public class UI {
                     gp.gameState = gp.playState;
                     gp.timeH.setPosisiCalonRuangan("Atas");
                     gp.timeH.setNamaCalonRuangan(roomName);
-                    gp.timeH.setUpgradeRumah(60*18); 
+                    gp.timeH.setUpgradeRumah(60*18);
                     gp.curSim.plusUang(-1500);
                 }else{
                     setNotifMessage("Rumah masih dalam pembangunan,\nsilahkan menunggu hingga selesai");
