@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
 	final int startPanelY = tileSize * 0;
 
 	public final int worldTileSize = 7;
+	public final int startWorldScreen = 7*2;
 
     //FPS
     final int FPS = 60;
@@ -75,6 +76,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int editRoomState = 16;
 	public final int worldState = 17;
 	public final int jamState= 21;
+	public final int placeRumahWorldState = 22;
   
 	
     public GamePanel(){
@@ -175,8 +177,12 @@ public class GamePanel extends JPanel implements Runnable{
 		if(gameState == titleState){
 			ui.draw(g2);
 		} 
-		else if(gameState == worldState){
+		//WORLD SCREEN
+		else if(gameState == worldState || gameState==placeRumahWorldState){
 			tileM.drawWorld(g2);
+			for(Rumah rm : listRumah){
+				rm.draw(g2);
+			}
 		}
 		//ELSE
 		else{

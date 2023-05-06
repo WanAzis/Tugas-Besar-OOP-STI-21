@@ -103,6 +103,10 @@ public class KeyHandler implements KeyListener{
 		else if(gp.gameState==gp.worldState){
 			worldViewState(code);
 		}
+		//PLACE HOUSE
+		else if(gp.gameState==gp.placeRumahWorldState){
+			placeRumahWorldScreen(code);
+		}
 	}
 	
 	private void titleState(int code){
@@ -139,12 +143,11 @@ public class KeyHandler implements KeyListener{
 		sim.setName(simName);
 		gp.listSim.add(sim);
 		gp.curSim = sim;
-		Rumah rumah = new Rumah(sim);
+		Rumah rumah = new Rumah(sim, gp);
 		gp.listRumah.add(rumah);
 		sim.curRumah = rumah;
 		sim.curRuangan = rumah.listRuangan.get(0);
-		// gp.timeH.createNewGame();
-		gp.gameState = gp.playState;
+		gp.gameState = gp.placeRumahWorldState;
 	}
 
 	public void createNewSimState(GamePanel gp, String simName){
@@ -152,11 +155,12 @@ public class KeyHandler implements KeyListener{
 		sim.setName(simName);
 		gp.listSim.add(sim);
 		// gp.curSim = sim;
-		Rumah rumah = new Rumah(sim);
+		Rumah rumah = new Rumah(sim, gp);
 		gp.listRumah.add(rumah);
 		rumah.haveSim = sim;
 		sim.curRumah = rumah;
 		sim.curRuangan = rumah.listRuangan.get(0);
+		gp.gameState = gp.placeRumahWorldState;
 	}
 	
 	private void playState(int code){
@@ -389,13 +393,11 @@ public class KeyHandler implements KeyListener{
 			else if(gp.ui.commandNum==1){//nasikari
 				if(gp.curSim.checkAvailableInventory("Nasi Kari")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(30+(30/2)));
-					Masakan nasiKari= new NasiKari(gp);
+					Masakan nasiKari = new NasiKari(gp);
 					gp.curSim.inventory.add(nasiKari);
 					gp.gameState=gp.useObjectState;
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
-					
-				}
-				else{
+				}else{
 					gp.ui.setNotifMessage("Bahan makanan tidak tersedia");
 					gp.gameState=gp.notifState;
 				}
@@ -403,12 +405,11 @@ public class KeyHandler implements KeyListener{
 			else if(gp.ui.commandNum==2){//susukacang
 				if(gp.curSim.checkAvailableInventory("Susu Kacang")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
-					Masakan susuKacang= new SusuKacang(gp);
+					Masakan susuKacang = new SusuKacang(gp);
 					gp.curSim.inventory.add(susuKacang);
 					gp.gameState=gp.useObjectState;
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
-				}
-				else{
+				}else{
 					gp.ui.setNotifMessage("Bahan makanan tidak tersedia");
 					gp.gameState=gp.notifState;
 				}
@@ -417,12 +418,11 @@ public class KeyHandler implements KeyListener{
 			else if(gp.ui.commandNum==3){//tumissayur
 				if(gp.curSim.checkAvailableInventory("Tumis Sayur")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
-					Masakan tumisSayur= new TumisSayur(gp);
+					Masakan tumisSayur = new TumisSayur(gp);
 					gp.curSim.inventory.add(tumisSayur);
 					gp.gameState=gp.useObjectState;
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
-				}
-				else{
+				}else{
 					gp.ui.setNotifMessage("Bahan makanan tidak tersedia");
 					gp.gameState=gp.notifState;
 				}
@@ -430,12 +430,11 @@ public class KeyHandler implements KeyListener{
 			else if(gp.ui.commandNum==4){//bistik
 				if(gp.curSim.checkAvailableInventory("Bistik")){
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(22+(22/2)));
-					Masakan bistik= new Bistik(gp);
+					Masakan bistik = new Bistik(gp);
 					gp.curSim.inventory.add(bistik);
 					gp.gameState=gp.useObjectState;
 					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
-				}
-				else{
+				}else{
 					gp.ui.setNotifMessage("Bahan makanan tidak tersedia");
 					gp.gameState=gp.notifState;
 				}
@@ -655,6 +654,23 @@ public class KeyHandler implements KeyListener{
 	public void worldViewState(int code){
 		if(code==KeyEvent.VK_ESCAPE){
 			gp.gameState=gp.playState;
+		}
+	}
+	public void placeRumahWorldScreen(int code){
+		if(code==KeyEvent.VK_ENTER){
+			gp.gameState=gp.worldState;
+		}
+		if(code == KeyEvent.VK_UP){
+			gp.listSim.get(gp.listSim.size()-1).curRumah.moveUp();
+		}
+		if(code == KeyEvent.VK_DOWN){
+			gp.listSim.get(gp.listSim.size()-1).curRumah.moveDown();
+		}
+		if(code == KeyEvent.VK_RIGHT){
+			gp.listSim.get(gp.listSim.size()-1).curRumah.moveRight();
+		}
+		if(code == KeyEvent.VK_LEFT){
+			gp.listSim.get(gp.listSim.size()-1).curRumah.moveLeft();
 		}
 	}
 

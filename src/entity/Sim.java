@@ -519,8 +519,8 @@ public class Sim extends Entity implements Bekerja{
 			}
 		}
 		if(adaKentang && adaSapi){
-			inventory.remove(sapi);
 			inventory.remove(kentang);
+			inventory.remove(sapi);
 		}
 
 		return adaKentang && adaSapi;
@@ -546,7 +546,8 @@ public class Sim extends Entity implements Bekerja{
 				break;
 			}
 		}
-		if (adaBayam&&adaWortel){
+
+		if(adaWortel && adaBayam){
 			inventory.remove(wortel);
 			inventory.remove(bayam);
 		}
@@ -556,7 +557,7 @@ public class Sim extends Entity implements Bekerja{
 	private boolean checkSusuKacang(){
 		boolean adaSusu = false;
 		boolean adaKacang = false;
-		Objek susu= null;
+		Objek susu = null;
 		Objek kacang = null;
 
 		for(Objek obj : inventory){
@@ -574,9 +575,10 @@ public class Sim extends Entity implements Bekerja{
 				break;
 			}
 		}
-		if (adaKacang&&adaSusu){
-			inventory.remove(kacang);
+		
+		if(adaSusu && adaKacang){
 			inventory.remove(susu);
+			inventory.remove(kacang);
 		}
 
 		return adaSusu && adaKacang;
