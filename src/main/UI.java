@@ -59,6 +59,7 @@ public class UI {
     private String notifMessage = "";
     public ArrayList<Objek> store = new ArrayList<>();
     private Ruangan chooseRuangan;
+    private Barang chooseBarang = null;
     int slotCol = 0;
     int slotRow = 0;
     int subState = 0;
@@ -127,6 +128,7 @@ public class UI {
                 drawInteractObject(gp.curSim.interactObjectIdx);
             }
             drawStatus();
+            resetCommand();
         }
         if(gp.gameState==gp.pauseState){
             drawPauseScreen();
@@ -179,6 +181,10 @@ public class UI {
         }
     }
 
+    private void resetCommand(){
+        commandNum=0;
+        subState=0;
+    }
     private void drawMasakan(){
         final int frameWidth = gp.tileSize*5;
         final int frameHeight = gp.tileSize*6;
@@ -542,66 +548,6 @@ public class UI {
             g2.drawString(line, textX, textY);
             textY+=lineHeight;
         }
-        // g2.drawString("Tujuan dari permainan ini adalah menjaga kesejahteraan SIM yang telah dibuat agar tidak depresi dan mati. Untuk mewujudkan hal tersebut, ada banyak aksi yang dapat dilakukan.", textX, textY);
-        // textY+=lineHeight;
-        // g2.drawString("Mundur", textX, textY);
-        // textY+=lineHeight;
-        // g2.drawString("Kanan", textX, textY);
-        // textY+=lineHeight;
-        // g2.drawString("Kiri", textX, textY);
-        // textY+=lineHeight;
-        // g2.drawString("Info SIM", textX, textY);
-        // textY+=lineHeight;
-        // g2.drawString("Pause", textX, textY);
-        // textY+=lineHeight;
-        // g2.drawString("Menu SIM", textX, textY);
-        // textY+=lineHeight;
-        // g2.drawString("Exit Game", textX, textY);
-        // textY+=lineHeight;
-        // //VALUES
-        // int tailX = (frameX + frameWidth) - 10;
-        // textY = frameY + 25;
-        // String value;
-
-        // value = String.valueOf("W");
-        // textX = getXforAligntoRightText(value, tailX);
-        // g2.drawString(value,textX,textY);
-        // textY+=lineHeight;
-
-        // value = String.valueOf("S");
-        // textX = getXforAligntoRightText(value, tailX);
-        // g2.drawString(value,textX,textY);
-        // textY+=lineHeight;
-
-        // value = String.valueOf("D");
-        // textX = getXforAligntoRightText(value, tailX);
-        // g2.drawString(value,textX,textY);
-        // textY+=lineHeight;
-
-        // value = String.valueOf("A");
-        // textX = getXforAligntoRightText(value, tailX);
-        // g2.drawString(value,textX,textY);
-        // textY+=lineHeight;
-
-        // value = String.valueOf("F");
-        // textX = getXforAligntoRightText(value, tailX);
-        // g2.drawString(value,textX,textY);
-        // textY+=lineHeight;
-
-        // value = String.valueOf("P");
-        // textX = getXforAligntoRightText(value, tailX);
-        // g2.drawString(value,textX,textY);
-        // textY+=lineHeight;
-
-        // value = String.valueOf("M");
-        // textX = getXforAligntoRightText(value, tailX);
-        // g2.drawString(value,textX,textY);
-        // textY+=lineHeight;
-
-        // value = String.valueOf("Esc");
-        // textX = getXforAligntoRightText(value, tailX);
-        // g2.drawString(value,textX,textY);
-        // textY+=lineHeight;
 
         text = "Kembali"; 
         textX = frameX + gp.tileSize;
@@ -1036,11 +982,11 @@ public class UI {
         g2.drawString(text, textX, textY);
         textY+=lineHeight;
         switch(entitas){
-            case "Kasur Single": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
-            case "Kasur Queen": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
-            case "Kasur King": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth);
-            case "Kerja": drawOptionKerja(frameX, frameY, frameWidth, frameHeigth);
-            case "Treadmill" : drawOptionOlahraga(frameX, frameY, frameWidth, frameHeigth);
+            case "Kasur Single": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth); break;
+            case "Kasur Queen": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth); break;
+            case "Kasur King": drawOptionKasur(frameX, frameY, frameWidth, frameHeigth); break;
+            case "KERJA": drawOptionKerja(frameX, frameY, frameWidth, frameHeigth); break;
+            case "Treadmill" : drawOptionOlahraga(frameX, frameY, frameWidth, frameHeigth); break;
         }
         gp.keyH.enterPressed = false;
     }
@@ -1049,31 +995,59 @@ public class UI {
         int textY = frameY + 65;
         final int lineHeight = 25;
         
-        String text = "4 Jam";
+        String text = "2 Menit";
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*2);
+                gp.curSim.plusWaktuTidur(60*60*2);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
         }
         textY+=lineHeight;
 
-        text = "8 Jam";
+        text = "4 Menit";
         g2.drawString(text, textX, textY);
         if(commandNum==1){
             g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*4);
+                gp.curSim.plusWaktuTidur(60*60*4);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
         }
         textY+=lineHeight;
 
-        text = "12 Jam";
+        text = "6 Menit";
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*6);
+                gp.curSim.plusWaktuTidur(60*60*6);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
         }
         textY+=lineHeight;
 
-        text = "16 Jam";
+        text = "8 Menit";
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*8);
+                gp.curSim.plusWaktuTidur(60*60*8);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
         }
     }
     private void drawOptionOlahraga(int frameX, int frameY, int frameWidth, int frameHeigth){
@@ -1081,80 +1055,135 @@ public class UI {
         int textY = frameY + 65;
         final int lineHeight = 25;
         
-        String text = "4 Jam";
+        String text = "20 detik";
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*20);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
         }
         textY+=lineHeight;
 
-        text = "8 Jam";
+        text = "40 detik";
         g2.drawString(text, textX, textY);
         if(commandNum==1){
             g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*40);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
         }
         textY+=lineHeight;
 
-        text = "12 Jam";
+        text = "60 detik";
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
         }
         textY+=lineHeight;
-
-        text = "16 Jam";
+        
+        text = "80 detik";
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.originalTileSize, textY);
-        } 
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*80);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
+        }
+        textY+=lineHeight;
+
+        text = "100 detik";
+        g2.drawString(text, textX, textY);
+        if(commandNum==4){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*100);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
+        }
+        textY+=lineHeight;
+
+        text = "120 detik";
+        g2.drawString(text, textX, textY);
+        if(commandNum==5){
+            g2.drawString(">", textX-gp.originalTileSize, textY);
+            if(gp.keyH.enterPressed){
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*120);
+                gp.gameState=gp.useObjectState;
+                gp.curSim.setNullImage();
+                gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+            }
+        }
+
     }
     private void drawOptionKerja(int frameX, int frameY, int frameWidth, int frameHeight){
         int textX = frameX + 30;
         int textY = frameY + 65;
         final int lineHeight = 25;
         
-        String text = "4 Jam";
+        String text = "2 Menit";
         g2.drawString(text, textX, textY);
         if(commandNum==0){
             g2.drawString(">", textX-gp.originalTileSize, textY);
             if(gp.keyH.enterPressed){
-                gp.curSim.setDurationKerja(60*60*2);   //ganti jadi 60*2 menit
+                gp.curSim.setDurationKerja(60*60*2); 
+                gp.curSim.plusWaktuKerja(60*60*2);
                 gp.curSim.setNullImage();
                 gp.gameState=gp.kerjaState;
             }
         }
         textY+=lineHeight;
 
-        text = "8 Jam";
+        text = "4 Menit";
         g2.drawString(text, textX, textY);
         if(commandNum==1){
             g2.drawString(">", textX-gp.originalTileSize, textY);
             if(gp.keyH.enterPressed){
                 gp.curSim.setDurationKerja(60*60*4);
+                gp.curSim.plusWaktuKerja(60*60*4);
                 gp.curSim.setNullImage();
                 gp.gameState=gp.kerjaState;
             }
         }
         textY+=lineHeight;
 
-        text = "12 Jam";
+        text = "6 Menit";
         g2.drawString(text, textX, textY);
         if(commandNum==2){
             g2.drawString(">", textX-gp.originalTileSize, textY);
             if(gp.keyH.enterPressed){
                 gp.curSim.setDurationKerja(60*60*6);
+                gp.curSim.plusWaktuKerja(60*60*6);
                 gp.curSim.setNullImage();
                 gp.gameState=gp.kerjaState;
             }
         }
         textY+=lineHeight;
 
-        text = "16 Jam";
+        text = "8 Menit";
         g2.drawString(text, textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-gp.originalTileSize, textY);
             if(gp.keyH.enterPressed){
                 gp.curSim.setDurationKerja(60*60*8);
+                gp.curSim.plusWaktuKerja(60*60*8);
                 gp.curSim.setNullImage();
                 gp.gameState=gp.kerjaState;
             }
@@ -1202,7 +1231,6 @@ public class UI {
         }
         gp.keyH.enterPressed = false;
     }
-
     private void menuGame_top(int frameX, int frameY, int frameWidth, int frameHeight){
         int textX;
         int textY;
@@ -1240,7 +1268,6 @@ public class UI {
             }
         }
     }
-
     private void drawChangeSimScreen(int frameX, int frameY, int frameWidth, int frameHeigth){
         int textX;
         int textY;
@@ -1373,7 +1400,7 @@ public class UI {
             if(gp.keyH.enterPressed){
                 commandNum = 0;
                 subState = 0;
-                gp.curSim.setStatus("Kerja");
+                gp.curSim.setStatus("KERJA");
                 gp.gameState=gp.durationState;
             }
         }
@@ -1819,23 +1846,11 @@ public class UI {
         }
     }
     public void drawEditRoomScreen(){
-
-        Barang chooseBarang = gp.curSim.curRuangan.getBarang(0);
-        Color c = new Color(255, 255, 255);
+        chooseBarang = gp.curSim.curRuangan.getBarang(commandNum);
+        Color c = new Color(245, 60, 60, 150);
         g2.setColor(c);
-        g2.fill(chooseBarang.getSolidArea());
-        g2.draw(chooseBarang.getSolidArea());
-        // g2.fillRect(chooseBarang);
-        // drawSubWindow(0, 0, 96,96);
-        // drawSubWindow((int) chooseBarang.solidArea.x,(int) chooseBarang.solidArea.getY(),(int) chooseBarang.solidArea.getWidth(),(int) chooseBarang.solidArea.getHeight());
-        // g2.fillRoundRect(gp.curSim.curRuangan.obj[commandNum].solidArea.x+gp.tileSize, gp.curSim.curRuangan.obj[commandNum].solidArea.y+gp.tileSize, 
-        // gp.curSim.curRuangan.obj[commandNum].solidArea.width, gp.curSim.curRuangan.obj[commandNum].solidArea.height, 35, 35);
-        // // g2.drawRect(solidAreaObj.x, solidAreaObj.y, solidAreaObj.width, solidAreaObj.height);
-        // c = new Color(255,255,255);
-        // g2.setColor(c);
-        // g2.setStroke(new BasicStroke(3));
-        // g2.drawRoundRect(gp.curSim.curRuangan.obj[commandNum].solidArea.x+2, gp.curSim.curRuangan.obj[commandNum].solidArea.y+2, 
-        // gp.curSim.curRuangan.obj[commandNum].solidArea.width-2, gp.curSim.curRuangan.obj[commandNum].solidArea.height-2, 20, 20);
+        g2.fillRect(chooseBarang.solidArea.x+chooseBarang.screenX, chooseBarang.solidArea.y+chooseBarang.screenY,
+        chooseBarang.solidArea.width, chooseBarang.solidArea.height);
     }
     public void drawUseObject(Barang obj){
         

@@ -19,15 +19,17 @@ public class Kasur extends Barang{
 		if(counter>=duration){
 			unUsed();
 			counter=0;
-			if(duration>=60*60*4){
-				sim.plusKesehatan(20);
-				sim.plusMood(30);
-				gp.ui.setNotifMessage("Selamat anda sudah tidur,\nkesehatan +20 dan mood +30");
-			}
-			else if(duration>=60*60*8){
+			if(sim.getWaktuTidur()>=60*60*8){
 				sim.plusKesehatan(40);
 				sim.plusMood(60);
+				sim.plusWaktuTidur(-60*60*8);
 				gp.ui.setNotifMessage("Selamat anda sudah tidur,\nkesehatan +40 dan mood +60");
+			}
+			if(sim.getWaktuTidur()>=60*60*4){
+				sim.plusKesehatan(20);
+				sim.plusMood(30);
+				sim.plusWaktuTidur(-60*60*4);
+				gp.ui.setNotifMessage("Selamat anda sudah tidur,\nkesehatan +20 dan mood +30");
 			}
 			else{
 				gp.ui.setNotifMessage("Anda belum cukup tidur");

@@ -9,9 +9,11 @@ import javax.swing.JTextField;
 import entity.Sim;
 import objek.barang.Barang;
 import objek.makanan.Ayam;
+import objek.makanan.BahanMakanan;
 import objek.makanan.Masakan;
 import objek.makanan.Nasi;
 import objek.makanan.NasiAyam;
+import objek.makanan.NasiKari;
 import tile.Rumah;
 import objek.makanan.Masakan;
 public class KeyHandler implements KeyListener{
@@ -201,7 +203,7 @@ public class KeyHandler implements KeyListener{
 			{
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*10);
 				gp.gameState=gp.useObjectState;
-				gp.curSim.setNullImage();
+				// gp.curSim.setNullImage();
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
 			}
 			else if(gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kompor Listrik" || gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].getName()=="Kompor Gas")
@@ -324,11 +326,11 @@ public class KeyHandler implements KeyListener{
 	}
 	private void durationState(int code, String entitas){
 		switch(entitas){
-			case "Kasur Single" : durationKasurState(code);
-			case "Kasur Queen" : durationKasurState(code);
-			case "Kasur King" : durationKasurState(code);
-			case "Kerja" : durationKerjaState(code);
-			case "Treadmill" : durationOlahragaState(code);
+			case "Kasur Single" : durationKasurState(code); break;
+			case "Kasur Queen" : durationKasurState(code); break;
+			case "Kasur King" : durationKasurState(code); break;
+			case "KERJA" : durationKerjaState(code); break;
+			case "Treadmill" : durationOlahragaState(code); break;
 		}
 	}
 
@@ -340,7 +342,7 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 		if(code == KeyEvent.VK_DOWN){
-			if(gp.ui.commandNum<5){
+			if(gp.ui.commandNum<4){
 				gp.ui.commandNum++;
 			}
 		}
@@ -348,20 +350,24 @@ public class KeyHandler implements KeyListener{
 			gp.gameState=gp.playState;
 		}
 		if(code == KeyEvent.VK_ENTER){
-			System.out.println("masuk");
-			
-			if(gp.ui.commandNum==0 && gp.curSim.checkAvailableInventory("Nasi Ayam")){ //nasiayam
-				System.out.println("masuk2");
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(16+(16/2)));
-				gp.gameState=gp.useObjectState;
-				Masakan nasiAyam = new NasiAyam(gp);
-				gp.curSim.inventory.add(nasiAyam);
-				gp.curSim.inventory.remove(new Nasi(gp));
-				gp.curSim.inventory.remove(new Ayam(gp));
-
+			if(gp.ui.commandNum==0){ //nasiayam
+				if(gp.curSim.checkAvailableInventory("Nasi Ayam")){
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(16+(16/2)));
+					Masakan nasiAyam = new NasiAyam(gp);
+					gp.curSim.inventory.add(nasiAyam);
+					gp.gameState=gp.useObjectState;
+					gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+				}else{
+					gp.ui.setNotifMessage("Bahan makanan tidak tersedia");
+					gp.gameState=gp.notifState;
+				}
 			}
 			else if(gp.ui.commandNum==1){//nasikari
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(30+(30/2)));
+				Masakan nasiKari = new NasiKari(gp);
+				gp.curSim.inventory.add(nasiKari);
+				gp.curSim.inventory.remove(new Nasi(gp));
+				gp.curSim.inventory.remove(new Ayam(gp));
 			}
 			else if(gp.ui.commandNum==2){//susukacang
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(5+(5/2)));
@@ -372,13 +378,6 @@ public class KeyHandler implements KeyListener{
 			else if(gp.ui.commandNum==4){//bistik
 				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*(22+(22/2)));
 			}
-			else{
-				System.out.println(gp.ui.commandNum);
-				
-			}
-			gp.gameState=gp.useObjectState;
-			gp.curSim.setNullImage();
-			gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
 		}
 	}
 
@@ -397,21 +396,7 @@ public class KeyHandler implements KeyListener{
 			gp.gameState=gp.playState;
 		}
 		if(code == KeyEvent.VK_ENTER){
-			if(gp.ui.commandNum==0){
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*5);
-			}
-			else if(gp.ui.commandNum==1){
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*4);
-			}
-			else if(gp.ui.commandNum==2){
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*6);
-			}
-			else if(gp.ui.commandNum==3){
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*8);
-			}
-			gp.gameState=gp.useObjectState;
-			gp.curSim.setNullImage();
-			gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();
+			enterPressed=true;
 		}
 	}
 	private void durationOlahragaState(int code){
@@ -421,7 +406,7 @@ public class KeyHandler implements KeyListener{
 			}
 		}
 		if(code == KeyEvent.VK_DOWN){
-			if(gp.ui.commandNum<3){
+			if(gp.ui.commandNum<5){
 				gp.ui.commandNum++;
 			}
 		}
@@ -429,21 +414,7 @@ public class KeyHandler implements KeyListener{
 			gp.gameState=gp.playState;
 		}
 		if(code == KeyEvent.VK_ENTER){
-			if(gp.ui.commandNum==0){
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*5);
-			}
-			else if(gp.ui.commandNum==1){
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*4);
-			}
-			else if(gp.ui.commandNum==2){
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*6);
-			}
-			else if(gp.ui.commandNum==3){
-				gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].setDuration(60*60*8);
-			}
-			gp.gameState=gp.useObjectState;
-			gp.curSim.setNullImage();
-			gp.curSim.curRuangan.obj[gp.curSim.interactObjectIdx].used();		
+			enterPressed=true;	
 		}
 	}
 	private void durationKerjaState(int code){
@@ -608,14 +579,21 @@ public class KeyHandler implements KeyListener{
 			enterPressed=true;
 		}
 		if(code == KeyEvent.VK_DOWN){
-			if(gp.ui.commandNum>0){
+			if(gp.ui.commandNum<=0){
+				gp.ui.commandNum=gp.curSim.curRuangan.arrObjLength()-1;
+			}else{
 				gp.ui.commandNum--;
 			}
 		}
 		if(code == KeyEvent.VK_UP){
-			if(gp.ui.commandNum<gp.curSim.curRuangan.arrObjLength()-1){
+			if(gp.ui.commandNum>=gp.curSim.curRuangan.arrObjLength()-1){
+				gp.ui.commandNum=0;
+			}else{
 				gp.ui.commandNum++;
 			}
+		}
+		if(code == KeyEvent.VK_RIGHT){
+			gp.ui.commandNum=0;
 		}
 
 	}
