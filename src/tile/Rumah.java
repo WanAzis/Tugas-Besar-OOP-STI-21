@@ -5,7 +5,7 @@ import entity.Sim;
 
 public class Rumah
 {
-    Point lokasi;
+    public Point lokasi;
     public ArrayList<Ruangan> listRuangan;
     public Sim haveSim;
 
@@ -17,6 +17,11 @@ public class Rumah
         haveSim = sim;
     }
 
+    //GETTER
+
+    //SETTER
+    public void setPoint
+
     // public Ruangan getRuangan(int index)
     // {
     //     return this.listRuangan.get(index);
@@ -27,7 +32,6 @@ public class Rumah
         Ruangan ruanganBaru = new Ruangan(newRuangan);
         listRuangan.add(ruanganBaru);
         haveSim.setItems();
-        haveSim.curRuangan = ruanganBaru;
         if(arah.equals("Atas"))
         {
             if(currentRuangan.getRuanganTetangga(0) == null)

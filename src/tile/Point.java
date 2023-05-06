@@ -37,5 +37,4 @@ public class Point
         int yDiff = p2.getY() - p1.getY();
         return (int) Math.sqrt(xDiff*xDiff + yDiff*yDiff);
     }
-
 }

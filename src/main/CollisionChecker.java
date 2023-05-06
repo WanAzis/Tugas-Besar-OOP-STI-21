@@ -128,9 +128,12 @@ public class CollisionChecker {
 
 				if(barang.solidArea.intersects(gp.curSim.curRuangan.obj[i].solidArea)){
 					barang.collisionWithOthers=true;
-					break;
 				}
-				// else barang.collisionWithOthers=false;
+				barang.solidArea.x = barang.solidAreaDefaultX;
+				barang.solidArea.y = barang.solidAreaDefaultY;
+
+				gp.curSim.curRuangan.obj[i].solidArea.x = gp.curSim.curRuangan.obj[i].solidAreaDefaultX;
+				gp.curSim.curRuangan.obj[i].solidArea.y = gp.curSim.curRuangan.obj[i].solidAreaDefaultY;
 			}
 		}
 	}

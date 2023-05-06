@@ -21,7 +21,7 @@ public class Toilet extends Barang{
 		lebar = 1;
 		harga = 50;
 		screenX = gp.tileSize;
-		screenY = gp.tileSize;
+		screenY = gp.tileSize*3;
 		solidArea = new Rectangle(0,0,48*lebar,48*panjang);
 		loadImage();
 		direction="down";
@@ -48,7 +48,6 @@ public class Toilet extends Barang{
 			case "down" : image=downUsed; break;
 			case "left" : image=leftUsed; break;
 			case "right" : image=rightUsed; break;
-			// case "up" : image=upUsed; break;
 		}
 	}
 
@@ -59,7 +58,6 @@ public class Toilet extends Barang{
 			case "down" : image=down; break;
 			case "left" : image=left; break;
 			case "right" : image=right; break;
-			// case "up" : image=up; break;
 		}
 	}
 
@@ -80,22 +78,18 @@ public class Toilet extends Barang{
 	@Override
 	public void moveUp() {
 		screenY -= gp.tileSize;
-		solidArea.y -= gp.tileSize;
 	}
 	@Override
 	public void moveDown() {
 		screenY += gp.tileSize;
-		solidArea.y += gp.tileSize;
 	}
 	@Override
 	public void moveLeft() {
 		screenX -= gp.tileSize;
-		solidArea.x -= gp.tileSize;
 	}
 	@Override
 	public void moveRight() {
 		screenX += gp.tileSize;
-		solidArea.x += gp.tileSize;
 	}
 	@Override
 	public void rotate() {

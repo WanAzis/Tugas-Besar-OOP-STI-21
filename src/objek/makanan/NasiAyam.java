@@ -36,7 +36,6 @@ public class NasiAyam extends Masakan{
     @Override
     public void setListBahan(){
         listBahan[0] = new Nasi(gp);
-        //BAHAN 2
         listBahan[1] = new Ayam(gp);
     }
 
